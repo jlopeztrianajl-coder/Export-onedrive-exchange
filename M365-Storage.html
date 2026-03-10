@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storage M365</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#f0f2f5; --white:#fff; --sidebar:#1e2433; --sidebar2:#252b3b;
+  --border:#e2e6ea; --text:#1a1d23; --muted:#6b7280;
+  --blue:#2563eb; --red:#ef4444; --orange:#f97316;
+  --yellow:#eab308; --green:#22c55e; --purple:#8b5cf6; --radius:6px;
+}
+body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+
+/* TOPBAR */
+.topbar { height:44px; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 16px; gap:14px; flex-shrink:0; z-index:10; }
+.logo-wrap { display:flex; align-items:center; gap:8px; }
+.logo-icon { width:28px; height:28px; background:var(--blue); border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:11px; flex-shrink:0; }
+.logo-org  { font-size:11px; color:var(--muted); font-weight:500; }
+.logo-name { font-size:13px; font-weight:700; color:var(--text); }
+.topbar-search { margin-left:16px; background:#f3f4f6; border:1px solid var(--border); border-radius:20px; padding:5px 14px; display:flex; align-items:center; gap:7px; width:260px; }
+.topbar-search input { border:none; background:transparent; font-family:'Inter',sans-serif; font-size:12px; outline:none; color:var(--text); width:100%; }
+.topbar-right { margin-left:auto; display:flex; align-items:center; gap:10px; }
+.topbar-time { font-size:12px; color:var(--muted); font-weight:500; }
+.topbar-time span { color:var(--blue); font-weight:700; }
+.btn-action { display:flex; align-items:center; gap:6px; border:none; border-radius:20px; padding:6px 14px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:background .15s; }
+.btn-blue { background:var(--blue); color:#fff; }
+.btn-blue:hover { background:#1d4ed8; }
+.btn-outline { background:var(--white); color:var(--text); border:1px solid var(--border); }
+.btn-outline:hover { background:#f3f4f6; }
+
+/* SUBTABS */
+.subtabs { height:38px; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 16px; gap:4px; flex-shrink:0; }
+.subtab { display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600; cursor:pointer; border:none; background:transparent; color:var(--muted); transition:all .15s; }
+.subtab:hover { background:#f3f4f6; color:var(--text); }
+.subtab.active { background:#eff6ff; color:var(--blue); }
+.subtab .dot { width:8px; height:8px; border-radius:50%; }
+.subtab .cnt { background:#e5e7eb; color:var(--muted); border-radius:10px; padding:1px 7px; font-size:11px; }
+.subtab.active .cnt { background:var(--blue); color:#fff; }
+
+/* LAYOUT */
+.layout { display:flex; flex:1; overflow:hidden; }
+
+/* SIDEBAR */
+.sidebar { width:190px; background:var(--sidebar); flex-shrink:0; overflow-y:auto; padding:10px 0; }
+.sidebar::-webkit-scrollbar { width:0; }
+.sidebar-section { padding:14px 14px 4px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:#4b5563; }
+.sidebar-item { display:flex; align-items:center; padding:7px 14px; cursor:pointer; gap:8px; color:#9ca3af; font-size:12px; font-weight:500; transition:background .12s; border-left:3px solid transparent; }
+.sidebar-item:hover { background:var(--sidebar2); color:#e5e7eb; }
+.sidebar-item.active { background:var(--sidebar2); color:#fff; border-left-color:var(--blue); }
+.sidebar-item .si-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.sidebar-item .si-cnt { margin-left:auto; font-size:11px; font-weight:700; color:#6b7280; }
+.sidebar-item.active .si-cnt { color:#93c5fd; }
+
+/* MODAL PASTE */
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:100; display:flex; align-items:center; justify-content:center; }
+.modal { background:var(--white); border-radius:10px; width:660px; max-width:95vw; box-shadow:0 20px 60px rgba(0,0,0,.2); overflow:hidden; }
+.modal-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.modal-header h2 { font-size:15px; font-weight:700; }
+.modal-close { background:none; border:none; font-size:18px; cursor:pointer; color:var(--muted); }
+.modal-body { padding:20px; }
+.modal-body p { font-size:12px; color:var(--muted); margin-bottom:10px; line-height:1.6; }
+.modal-body .hint { background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:10px 14px; font-size:11px; color:#0369a1; margin-bottom:12px; line-height:1.6; }
+.paste-area { width:100%; height:180px; border:2px dashed var(--border); border-radius:8px; padding:12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); resize:none; outline:none; transition:border-color .15s; background:#fafafa; }
+.paste-area:focus { border-color:var(--blue); background:var(--white); }
+.modal-footer { padding:14px 20px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:flex-end; gap:10px; }
+
+/* MAIN */
+.main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.main-header { padding:10px 16px; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.main-title { font-size:13px; font-weight:600; color:var(--text); }
+.filter-bar { display:flex; align-items:center; gap:8px; margin-left:auto; }
+.filter-bar input { background:#f3f4f6; border:1px solid var(--border); border-radius:20px; padding:5px 12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; width:200px; }
+.filter-bar input:focus { border-color:var(--blue); }
+.filter-bar select { background:#f3f4f6; border:1px solid var(--border); border-radius:20px; padding:5px 10px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; cursor:pointer; }
+.cnt-label { font-size:12px; color:var(--muted); white-space:nowrap; }
+
+/* EMPTY / INVITE */
+.invite { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:40px; text-align:center; }
+.invite-box { background:var(--white); border:2px dashed #d1d5db; border-radius:12px; padding:48px 40px; max-width:480px; width:100%; cursor:pointer; transition:all .2s; }
+.invite-box:hover { border-color:var(--blue); background:#eff6ff; }
+.invite-icon { font-size:42px; margin-bottom:14px; }
+.invite-box h3 { font-size:15px; font-weight:700; margin-bottom:8px; }
+.invite-box p  { font-size:12px; color:var(--muted); line-height:1.6; }
+.invite-box .shortcut { display:inline-block; margin-top:12px; background:#f3f4f6; border:1px solid var(--border); border-radius:6px; padding:4px 12px; font-size:12px; font-weight:600; color:var(--blue); }
+
+.empty-state { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--muted); gap:10px; padding:40px; text-align:center; }
+.empty-state .e-icon { font-size:36px; }
+
+/* ITEMS */
+.items-wrap { flex:1; overflow-y:auto; }
+.items-wrap::-webkit-scrollbar { width:6px; }
+.items-wrap::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:99px; }
+
+.item-row { background:var(--white); border-bottom:1px solid var(--border); padding:11px 16px; display:flex; align-items:center; gap:12px; transition:background .1s; }
+.item-row:hover { background:#f9fafb; }
+.item-tags { display:flex; gap:4px; flex-shrink:0; }
+.tag { display:inline-flex; align-items:center; padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700; letter-spacing:.3px; text-transform:uppercase; white-space:nowrap; }
+.tag-crit { background:#fee2e2; color:#dc2626; }
+.tag-warn { background:#ffedd5; color:#ea580c; }
+.tag-attn { background:#fef9c3; color:#ca8a04; }
+.tag-ok   { background:#dcfce7; color:#16a34a; }
+.tag-od   { background:#dbeafe; color:#2563eb; }
+.tag-ex   { background:#e0e7ff; color:#4338ca; }
+.tag-type { background:#ede9fe; color:#7c3aed; }
+
+.item-body { flex:1; min-width:0; }
+.item-name  { font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
+.item-email { font-size:11px; color:var(--muted); }
+
+.item-pbar-wrap { width:160px; flex-shrink:0; display:flex; align-items:center; gap:8px; }
+.item-pbar { flex:1; height:5px; background:#e5e7eb; border-radius:99px; overflow:hidden; }
+.item-pbar-fill { height:100%; border-radius:99px; }
+.item-pct { font-size:11px; font-weight:700; min-width:38px; text-align:right; }
+
+.item-sizes { width:170px; flex-shrink:0; font-size:11px; color:var(--muted); text-align:right; }
+.item-sizes strong { color:var(--text); font-weight:600; }
+.item-date  { width:100px; flex-shrink:0; font-size:11px; color:var(--muted); text-align:right; }
+
+/* STAT PANEL */
+.statpanel { width:200px; background:var(--white); border-left:1px solid var(--border); flex-shrink:0; padding:14px; overflow-y:auto; }
+.statpanel::-webkit-scrollbar { width:0; }
+.sp-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:12px; }
+.sp-row   { display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f3f4f6; font-size:12px; }
+.sp-row:last-child { border-bottom:none; }
+.sp-label { color:var(--muted); display:flex; align-items:center; gap:6px; }
+.sp-dot   { width:8px; height:8px; border-radius:50%; }
+.sp-val   { font-weight:700; color:var(--text); }
+.sp-val.red    { color:var(--red); }
+.sp-val.orange { color:var(--orange); }
+.sp-val.blue   { color:var(--blue); }
+.sp-val.green  { color:var(--green); }
+.sp-divider { height:1px; background:var(--border); margin:12px 0; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo-wrap">
+    <div style="width:32px;height:32px;background:#1a7f4b;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    </div>
+    <div>
+      <div class="logo-org">Réseau</div>
+      <div class="logo-name">Canopé</div>
+    </div>
+    <div style="width:1px;height:28px;background:var(--border);margin:0 8px"></div>
+    <div>
+      <div class="logo-name">Storage M365</div>
+      <div class="logo-org">Référent</div>
+    </div>
+  </div>
+  <div class="topbar-search">
+    <span style="color:#9ca3af">🔍</span>
+    <input type="text" id="global-search" placeholder="Rechercher dans les données..." oninput="onGlobalSearch()">
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-time"><span id="clock"></span></div>
+    <button class="btn-action btn-outline" onclick="exportCSV()">⬇ Export CSV</button>
+    <button class="btn-action btn-blue" onclick="openModal()">📋 Coller des données</button>
+  </div>
+</div>
+
+<!-- SUBTABS -->
+<div class="subtabs">
+  <button class="subtab active" id="stab-od" onclick="switchTab('od')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 10.5C15.8 7.8 18.6 6 21.8 6.5C23.1 8 23.8 9.9 23.8 12c0 .2 0 .4-.01.6H21.5l-7-2.1z" fill="#0364B8"/><path d="M9.1 11.2C9.9 9.1 11.8 7.6 14.1 7.5c.14 0 .28.01.41.02L14.5 10.5l-5.4.7z" fill="#0078D4"/><path d="M2 17.5C2 14.46 4.46 12 7.5 12c.55 0 1.08.08 1.58.22L9.1 11.2 14.5 10.5l7 2.1-.01.4H2.2L2 17.5z" fill="#1490DF"/><path d="M2.2 13H23.79C23.93 13.32 24 13.65 24 14c0 2.21-1.79 4-4 4H4c-1.1 0-2-.9-2-2 0-.34.09-.67.2-.97z" fill="#28A8E0"/></svg> OneDrive
+    <span class="cnt" id="stab-od-cnt">0</span>
+  </button>
+  <button class="subtab" id="stab-ex" onclick="switchTab('ex')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="13" height="16" rx="2" fill="#0078D4"/><path d="M8.5 8C6.57 8 5 9.57 5 11.5S6.57 15 8.5 15 12 13.43 12 11.5 10.43 8 8.5 8zm0 5C7.67 13 7 12.33 7 11.5S7.67 10 8.5 10s1.5.67 1.5 1.5S9.33 13 8.5 13z" fill="white"/><rect x="13" y="6" width="9" height="12" rx="1" fill="#0078D4"/><path d="M13 8l4.5 3.5L22 8" stroke="white" stroke-width="1.2" fill="none"/></svg> Exchange / Outlook
+    <span class="cnt" id="stab-ex-cnt">0</span>
+  </button>
+</div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">Priorité</div>
+    <div class="sidebar-item active" onclick="setSideFilter('all')" id="sf-all">
+      <span class="si-dot" style="background:#2563eb"></span> Toutes
+      <span class="si-cnt" id="sf-all-cnt">0</span>
+    </div>
+    <div class="sidebar-item" onclick="setSideFilter('crit')" id="sf-crit">
+      <span class="si-dot" style="background:#ef4444"></span> Critique
+      <span class="si-cnt" id="sf-crit-cnt">0</span>
+    </div>
+    <div class="sidebar-item" onclick="setSideFilter('warn')" id="sf-warn">
+      <span class="si-dot" style="background:#f97316"></span> Alerte
+      <span class="si-cnt" id="sf-warn-cnt">0</span>
+    </div>
+    <div class="sidebar-item" onclick="setSideFilter('attn')" id="sf-attn">
+      <span class="si-dot" style="background:#eab308"></span> Attention
+      <span class="si-cnt" id="sf-attn-cnt">0</span>
+    </div>
+    <div class="sidebar-item" onclick="setSideFilter('ok')" id="sf-ok">
+      <span class="si-dot" style="background:#22c55e"></span> Normal
+      <span class="si-cnt" id="sf-ok-cnt">0</span>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:8px">Tri</div>
+    <div class="sidebar-item" onclick="setSort('pct-desc')"  id="sort-pct">  <span>📊</span> Usage % ↓</div>
+    <div class="sidebar-item" onclick="setSort('nom-asc')"   id="sort-nom">  <span>🔤</span> Nom A→Z</div>
+    <div class="sidebar-item" onclick="setSort('used-desc')" id="sort-used"> <span>💾</span> Espace utilisé</div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="main-header" id="main-hdr" style="display:none">
+      <div class="main-title" id="main-title">Toutes les entrées</div>
+      <div class="filter-bar">
+        <input type="text" id="search-bar" placeholder="🔍 Rechercher..." oninput="applyFilters()">
+        <select id="sort-sel" onchange="applyFilters()">
+          <option value="pct-desc">Usage % ↓</option>
+          <option value="pct-asc">Usage % ↑</option>
+          <option value="nom-asc">Nom A→Z</option>
+          <option value="nom-desc">Nom Z→A</option>
+          <option value="used-desc">Espace utilisé ↓</option>
+        </select>
+        <span class="cnt-label" id="cnt-label"></span>
+      </div>
+    </div>
+
+    <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+
+      <!-- Invite initiale -->
+      <div class="invite" id="invite-wrap">
+        <div class="invite-box" onclick="openModal()">
+          <div class="invite-icon" id="invite-icon">📋</div>
+          <h3 id="invite-title">Coller les données OneDrive</h3>
+          <p id="invite-desc">Depuis le portail M365 Admin Center, sélectionnez tout le tableau OneDrive et copiez-le (Ctrl+A puis Ctrl+C), puis cliquez ici pour coller.</p>
+          <div class="shortcut">Cliquer pour coller</div>
+        </div>
+      </div>
+
+      <!-- Liste -->
+      <div class="items-wrap" id="items-wrap" style="display:none">
+        <div id="items-list"></div>
+      </div>
+
+      <!-- Empty -->
+      <div class="empty-state" id="empty-state" style="display:none">
+        <div class="e-icon">📭</div>
+        <p>Aucun résultat pour cette recherche.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAT PANEL -->
+  <div class="statpanel">
+    <div class="sp-title">📊 Statistiques</div>
+    <div id="sp-content"><div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Collez des données<br>pour voir les stats</div></div>
+  </div>
+</div>
+
+<!-- MODAL PASTE -->
+<div class="modal-overlay" id="modal" style="display:none" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">📋 Coller les données OneDrive</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="hint" id="modal-hint">
+        <strong>Comment faire ?</strong><br>
+        1. Allez sur <b>M365 Admin Center → Stockage → OneDrive</b><br>
+        2. Sélectionnez toutes les lignes du tableau (Ctrl+A dans le tableau)<br>
+        3. Copiez (Ctrl+C)<br>
+        4. Collez ici (Ctrl+V) puis cliquez <b>Analyser</b>
+      </div>
+      <textarea class="paste-area" id="paste-area" placeholder="Collez vos données ici (Ctrl+V)...&#10;&#10;Le format est automatiquement détecté :&#10;• Copie directe depuis le portail M365&#10;• CSV avec séparateur , ou ; ou tabulation&#10;• Texte tabulé depuis Excel"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-action btn-outline" onclick="closeModal()">Annuler</button>
+      <button class="btn-action btn-blue" onclick="parseAndLoad()">✓ Analyser et afficher</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── État global ───────────────────────────────
+const S = {
+  tab: 'od',
+  od:  { raw:[], filtered:[] },
+  ex:  { raw:[], filtered:[] },
+  sideFilter: 'all',
+  sortKey: 'pct-desc',
+  search: ''
+};
+
+// ── Horloge ───────────────────────────────────
+setInterval(()=>{
+  const t = new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('clock').textContent = t;
+}, 1000);
+document.getElementById('clock').textContent = new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+
+// ── Modal ─────────────────────────────────────
+function openModal() {
+  const t = S.tab;
+  document.getElementById('modal-title').textContent =
+    t==='od' ? '📋 Coller les données OneDrive' : '📋 Coller les données Exchange';
+  document.getElementById('modal-hint').innerHTML = t==='od'
+    ? '<strong>Comment faire ?</strong><br>1. Allez sur <b>M365 Admin Center → Stockage → OneDrive</b><br>2. Sélectionnez et copiez le tableau (Ctrl+A, Ctrl+C)<br>3. Collez ici (Ctrl+V) puis cliquez <b>Analyser</b>'
+    : '<strong>Comment faire ?</strong><br>1. Allez sur <b>M365 Admin Center → Stockage → Exchange</b><br>2. Sélectionnez et copiez le tableau (Ctrl+A, Ctrl+C)<br>3. Collez ici (Ctrl+V) puis cliquez <b>Analyser</b>';
+  document.getElementById('paste-area').value = '';
+  document.getElementById('modal').style.display = 'flex';
+  setTimeout(()=>document.getElementById('paste-area').focus(), 100);
+}
+function closeModal()           { document.getElementById('modal').style.display = 'none'; }
+function closeModalOutside(e)   { if(e.target.id==='modal') closeModal(); }
+
+// ── Tabs ──────────────────────────────────────
+function switchTab(t) {
+  S.tab = t; S.sideFilter='all'; S.search='';
+  document.getElementById('search-bar').value='';
+  document.getElementById('global-search').value='';
+  ['od','ex'].forEach(id=>{
+    document.getElementById('stab-'+id).classList.toggle('active', id===t);
+  });
+  setSidebarActive('sf-all');
+  const isOD = t==='od';
+  document.getElementById('invite-icon').textContent  = isOD ? '📋' : '📧';
+  document.getElementById('invite-title').textContent = isOD ? 'Coller les données OneDrive' : 'Coller les données Exchange';
+  document.getElementById('invite-desc').textContent  = isOD
+    ? 'Depuis M365 Admin Center → Stockage → OneDrive, copiez le tableau et collez-le ici.'
+    : 'Depuis M365 Admin Center → Stockage → Exchange, copiez le tableau et collez-le ici.';
+  if(S[t].raw.length) { applyFilters(); showData(); }
+  else                { showInvite(); }
+  updateSideCounts();
+}
+
+// ── Parser universel ──────────────────────────
+// Gère : TSV depuis portail/Excel, CSV virgule, CSV point-virgule,
+//        et le format brut de la capture (champs avec guillemets, URL sharepoint…)
+function parseAndLoad() {
+  const raw = document.getElementById('paste-area').value.trim();
+  if(!raw) { alert('Rien à analyser — collez d\'abord vos données.'); return; }
+
+  const rows = smartParse(raw, S.tab);
+  if(!rows.length) { alert('Aucune donnée reconnue. Vérifiez le format collé.'); return; }
+
+  S[S.tab].raw = rows;
+  document.getElementById('stab-'+S.tab+'-cnt').textContent = rows.length;
+  closeModal();
+  S.sideFilter='all';
+  setSidebarActive('sf-all');
+  applyFilters();
+  showData();
+  updateStats();
+  updateSideCounts();
+}
+
+function smartParse(text, type) {
+  text = text.replace(/^\uFEFF/,'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+
+  // Détecter format portail M365 : URL sharepoint ou grands nombres (bytes limite)
+  const isPortalFormat = text.includes('sharepoint.com/personal/')
+    || /,\d{9,},/.test(text)
+    || /"\d{9,}"/.test(text);
+  if(isPortalFormat) {
+    return parsePortalBlocks(text, type);
+  }
+
+  // Sinon TSV / CSV standard
+  const lines = text.split('\n').filter(l=>l.trim());
+  const sep = detectSep(lines[0]);
+  const allCols = lines.map(l => splitLine(l, sep));
+  const maxCols = Math.max(...allCols.map(c=>c.length));
+
+  if(maxCols <= 2) {
+    return parsePortalBlocks(text, type);
+  }
+
+  // Identifier les colonnes utiles
+  const header = allCols[0].map(h=>h.toLowerCase());
+  const dataLines = allCols.slice(1).filter(c=>c.length>1);
+
+  // Trouver indices colonnes
+  const idx = {
+    nom:   findIdx(header, ['nom','name','display','propriétaire principal','primary owner']),
+    email: findIdx(header, ['email','mail','adresse','owner','propriétaire']),
+    used:  findIdx(header, ['utilisé','used','espace']),
+    limit: findIdx(header, ['limite','limit','quota']),
+    date:  findIdx(header, ['activité','activity','dernière','last']),
+    type:  findIdx(header, ['type'])
+  };
+
+  // Si pas d'en-tête reconnu → traiter toutes les lignes comme données
+  const hasHeader = idx.nom >= 0 || idx.email >= 0 || idx.used >= 0;
+  const dataRows  = hasHeader ? dataLines : allCols;
+
+  return dataRows.map(cols => {
+    const get = i => (i>=0 && i<cols.length) ? cols[i] : '';
+    // Auto-detect colonnes si pas d'en-tête
+    const nom   = idx.nom   >= 0 ? get(idx.nom)   : guessName(cols);
+    const email = idx.email >= 0 ? get(idx.email)  : guessEmail(cols);
+    const used  = parseSize(idx.used  >= 0 ? get(idx.used)  : guessSize(cols, 0));
+    const limit = parseSize(idx.limit >= 0 ? get(idx.limit) : guessSize(cols, 1));
+    const date  = idx.date  >= 0 ? get(idx.date)  : guessDate(cols);
+    const tp    = idx.type  >= 0 ? get(idx.type)  : '';
+    if(!nom && !email) return null;
+    const pct = limit > 0 ? Math.round(used/limit*1000)/10 : 0;
+    return { nom, email, used, limit, pct, date, type: tp };
+  }).filter(Boolean);
+}
+
+// Parser spécial pour le format portail M365 (blocs CSV avec guillemets, URLs)
+function parsePortalBlocks(text, type) {
+  // Le format vu dans la capture : chaque enregistrement sur plusieurs lignes
+  // "url","email","Nom Prénom","état","bytes_utilisés","bytes_limite","date","date"
+  // On reconstitue d'abord un CSV propre en joignant les lignes fragmentées
+
+  // Stratégie : identifier les enregistrements par les URLs sharepoint ou les patterns email
+  const records = [];
+
+  // Re-split proprement en tenant compte des guillemets multi-lignes
+  let joined = '';
+  let inQuote = false;
+  for(let i=0; i<text.length; i++){
+    const c = text[i];
+    if(c==='"') inQuote = !inQuote;
+    if((c==='\n') && !inQuote) { joined += '|ROWSEP|'; }
+    else { joined += c; }
+  }
+  const rows = joined.split('|ROWSEP|').filter(r=>r.trim());
+
+  for(const row of rows){
+    const cols = splitLine(row.trim(), detectSep(row));
+    if(cols.length < 3) continue;
+
+    // Extraire infos selon les patterns
+    const url   = cols.find(c => c.includes('sharepoint.com/personal/')) || '';
+    const email = cols.find(c => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim())) || '';
+
+    // Trouver le nom (pas une URL, pas un email, pas un chiffre, pas une date, longueur > 3)
+    const nom = cols.find(c => {
+      const v = c.trim();
+      return v.length > 2
+        && !v.includes('sharepoint.com')
+        && !v.includes('@')
+        && !/^\d+$/.test(v)
+        && !/^\d{1,2}\/\d{1,2}\/\d{4}/.test(v)
+        && !['normal','warning','full','active'].includes(v.toLowerCase());
+    }) || '';
+
+    // Tailles : les 2 nombres sont toujours en bytes dans le portail M365
+    const numbers = cols.filter(c => /^\d{4,}$/.test(c.trim())).map(c=>parseInt(c.trim()));
+    const usedBytes  = numbers.length > 0 ? numbers[0] : 0;
+    const limitBytes = numbers.length > 1 ? numbers[1] : (type==='od' ? 214748364800 : 53687091200);
+    const used  = Math.round(usedBytes  / 1073741824 * 100) / 100;  // bytes → Go
+    const limit = Math.round(limitBytes / 1073741824 * 10)  / 10;   // bytes → Go
+
+    // Dates
+    const dates = cols.filter(c => /\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()));
+    const date  = dates.length > 0 ? dates[dates.length-1] : '';
+
+    // État
+    const etat  = cols.find(c => ['normal','warning','full'].includes(c.trim().toLowerCase())) || '';
+
+    if(!nom && !email) continue;
+    const pct = limit > 0 ? Math.round(used/limit*1000)/10 : 0;
+    records.push({ nom, email, used: Math.round(used*10)/10, limit: Math.round(limit*10)/10, pct, date, type: etat });
+  }
+  return records;
+}
+
+// ── Helpers parsing ───────────────────────────
+function detectSep(line) {
+  if(!line) return '\t';
+  const tabs    = (line.match(/\t/g)||[]).length;
+  const semicol = (line.match(/;/g)||[]).length;
+  const comma   = (line.match(/,/g)||[]).length;
+  if(tabs >= semicol && tabs >= comma) return '\t';
+  if(semicol >= comma) return ';';
+  return ',';
+}
+
+function splitLine(line, sep) {
+  const cols=[]; let cur=''; let inQ=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(c==='"'){ inQ=!inQ; }
+    else if(c===sep&&!inQ){ cols.push(cur.trim()); cur=''; }
+    else { cur+=c; }
+  }
+  cols.push(cur.trim());
+  return cols.map(c=>c.replace(/^"|"$/g,'').trim());
+}
+
+function findIdx(header, kws) {
+  for(const kw of kws){
+    const i = header.findIndex(h=>h.includes(kw));
+    if(i>=0) return i;
+  }
+  return -1;
+}
+
+// Supprimée - logique intégrée directement dans parsePortalBlocks
+
+
+function parseSize(str) {
+  if(!str) return 0;
+  str = str.replace(/\s/g,'').replace(',','.');
+  const m = str.match(/([\d.]+)\s*(TB|GB|Go|To|MB|Mo|KB|Ko)?/i);
+  if(!m) return 0;
+  const v=parseFloat(m[1]), u=(m[2]||'').toUpperCase();
+  let gb = 0;
+  if(u==='TB'||u==='TO')      gb = v*1024;
+  else if(u==='GB'||u==='GO') gb = v;
+  else if(u==='MB'||u==='MO') gb = v/1024;
+  else if(u==='KB'||u==='KO') gb = v/1048576;
+  else if(v>1e9)               gb = v/1073741824;   // bytes bruts
+  else if(v>1e6)               gb = v/1048576/1024;
+  else                         gb = v;
+  return Math.round(gb*10)/10;  // 1 décimale max
+}
+
+function guessEmail(cols) { return cols.find(c=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim()))||''; }
+function guessName(cols)  {
+  return cols.find(c=>{
+    const v=c.trim();
+    return v.length>2 && !v.includes('@') && !v.includes('/') && !/^\d+$/.test(v) && !/^\d{1,2}\//.test(v);
+  })||'';
+}
+function guessSize(cols, nth) {
+  const nums = cols.filter(c=>/^\d{4,}$/.test(c.trim()));
+  return nums[nth]||'0';
+}
+function guessDate(cols) {
+  const d = cols.find(c=>/\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()));
+  return d||'';
+}
+
+// ── Niveaux ───────────────────────────────────
+const levelLabel = { crit:'Critique', warn:'Alerte', attn:'Attention', ok:'Normal' };
+const levelColor = { crit:'#ef4444', warn:'#f97316', attn:'#eab308', ok:'#22c55e' };
+const levelTag   = { crit:'tag-crit', warn:'tag-warn', attn:'tag-attn', ok:'tag-ok' };
+function getLevel(pct) {
+  if(pct>=90) return 'crit';
+  if(pct>=75) return 'warn';
+  if(pct>=50) return 'attn';
+  return 'ok';
+}
+
+// ── Affichage ─────────────────────────────────
+function showInvite() {
+  document.getElementById('invite-wrap').style.display  = '';
+  document.getElementById('items-wrap').style.display   = 'none';
+  document.getElementById('empty-state').style.display  = 'none';
+  document.getElementById('main-hdr').style.display     = 'none';
+}
+function showData() {
+  document.getElementById('invite-wrap').style.display  = 'none';
+  document.getElementById('main-hdr').style.display     = '';
+  renderItems();
+}
+
+function applyFilters() {
+  S.search  = (document.getElementById('search-bar').value || '').toLowerCase();
+  S.sortKey = document.getElementById('sort-sel').value;
+  const t   = S.tab;
+  let rows  = [...S[t].raw];
+  if(S.sideFilter!=='all') rows = rows.filter(r=>getLevel(r.pct)===S.sideFilter);
+  if(S.search) rows = rows.filter(r=>r.nom.toLowerCase().includes(S.search)||r.email.toLowerCase().includes(S.search));
+  const [key,dir] = S.sortKey.split('-');
+  rows.sort((a,b)=>{
+    const va = key==='nom'?a.nom : key==='used'?a.used : a.pct;
+    const vb = key==='nom'?b.nom : key==='used'?b.used : b.pct;
+    if(typeof va==='string') return dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
+    return dir==='asc'?va-vb:vb-va;
+  });
+  S[t].filtered = rows;
+  renderItems();
+}
+
+function onGlobalSearch() {
+  document.getElementById('search-bar').value = document.getElementById('global-search').value;
+  applyFilters();
+}
+
+function setSideFilter(f) {
+  S.sideFilter=f;
+  setSidebarActive('sf-'+f);
+  applyFilters();
+}
+function setSidebarActive(id) {
+  document.querySelectorAll('.sidebar-item[id^="sf-"]').forEach(el=>el.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) el.classList.add('active');
+}
+function setSort(k) {
+  document.getElementById('sort-sel').value = k;
+  applyFilters();
+}
+
+function renderItems() {
+  const rows = S[S.tab].filtered;
+  const list = document.getElementById('items-list');
+  const wrap = document.getElementById('items-wrap');
+  const empty= document.getElementById('empty-state');
+  document.getElementById('cnt-label').textContent = `${rows.length} / ${S[S.tab].raw.length} entrées`;
+  document.getElementById('main-title').textContent = S.sideFilter==='all'?'Toutes les entrées':levelLabel[S.sideFilter];
+
+  if(!rows.length) { wrap.style.display='none'; empty.style.display='flex'; return; }
+  empty.style.display='none'; wrap.style.display='';
+
+  const tabTag = `<span class="tag ${S.tab==='od'?'tag-od':'tag-ex'}">${S.tab==='od'?'OD':'EX'}</span>`;
+
+  list.innerHTML = rows.map(r=>{
+    const lvl    = getLevel(r.pct);
+    const color  = levelColor[lvl];
+    const pctCap = Math.min(r.pct,100);
+    const fmtGo = v => v < 1 ? (v*1024).toFixed(0)+' Mo' : v < 10 ? v.toFixed(2)+' Go' : v.toFixed(1)+' Go';
+    const usedFmt  = r.used  ? fmtGo(r.used)  : '—';
+    const limitFmt = r.limit ? fmtGo(r.limit) : '—';
+    const typeTag  = r.type ? `<span class="tag tag-type">${esc(r.type)}</span>` : '';
+    return `<div class="item-row">
+      <div class="item-tags">${tabTag}<span class="tag ${levelTag[lvl]}">${levelLabel[lvl]}</span>${typeTag}</div>
+      <div class="item-body">
+        <div class="item-name">${esc(r.nom)||'—'}</div>
+        <div class="item-email">${esc(r.email)||'—'}</div>
+      </div>
+      <div class="item-pbar-wrap">
+        <div class="item-pbar"><div class="item-pbar-fill" style="width:${pctCap}%;background:${color}"></div></div>
+        <span class="item-pct" style="color:${color}">${r.pct}%</span>
+      </div>
+      <div class="item-sizes"><strong>${usedFmt}</strong> / ${limitFmt}</div>
+      <div class="item-date">${esc(r.date)||'—'}</div>
+    </div>`;
+  }).join('');
+}
+
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// ── Stats panel ───────────────────────────────
+function updateStats() {
+  const rows = S[S.tab].raw;
+  if(!rows.length) return;
+  const total=rows.length, crit=rows.filter(r=>r.pct>=90).length,
+        warn=rows.filter(r=>r.pct>=75&&r.pct<90).length,
+        attn=rows.filter(r=>r.pct>=50&&r.pct<75).length,
+        ok=rows.filter(r=>r.pct<50).length,
+        avg=Math.round(rows.reduce((s,r)=>s+r.pct,0)/total*10)/10,
+        totalUsed=rows.reduce((s,r)=>s+r.used,0),
+        maxR=rows.reduce((m,r)=>r.pct>m.pct?r:m,{pct:0,nom:'—',email:''});
+  document.getElementById('sp-content').innerHTML=`
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Total</span><span class="sp-val blue">${total}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#ef4444"></span>Critique</span><span class="sp-val red">${crit}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#f97316"></span>Alerte</span><span class="sp-val orange">${warn}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#eab308"></span>Attention</span><span class="sp-val" style="color:#ca8a04">${attn}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#22c55e"></span>Normal</span><span class="sp-val green">${ok}</span></div>
+    <div class="sp-divider"></div>
+    <div class="sp-row"><span class="sp-label">Usage moy.</span><span class="sp-val">${avg}%</span></div>
+    <div class="sp-row"><span class="sp-label">Total utilisé</span><span class="sp-val">${totalUsed.toFixed(0)} Go</span></div>
+    <div class="sp-divider"></div>
+    <div class="sp-title" style="margin-top:0">🔴 Plus chargé</div>
+    <div style="font-size:12px;font-weight:600;color:#1a1d23;margin-bottom:2px">${esc(maxR.nom)}</div>
+    <div style="font-size:11px;color:#6b7280">${esc(maxR.email)}</div>
+    <div style="font-size:13px;font-weight:700;color:#ef4444;margin-top:4px">${maxR.pct}%</div>`;
+}
+
+function updateSideCounts() {
+  const rows=S[S.tab].raw;
+  ['all','crit','warn','attn','ok'].forEach(f=>{
+    document.getElementById('sf-'+f+'-cnt').textContent =
+      f==='all' ? rows.length : rows.filter(r=>getLevel(r.pct)===f).length;
+  });
+}
+
+// ── Export CSV ────────────────────────────────
+function exportCSV() {
+  const rows=S[S.tab].filtered;
+  if(!rows.length){ alert('Aucune donnée à exporter.'); return; }
+  const sep=';';
+  let csv = ['Nom','Email','Utilisé (Go)','Limite (Go)','Usage %','Niveau','Dernière activité'].join(sep)+'\n';
+  csv += rows.map(r=>[r.nom,r.email,r.used.toFixed(2),r.limit.toFixed(2),r.pct,levelLabel[getLevel(r.pct)],r.date].join(sep)).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download=`M365_${S.tab==='od'?'OneDrive':'Exchange'}_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+
+// Raccourci Ctrl+V global pour ouvrir la modale
+document.addEventListener('keydown', e=>{
+  if((e.ctrlKey||e.metaKey) && e.key==='v' && document.getElementById('modal').style.display==='none') {
+    openModal();
+  }
+});
+</script>
+</body>
+</html>
