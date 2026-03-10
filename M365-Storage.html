@@ -55,19 +55,6 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 .sidebar-item .si-cnt { margin-left:auto; font-size:11px; font-weight:700; color:#6b7280; }
 .sidebar-item.active .si-cnt { color:#93c5fd; }
 
-/* MODAL PASTE */
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:100; display:flex; align-items:center; justify-content:center; }
-.modal { background:var(--white); border-radius:10px; width:660px; max-width:95vw; box-shadow:0 20px 60px rgba(0,0,0,.2); overflow:hidden; }
-.modal-header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-.modal-header h2 { font-size:15px; font-weight:700; }
-.modal-close { background:none; border:none; font-size:18px; cursor:pointer; color:var(--muted); }
-.modal-body { padding:20px; }
-.modal-body p { font-size:12px; color:var(--muted); margin-bottom:10px; line-height:1.6; }
-.modal-body .hint { background:#f0f9ff; border:1px solid #bae6fd; border-radius:6px; padding:10px 14px; font-size:11px; color:#0369a1; margin-bottom:12px; line-height:1.6; }
-.paste-area { width:100%; height:180px; border:2px dashed var(--border); border-radius:8px; padding:12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); resize:none; outline:none; transition:border-color .15s; background:#fafafa; }
-.paste-area:focus { border-color:var(--blue); background:var(--white); }
-.modal-footer { padding:14px 20px; border-top:1px solid var(--border); display:flex; align-items:center; justify-content:flex-end; gap:10px; }
-
 /* MAIN */
 .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
 .main-header { padding:10px 16px; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-shrink:0; }
@@ -78,15 +65,65 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 .filter-bar select { background:#f3f4f6; border:1px solid var(--border); border-radius:20px; padding:5px 10px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; cursor:pointer; }
 .cnt-label { font-size:12px; color:var(--muted); white-space:nowrap; }
 
-/* EMPTY / INVITE */
+/* ── DROP ZONE (remplace modale) ── */
 .invite { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:40px; text-align:center; }
-.invite-box { background:var(--white); border:2px dashed #d1d5db; border-radius:12px; padding:48px 40px; max-width:480px; width:100%; cursor:pointer; transition:all .2s; }
-.invite-box:hover { border-color:var(--blue); background:#eff6ff; }
-.invite-icon { font-size:42px; margin-bottom:14px; }
-.invite-box h3 { font-size:15px; font-weight:700; margin-bottom:8px; }
-.invite-box p  { font-size:12px; color:var(--muted); line-height:1.6; }
-.invite-box .shortcut { display:inline-block; margin-top:12px; background:#f3f4f6; border:1px solid var(--border); border-radius:6px; padding:4px 12px; font-size:12px; font-weight:600; color:var(--blue); }
 
+.drop-zone {
+  background:var(--white);
+  border:2px dashed #d1d5db;
+  border-radius:14px;
+  padding:48px 40px;
+  max-width:520px;
+  width:100%;
+  cursor:pointer;
+  transition:all .2s;
+  position:relative;
+}
+.drop-zone:hover { border-color:var(--blue); background:#eff6ff; }
+.drop-zone.drag-over {
+  border-color:var(--blue);
+  background:#eff6ff;
+  transform:scale(1.01);
+  box-shadow:0 0 0 4px rgba(37,99,235,.1);
+}
+.drop-zone.drag-over .dz-icon { transform:scale(1.15) translateY(-4px); }
+
+.dz-icon { font-size:44px; margin-bottom:14px; display:block; transition:transform .2s; }
+.dz-title { font-size:16px; font-weight:700; margin-bottom:8px; color:var(--text); }
+.dz-sub { font-size:12px; color:var(--muted); line-height:1.7; max-width:360px; margin:0 auto 20px; }
+.dz-sub code { background:#f3f4f6; padding:1px 6px; border-radius:4px; font-size:11px; }
+
+.dz-btn {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:8px 22px;
+  background:var(--blue); color:#fff;
+  border:none; border-radius:20px;
+  font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+  cursor:pointer; transition:background .15s;
+}
+.dz-btn:hover { background:#1d4ed8; }
+
+.dz-hint {
+  margin-top:18px;
+  font-size:11px; color:#9ca3af;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.dz-hint-item { display:flex; align-items:center; gap:4px; }
+.dz-sep { color:#d1d5db; }
+
+#file-input { display:none; }
+
+/* Progress bar pendant chargement */
+.dz-progress {
+  position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue), #06b6d4);
+  border-radius:0 0 12px 12px;
+  animation:slide .6s ease-in-out;
+  display:none;
+}
+@keyframes slide { from{width:0} to{width:100%} }
+
+/* ── EMPTY / EMPTY STATE ── */
 .empty-state { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--muted); gap:10px; padding:40px; text-align:center; }
 .empty-state .e-icon { font-size:36px; }
 
@@ -134,6 +171,20 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 .sp-val.blue   { color:var(--blue); }
 .sp-val.green  { color:var(--green); }
 .sp-divider { height:1px; background:var(--border); margin:12px 0; }
+
+/* TOAST */
+.toast {
+  position:fixed; bottom:20px; right:20px;
+  background:#1e2433; color:#e5e7eb;
+  border-radius:8px; padding:10px 16px;
+  font-size:12px; font-weight:500;
+  display:flex; align-items:center; gap:8px;
+  transform:translateY(60px); opacity:0;
+  transition:all .25s cubic-bezier(.16,1,.3,1);
+  z-index:999; box-shadow:0 4px 20px rgba(0,0,0,.3);
+  max-width:320px;
+}
+.toast.show { transform:translateY(0); opacity:1; }
 </style>
 </head>
 <body>
@@ -161,19 +212,19 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
   <div class="topbar-right">
     <div class="topbar-time"><span id="clock"></span></div>
     <button class="btn-action btn-outline" onclick="exportCSV()">⬇ Export CSV</button>
-    <button class="btn-action btn-blue" onclick="openModal()">📋 Coller des données</button>
+    <button class="btn-action btn-blue" onclick="triggerFile()">📂 Charger un CSV</button>
   </div>
 </div>
 
 <!-- SUBTABS -->
 <div class="subtabs">
   <button class="subtab active" id="stab-od" onclick="switchTab('od')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.5 10.5C15.8 7.8 18.6 6 21.8 6.5C23.1 8 23.8 9.9 23.8 12c0 .2 0 .4-.01.6H21.5l-7-2.1z" fill="#0364B8"/><path d="M9.1 11.2C9.9 9.1 11.8 7.6 14.1 7.5c.14 0 .28.01.41.02L14.5 10.5l-5.4.7z" fill="#0078D4"/><path d="M2 17.5C2 14.46 4.46 12 7.5 12c.55 0 1.08.08 1.58.22L9.1 11.2 14.5 10.5l7 2.1-.01.4H2.2L2 17.5z" fill="#1490DF"/><path d="M2.2 13H23.79C23.93 13.32 24 13.65 24 14c0 2.21-1.79 4-4 4H4c-1.1 0-2-.9-2-2 0-.34.09-.67.2-.97z" fill="#28A8E0"/></svg> OneDrive
-    <span class="cnt" id="stab-od-cnt">0</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14.5 10.5C15.8 7.8 18.6 6 21.8 6.5C23.1 8 23.8 9.9 23.8 12c0 .2 0 .4-.01.6H21.5l-7-2.1z" fill="#0364B8"/><path d="M9.1 11.2C9.9 9.1 11.8 7.6 14.1 7.5c.14 0 .28.01.41.02L14.5 10.5l-5.4.7z" fill="#0078D4"/><path d="M2 17.5C2 14.46 4.46 12 7.5 12c.55 0 1.08.08 1.58.22L9.1 11.2 14.5 10.5l7 2.1-.01.4H2.2L2 17.5z" fill="#1490DF"/><path d="M2.2 13H23.79C23.93 13.32 24 13.65 24 14c0 2.21-1.79 4-4 4H4c-1.1 0-2-.9-2-2 0-.34.09-.67.2-.97z" fill="#28A8E0"/></svg>
+    OneDrive <span class="cnt" id="stab-od-cnt">0</span>
   </button>
   <button class="subtab" id="stab-ex" onclick="switchTab('ex')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="13" height="16" rx="2" fill="#0078D4"/><path d="M8.5 8C6.57 8 5 9.57 5 11.5S6.57 15 8.5 15 12 13.43 12 11.5 10.43 8 8.5 8zm0 5C7.67 13 7 12.33 7 11.5S7.67 10 8.5 10s1.5.67 1.5 1.5S9.33 13 8.5 13z" fill="white"/><rect x="13" y="6" width="9" height="12" rx="1" fill="#0078D4"/><path d="M13 8l4.5 3.5L22 8" stroke="white" stroke-width="1.2" fill="none"/></svg> Exchange / Outlook
-    <span class="cnt" id="stab-ex-cnt">0</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="13" height="16" rx="2" fill="#0078D4"/><path d="M8.5 8C6.57 8 5 9.57 5 11.5S6.57 15 8.5 15 12 13.43 12 11.5 10.43 8 8.5 8zm0 5C7.67 13 7 12.33 7 11.5S7.67 10 8.5 10s1.5.67 1.5 1.5S9.33 13 8.5 13z" fill="white"/><rect x="13" y="6" width="9" height="12" rx="1" fill="#0078D4"/><path d="M13 8l4.5 3.5L22 8" stroke="white" stroke-width="1.2" fill="none"/></svg>
+    Exchange / Outlook <span class="cnt" id="stab-ex-cnt">0</span>
   </button>
 </div>
 
@@ -224,19 +275,39 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
           <option value="used-desc">Espace utilisé ↓</option>
         </select>
         <span class="cnt-label" id="cnt-label"></span>
+        <button class="btn-action btn-outline" style="font-size:11px;padding:4px 10px" onclick="resetData()">↺ Nouveau fichier</button>
       </div>
     </div>
 
     <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
 
-      <!-- Invite initiale -->
+      <!-- DROP ZONE -->
       <div class="invite" id="invite-wrap">
-        <div class="invite-box" onclick="openModal()">
-          <div class="invite-icon" id="invite-icon">📋</div>
-          <h3 id="invite-title">Coller les données OneDrive</h3>
-          <p id="invite-desc">Depuis le portail M365 Admin Center, sélectionnez tout le tableau OneDrive et copiez-le (Ctrl+A puis Ctrl+C), puis cliquez ici pour coller.</p>
-          <div class="shortcut">Cliquer pour coller</div>
+        <div class="drop-zone" id="drop-zone"
+             ondragover="handleDragOver(event)"
+             ondragleave="handleDragLeave(event)"
+             ondrop="handleDrop(event)">
+
+          <span class="dz-icon" id="dz-icon">📂</span>
+          <div class="dz-title" id="dz-title">Glisser le fichier CSV ici</div>
+          <div class="dz-sub" id="dz-sub">
+            Export depuis <strong>M365 Admin Center → Stockage → OneDrive</strong><br>
+            ou <strong>Exchange</strong>. Le séparateur est auto-détecté.<br>
+            Formats acceptés : <code>.csv</code> <code>.txt</code>
+          </div>
+          <button class="dz-btn" onclick="triggerFile()">
+            📁 Parcourir un fichier
+          </button>
+          <div class="dz-hint">
+            <span class="dz-hint-item">✓ UTF-8 / BOM</span>
+            <span class="dz-sep">·</span>
+            <span class="dz-hint-item">✓ Virgule · Point-virgule · Tab</span>
+            <span class="dz-sep">·</span>
+            <span class="dz-hint-item">✓ Bytes bruts</span>
+          </div>
+          <div class="dz-progress" id="dz-progress"></div>
         </div>
+        <input type="file" id="file-input" accept=".csv,.txt" onchange="handleFileInput(event)">
       </div>
 
       <!-- Liste -->
@@ -255,32 +326,14 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
   <!-- STAT PANEL -->
   <div class="statpanel">
     <div class="sp-title">📊 Statistiques</div>
-    <div id="sp-content"><div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Collez des données<br>pour voir les stats</div></div>
+    <div id="sp-content"><div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Chargez un fichier CSV<br>pour voir les stats</div></div>
   </div>
 </div>
 
-<!-- MODAL PASTE -->
-<div class="modal-overlay" id="modal" style="display:none" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 id="modal-title">📋 Coller les données OneDrive</h2>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="hint" id="modal-hint">
-        <strong>Comment faire ?</strong><br>
-        1. Allez sur <b>M365 Admin Center → Stockage → OneDrive</b><br>
-        2. Sélectionnez toutes les lignes du tableau (Ctrl+A dans le tableau)<br>
-        3. Copiez (Ctrl+C)<br>
-        4. Collez ici (Ctrl+V) puis cliquez <b>Analyser</b>
-      </div>
-      <textarea class="paste-area" id="paste-area" placeholder="Collez vos données ici (Ctrl+V)...&#10;&#10;Le format est automatiquement détecté :&#10;• Copie directe depuis le portail M365&#10;• CSV avec séparateur , ou ; ou tabulation&#10;• Texte tabulé depuis Excel"></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-action btn-outline" onclick="closeModal()">Annuler</button>
-      <button class="btn-action btn-blue" onclick="parseAndLoad()">✓ Analyser et afficher</button>
-    </div>
-  </div>
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span id="toast-icon">✅</span>
+  <span id="toast-msg"></span>
 </div>
 
 <script>
@@ -301,227 +354,211 @@ setInterval(()=>{
 }, 1000);
 document.getElementById('clock').textContent = new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
 
-// ── Modal ─────────────────────────────────────
-function openModal() {
-  const t = S.tab;
-  document.getElementById('modal-title').textContent =
-    t==='od' ? '📋 Coller les données OneDrive' : '📋 Coller les données Exchange';
-  document.getElementById('modal-hint').innerHTML = t==='od'
-    ? '<strong>Comment faire ?</strong><br>1. Allez sur <b>M365 Admin Center → Stockage → OneDrive</b><br>2. Sélectionnez et copiez le tableau (Ctrl+A, Ctrl+C)<br>3. Collez ici (Ctrl+V) puis cliquez <b>Analyser</b>'
-    : '<strong>Comment faire ?</strong><br>1. Allez sur <b>M365 Admin Center → Stockage → Exchange</b><br>2. Sélectionnez et copiez le tableau (Ctrl+A, Ctrl+C)<br>3. Collez ici (Ctrl+V) puis cliquez <b>Analyser</b>';
-  document.getElementById('paste-area').value = '';
-  document.getElementById('modal').style.display = 'flex';
-  setTimeout(()=>document.getElementById('paste-area').focus(), 100);
+// ── Drag & Drop ───────────────────────────────
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.add('drag-over');
 }
-function closeModal()           { document.getElementById('modal').style.display = 'none'; }
-function closeModalOutside(e)   { if(e.target.id==='modal') closeModal(); }
+function handleDragLeave(e) {
+  document.getElementById('drop-zone').classList.remove('drag-over');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  const files = e.dataTransfer.files;
+  if (files.length > 0) processFile(files[0]);
+}
+function triggerFile() {
+  document.getElementById('file-input').click();
+}
+function handleFileInput(e) {
+  if (e.target.files.length > 0) processFile(e.target.files[0]);
+  e.target.value = ''; // reset pour permettre recharge du même fichier
+}
 
-// ── Tabs ──────────────────────────────────────
-function switchTab(t) {
-  S.tab = t; S.sideFilter='all'; S.search='';
-  document.getElementById('search-bar').value='';
-  document.getElementById('global-search').value='';
-  ['od','ex'].forEach(id=>{
-    document.getElementById('stab-'+id).classList.toggle('active', id===t);
-  });
-  setSidebarActive('sf-all');
-  const isOD = t==='od';
-  document.getElementById('invite-icon').textContent  = isOD ? '📋' : '📧';
-  document.getElementById('invite-title').textContent = isOD ? 'Coller les données OneDrive' : 'Coller les données Exchange';
-  document.getElementById('invite-desc').textContent  = isOD
-    ? 'Depuis M365 Admin Center → Stockage → OneDrive, copiez le tableau et collez-le ici.'
-    : 'Depuis M365 Admin Center → Stockage → Exchange, copiez le tableau et collez-le ici.';
-  if(S[t].raw.length) { applyFilters(); showData(); }
-  else                { showInvite(); }
-  updateSideCounts();
+// ── Lecture fichier ───────────────────────────
+function processFile(file) {
+  if (!file.name.match(/\.(csv|txt)$/i)) {
+    showToast('❌', 'Format non supporté. Utilisez un fichier .csv');
+    return;
+  }
+
+  // Afficher progress
+  const prog = document.getElementById('dz-progress');
+  prog.style.display = 'block';
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    prog.style.display = 'none';
+    let text = e.target.result;
+    // Supprimer BOM UTF-8
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+    const rows = smartParse(text, detectTabFromName(file.name));
+    if (!rows.length) {
+      showToast('❌', 'Aucun compte reconnu. Vérifiez le fichier CSV.');
+      return;
+    }
+
+    // Choisir onglet selon nom du fichier
+    const tab = detectTabFromName(file.name);
+    S[tab].raw = rows;
+    document.getElementById('stab-' + tab + '-cnt').textContent = rows.length;
+
+    // Basculer sur le bon onglet
+    S.tab = tab;
+    S.sideFilter = 'all';
+    ['od','ex'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===tab));
+    setSidebarActive('sf-all');
+
+    applyFilters();
+    showData();
+    updateStats();
+    updateSideCounts();
+    showToast('✅', rows.length + ' comptes chargés — ' + file.name);
+  };
+  reader.onerror = () => { prog.style.display='none'; showToast('❌','Erreur de lecture du fichier.'); };
+  reader.readAsText(file, 'UTF-8');
+}
+
+function detectTabFromName(name) {
+  const n = name.toLowerCase();
+  if (n.includes('exchange') || n.includes('outlook') || n.includes('mailbox') || n.includes('ex_')) return 'ex';
+  return 'od';
+}
+
+// ── Reset ─────────────────────────────────────
+function resetData() {
+  showInvite();
 }
 
 // ── Parser universel ──────────────────────────
-// Gère : TSV depuis portail/Excel, CSV virgule, CSV point-virgule,
-//        et le format brut de la capture (champs avec guillemets, URL sharepoint…)
-function parseAndLoad() {
-  const raw = document.getElementById('paste-area').value.trim();
-  if(!raw) { alert('Rien à analyser — collez d\'abord vos données.'); return; }
-
-  const rows = smartParse(raw, S.tab);
-  if(!rows.length) { alert('Aucune donnée reconnue. Vérifiez le format collé.'); return; }
-
-  S[S.tab].raw = rows;
-  document.getElementById('stab-'+S.tab+'-cnt').textContent = rows.length;
-  closeModal();
-  S.sideFilter='all';
-  setSidebarActive('sf-all');
-  applyFilters();
-  showData();
-  updateStats();
-  updateSideCounts();
-}
-
 function smartParse(text, type) {
   text = text.replace(/^\uFEFF/,'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
 
-  // Détecter format portail M365 : URL sharepoint ou grands nombres (bytes limite)
   const isPortalFormat = text.includes('sharepoint.com/personal/')
     || /,\d{9,},/.test(text)
     || /"\d{9,}"/.test(text);
-  if(isPortalFormat) {
-    return parsePortalBlocks(text, type);
-  }
+  if (isPortalFormat) return parsePortalBlocks(text, type);
 
-  // Sinon TSV / CSV standard
   const lines = text.split('\n').filter(l=>l.trim());
   const sep = detectSep(lines[0]);
   const allCols = lines.map(l => splitLine(l, sep));
   const maxCols = Math.max(...allCols.map(c=>c.length));
 
-  if(maxCols <= 2) {
-    return parsePortalBlocks(text, type);
-  }
+  if (maxCols <= 2) return parsePortalBlocks(text, type);
 
-  // Identifier les colonnes utiles
   const header = allCols[0].map(h=>h.toLowerCase());
   const dataLines = allCols.slice(1).filter(c=>c.length>1);
 
-  // Trouver indices colonnes
   const idx = {
     nom:   findIdx(header, ['nom','name','display','propriétaire principal','primary owner']),
-    email: findIdx(header, ['email','mail','adresse','owner','propriétaire']),
-    used:  findIdx(header, ['utilisé','used','espace']),
-    limit: findIdx(header, ['limite','limit','quota']),
-    date:  findIdx(header, ['activité','activity','dernière','last']),
+    email: findIdx(header, ['email','mail','adresse','owner','propriétaire','upn','userprincipal']),
+    used:  findIdx(header, ['utilisé','used','espace','storage used','storageused']),
+    limit: findIdx(header, ['limite','limit','quota','allocated']),
+    date:  findIdx(header, ['activité','activity','dernière','last','date']),
     type:  findIdx(header, ['type'])
   };
 
-  // Si pas d'en-tête reconnu → traiter toutes les lignes comme données
   const hasHeader = idx.nom >= 0 || idx.email >= 0 || idx.used >= 0;
   const dataRows  = hasHeader ? dataLines : allCols;
 
   return dataRows.map(cols => {
     const get = i => (i>=0 && i<cols.length) ? cols[i] : '';
-    // Auto-detect colonnes si pas d'en-tête
     const nom   = idx.nom   >= 0 ? get(idx.nom)   : guessName(cols);
     const email = idx.email >= 0 ? get(idx.email)  : guessEmail(cols);
+    if (!nom && !email) return null;
     const used  = parseSize(idx.used  >= 0 ? get(idx.used)  : guessSize(cols, 0));
-    const limit = parseSize(idx.limit >= 0 ? get(idx.limit) : guessSize(cols, 1));
+    const limit = parseSize(idx.limit >= 0 ? get(idx.limit) : guessSize(cols, 1)) || (type==='od'?200:50);
     const date  = idx.date  >= 0 ? get(idx.date)  : guessDate(cols);
     const tp    = idx.type  >= 0 ? get(idx.type)  : '';
-    if(!nom && !email) return null;
-    const pct = limit > 0 ? Math.round(used/limit*1000)/10 : 0;
+    const pct   = limit > 0 ? Math.round(used/limit*1000)/10 : 0;
     return { nom, email, used, limit, pct, date, type: tp };
   }).filter(Boolean);
 }
 
-// Parser spécial pour le format portail M365 (blocs CSV avec guillemets, URLs)
 function parsePortalBlocks(text, type) {
-  // Le format vu dans la capture : chaque enregistrement sur plusieurs lignes
-  // "url","email","Nom Prénom","état","bytes_utilisés","bytes_limite","date","date"
-  // On reconstitue d'abord un CSV propre en joignant les lignes fragmentées
-
-  // Stratégie : identifier les enregistrements par les URLs sharepoint ou les patterns email
   const records = [];
-
-  // Re-split proprement en tenant compte des guillemets multi-lignes
   let joined = '';
   let inQuote = false;
-  for(let i=0; i<text.length; i++){
+  for (let i=0; i<text.length; i++) {
     const c = text[i];
-    if(c==='"') inQuote = !inQuote;
-    if((c==='\n') && !inQuote) { joined += '|ROWSEP|'; }
+    if (c==='"') inQuote = !inQuote;
+    if (c==='\n' && !inQuote) { joined += '|ROWSEP|'; }
     else { joined += c; }
   }
   const rows = joined.split('|ROWSEP|').filter(r=>r.trim());
 
-  for(const row of rows){
+  for (const row of rows) {
     const cols = splitLine(row.trim(), detectSep(row));
-    if(cols.length < 3) continue;
-
-    // Extraire infos selon les patterns
+    if (cols.length < 3) continue;
     const url   = cols.find(c => c.includes('sharepoint.com/personal/')) || '';
     const email = cols.find(c => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim())) || '';
-
-    // Trouver le nom (pas une URL, pas un email, pas un chiffre, pas une date, longueur > 3)
     const nom = cols.find(c => {
       const v = c.trim();
-      return v.length > 2
-        && !v.includes('sharepoint.com')
-        && !v.includes('@')
-        && !/^\d+$/.test(v)
-        && !/^\d{1,2}\/\d{1,2}\/\d{4}/.test(v)
+      return v.length > 2 && !v.includes('sharepoint.com') && !v.includes('@')
+        && !/^\d+$/.test(v) && !/^\d{1,2}\/\d{1,2}\/\d{4}/.test(v)
         && !['normal','warning','full','active'].includes(v.toLowerCase());
     }) || '';
-
-    // Tailles : les 2 nombres sont toujours en bytes dans le portail M365
     const numbers = cols.filter(c => /^\d{4,}$/.test(c.trim())).map(c=>parseInt(c.trim()));
     const usedBytes  = numbers.length > 0 ? numbers[0] : 0;
     const limitBytes = numbers.length > 1 ? numbers[1] : (type==='od' ? 214748364800 : 53687091200);
-    const used  = Math.round(usedBytes  / 1073741824 * 100) / 100;  // bytes → Go
-    const limit = Math.round(limitBytes / 1073741824 * 10)  / 10;   // bytes → Go
-
-    // Dates
+    const used  = Math.round(usedBytes  / 1073741824 * 100) / 100;
+    const limit = Math.round(limitBytes / 1073741824 * 10)  / 10;
     const dates = cols.filter(c => /\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()));
     const date  = dates.length > 0 ? dates[dates.length-1] : '';
-
-    // État
     const etat  = cols.find(c => ['normal','warning','full'].includes(c.trim().toLowerCase())) || '';
-
-    if(!nom && !email) continue;
+    if (!nom && !email) continue;
     const pct = limit > 0 ? Math.round(used/limit*1000)/10 : 0;
     records.push({ nom, email, used: Math.round(used*10)/10, limit: Math.round(limit*10)/10, pct, date, type: etat });
   }
   return records;
 }
 
-// ── Helpers parsing ───────────────────────────
+// ── Helpers ───────────────────────────────────
 function detectSep(line) {
-  if(!line) return '\t';
+  if (!line) return '\t';
   const tabs    = (line.match(/\t/g)||[]).length;
   const semicol = (line.match(/;/g)||[]).length;
   const comma   = (line.match(/,/g)||[]).length;
-  if(tabs >= semicol && tabs >= comma) return '\t';
-  if(semicol >= comma) return ';';
+  if (tabs >= semicol && tabs >= comma) return '\t';
+  if (semicol >= comma) return ';';
   return ',';
 }
-
 function splitLine(line, sep) {
   const cols=[]; let cur=''; let inQ=false;
-  for(let i=0;i<line.length;i++){
+  for (let i=0; i<line.length; i++) {
     const c=line[i];
-    if(c==='"'){ inQ=!inQ; }
-    else if(c===sep&&!inQ){ cols.push(cur.trim()); cur=''; }
+    if (c==='"') { inQ=!inQ; }
+    else if (c===sep && !inQ) { cols.push(cur.trim()); cur=''; }
     else { cur+=c; }
   }
   cols.push(cur.trim());
   return cols.map(c=>c.replace(/^"|"$/g,'').trim());
 }
-
 function findIdx(header, kws) {
-  for(const kw of kws){
+  for (const kw of kws) {
     const i = header.findIndex(h=>h.includes(kw));
-    if(i>=0) return i;
+    if (i>=0) return i;
   }
   return -1;
 }
-
-// Supprimée - logique intégrée directement dans parsePortalBlocks
-
-
 function parseSize(str) {
-  if(!str) return 0;
+  if (!str) return 0;
   str = str.replace(/\s/g,'').replace(',','.');
   const m = str.match(/([\d.]+)\s*(TB|GB|Go|To|MB|Mo|KB|Ko)?/i);
-  if(!m) return 0;
+  if (!m) return 0;
   const v=parseFloat(m[1]), u=(m[2]||'').toUpperCase();
   let gb = 0;
-  if(u==='TB'||u==='TO')      gb = v*1024;
-  else if(u==='GB'||u==='GO') gb = v;
-  else if(u==='MB'||u==='MO') gb = v/1024;
-  else if(u==='KB'||u==='KO') gb = v/1048576;
-  else if(v>1e9)               gb = v/1073741824;   // bytes bruts
-  else if(v>1e6)               gb = v/1048576/1024;
-  else                         gb = v;
-  return Math.round(gb*10)/10;  // 1 décimale max
+  if (u==='TB'||u==='TO')      gb = v*1024;
+  else if (u==='GB'||u==='GO') gb = v;
+  else if (u==='MB'||u==='MO') gb = v/1024;
+  else if (u==='KB'||u==='KO') gb = v/1048576;
+  else if (v>1e9)               gb = v/1073741824;
+  else if (v>1e6)               gb = v/1048576/1024;
+  else                          gb = v;
+  return Math.round(gb*10)/10;
 }
-
 function guessEmail(cols) { return cols.find(c=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim()))||''; }
 function guessName(cols)  {
   return cols.find(c=>{
@@ -534,8 +571,7 @@ function guessSize(cols, nth) {
   return nums[nth]||'0';
 }
 function guessDate(cols) {
-  const d = cols.find(c=>/\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()));
-  return d||'';
+  return cols.find(c=>/\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()))||'';
 }
 
 // ── Niveaux ───────────────────────────────────
@@ -543,9 +579,9 @@ const levelLabel = { crit:'Critique', warn:'Alerte', attn:'Attention', ok:'Norma
 const levelColor = { crit:'#ef4444', warn:'#f97316', attn:'#eab308', ok:'#22c55e' };
 const levelTag   = { crit:'tag-crit', warn:'tag-warn', attn:'tag-attn', ok:'tag-ok' };
 function getLevel(pct) {
-  if(pct>=90) return 'crit';
-  if(pct>=75) return 'warn';
-  if(pct>=50) return 'attn';
+  if (pct>=90) return 'crit';
+  if (pct>=75) return 'warn';
+  if (pct>=50) return 'attn';
   return 'ok';
 }
 
@@ -567,13 +603,13 @@ function applyFilters() {
   S.sortKey = document.getElementById('sort-sel').value;
   const t   = S.tab;
   let rows  = [...S[t].raw];
-  if(S.sideFilter!=='all') rows = rows.filter(r=>getLevel(r.pct)===S.sideFilter);
-  if(S.search) rows = rows.filter(r=>r.nom.toLowerCase().includes(S.search)||r.email.toLowerCase().includes(S.search));
+  if (S.sideFilter!=='all') rows = rows.filter(r=>getLevel(r.pct)===S.sideFilter);
+  if (S.search) rows = rows.filter(r=>r.nom.toLowerCase().includes(S.search)||r.email.toLowerCase().includes(S.search));
   const [key,dir] = S.sortKey.split('-');
   rows.sort((a,b)=>{
     const va = key==='nom'?a.nom : key==='used'?a.used : a.pct;
     const vb = key==='nom'?b.nom : key==='used'?b.used : b.pct;
-    if(typeof va==='string') return dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
+    if (typeof va==='string') return dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
     return dir==='asc'?va-vb:vb-va;
   });
   S[t].filtered = rows;
@@ -593,11 +629,22 @@ function setSideFilter(f) {
 function setSidebarActive(id) {
   document.querySelectorAll('.sidebar-item[id^="sf-"]').forEach(el=>el.classList.remove('active'));
   const el = document.getElementById(id);
-  if(el) el.classList.add('active');
+  if (el) el.classList.add('active');
 }
 function setSort(k) {
   document.getElementById('sort-sel').value = k;
   applyFilters();
+}
+
+function switchTab(t) {
+  S.tab = t; S.sideFilter='all'; S.search='';
+  document.getElementById('search-bar').value='';
+  document.getElementById('global-search').value='';
+  ['od','ex'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===t));
+  setSidebarActive('sf-all');
+  if (S[t].raw.length) { applyFilters(); showData(); }
+  else { showInvite(); }
+  updateSideCounts();
 }
 
 function renderItems() {
@@ -608,7 +655,7 @@ function renderItems() {
   document.getElementById('cnt-label').textContent = `${rows.length} / ${S[S.tab].raw.length} entrées`;
   document.getElementById('main-title').textContent = S.sideFilter==='all'?'Toutes les entrées':levelLabel[S.sideFilter];
 
-  if(!rows.length) { wrap.style.display='none'; empty.style.display='flex'; return; }
+  if (!rows.length) { wrap.style.display='none'; empty.style.display='flex'; return; }
   empty.style.display='none'; wrap.style.display='';
 
   const tabTag = `<span class="tag ${S.tab==='od'?'tag-od':'tag-ex'}">${S.tab==='od'?'OD':'EX'}</span>`;
@@ -642,7 +689,7 @@ function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
 // ── Stats panel ───────────────────────────────
 function updateStats() {
   const rows = S[S.tab].raw;
-  if(!rows.length) return;
+  if (!rows.length) return;
   const total=rows.length, crit=rows.filter(r=>r.pct>=90).length,
         warn=rows.filter(r=>r.pct>=75&&r.pct<90).length,
         attn=rows.filter(r=>r.pct>=50&&r.pct<75).length,
@@ -677,7 +724,7 @@ function updateSideCounts() {
 // ── Export CSV ────────────────────────────────
 function exportCSV() {
   const rows=S[S.tab].filtered;
-  if(!rows.length){ alert('Aucune donnée à exporter.'); return; }
+  if (!rows.length){ showToast('⚠️','Aucune donnée à exporter.'); return; }
   const sep=';';
   let csv = ['Nom','Email','Utilisé (Go)','Limite (Go)','Usage %','Niveau','Dernière activité'].join(sep)+'\n';
   csv += rows.map(r=>[r.nom,r.email,r.used.toFixed(2),r.limit.toFixed(2),r.pct,levelLabel[getLevel(r.pct)],r.date].join(sep)).join('\n');
@@ -685,13 +732,24 @@ function exportCSV() {
   a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
   a.download=`M365_${S.tab==='od'?'OneDrive':'Exchange'}_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
+  showToast('✅', 'Export CSV téléchargé');
 }
 
-// Raccourci Ctrl+V global pour ouvrir la modale
-document.addEventListener('keydown', e=>{
-  if((e.ctrlKey||e.metaKey) && e.key==='v' && document.getElementById('modal').style.display==='none') {
-    openModal();
-  }
+// ── Toast ─────────────────────────────────────
+function showToast(icon, msg) {
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent  = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3500);
+}
+
+// Glisser sur toute la page (pas seulement la drop zone)
+document.addEventListener('dragover', e => e.preventDefault());
+document.addEventListener('drop', e => {
+  e.preventDefault();
+  const files = e.dataTransfer.files;
+  if (files.length > 0) processFile(files[0]);
 });
 </script>
 </body>
