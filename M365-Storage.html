@@ -140,9 +140,17 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 .tag-warn { background:#ffedd5; color:#ea580c; }
 .tag-attn { background:#fef9c3; color:#ca8a04; }
 .tag-ok   { background:#dcfce7; color:#16a34a; }
-.tag-od   { background:#dbeafe; color:#2563eb; }
-.tag-ex   { background:#e0e7ff; color:#4338ca; }
-.tag-type { background:#ede9fe; color:#7c3aed; }
+.tag-od    { background:#dbeafe; color:#2563eb; }
+.tag-ex    { background:#e0e7ff; color:#4338ca; }
+.tag-visio { background:#fce7f3; color:#be185d; }
+.tag-type  { background:#ede9fe; color:#7c3aed; }
+
+/* VISIO items */
+.platform-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:4px; font-size:10px; font-weight:600; }
+.pb-desktop { background:#dbeafe; color:#1d4ed8; }
+.pb-web     { background:#d1fae5; color:#065f46; }
+.pb-none    { background:#f3f4f6; color:#9ca3af; }
+.visio-licensed { width:80px; flex-shrink:0; font-size:11px; text-align:center; }
 
 .item-body { flex:1; min-width:0; }
 .item-name  { font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
@@ -226,39 +234,71 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="13" height="16" rx="2" fill="#0078D4"/><path d="M8.5 8C6.57 8 5 9.57 5 11.5S6.57 15 8.5 15 12 13.43 12 11.5 10.43 8 8.5 8zm0 5C7.67 13 7 12.33 7 11.5S7.67 10 8.5 10s1.5.67 1.5 1.5S9.33 13 8.5 13z" fill="white"/><rect x="13" y="6" width="9" height="12" rx="1" fill="#0078D4"/><path d="M13 8l4.5 3.5L22 8" stroke="white" stroke-width="1.2" fill="none"/></svg>
     Exchange / Outlook <span class="cnt" id="stab-ex-cnt">0</span>
   </button>
-</div>
+  <button class="subtab" id="stab-visio" onclick="switchTab('visio')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="2" fill="#3955a3"/><path d="M6 7l4 8 4-8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="18" cy="7" r="2" fill="white"/></svg>
+    Visio <span class="cnt" id="stab-visio-cnt">0</span>
+  </button>
 
 <!-- LAYOUT -->
 <div class="layout">
 
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="sidebar-section">Priorité</div>
-    <div class="sidebar-item active" onclick="setSideFilter('all')" id="sf-all">
-      <span class="si-dot" style="background:#2563eb"></span> Toutes
-      <span class="si-cnt" id="sf-all-cnt">0</span>
+    <!-- Priorité / Activité selon onglet -->
+    <div id="sidebar-priority-section">
+      <div class="sidebar-section">Priorité</div>
+      <div class="sidebar-item active" onclick="setSideFilter('all')" id="sf-all">
+        <span class="si-dot" style="background:#2563eb"></span> Toutes
+        <span class="si-cnt" id="sf-all-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('crit')" id="sf-crit">
+        <span class="si-dot" style="background:#ef4444"></span> Critique
+        <span class="si-cnt" id="sf-crit-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('warn')" id="sf-warn">
+        <span class="si-dot" style="background:#f97316"></span> Alerte
+        <span class="si-cnt" id="sf-warn-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('attn')" id="sf-attn">
+        <span class="si-dot" style="background:#eab308"></span> Attention
+        <span class="si-cnt" id="sf-attn-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('ok')" id="sf-ok">
+        <span class="si-dot" style="background:#22c55e"></span> Normal
+        <span class="si-cnt" id="sf-ok-cnt">0</span>
+      </div>
     </div>
-    <div class="sidebar-item" onclick="setSideFilter('crit')" id="sf-crit">
-      <span class="si-dot" style="background:#ef4444"></span> Critique
-      <span class="si-cnt" id="sf-crit-cnt">0</span>
-    </div>
-    <div class="sidebar-item" onclick="setSideFilter('warn')" id="sf-warn">
-      <span class="si-dot" style="background:#f97316"></span> Alerte
-      <span class="si-cnt" id="sf-warn-cnt">0</span>
-    </div>
-    <div class="sidebar-item" onclick="setSideFilter('attn')" id="sf-attn">
-      <span class="si-dot" style="background:#eab308"></span> Attention
-      <span class="si-cnt" id="sf-attn-cnt">0</span>
-    </div>
-    <div class="sidebar-item" onclick="setSideFilter('ok')" id="sf-ok">
-      <span class="si-dot" style="background:#22c55e"></span> Normal
-      <span class="si-cnt" id="sf-ok-cnt">0</span>
+
+    <!-- Section Visio (masquée par défaut) -->
+    <div id="sidebar-visio-section" style="display:none">
+      <div class="sidebar-section">Activité</div>
+      <div class="sidebar-item active" onclick="setSideFilter('all')" id="vsf-all">
+        <span class="si-dot" style="background:#2563eb"></span> Tous
+        <span class="si-cnt" id="vsf-all-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('desktop')" id="vsf-desktop">
+        <span class="si-dot" style="background:#1d4ed8"></span> Desktop actif
+        <span class="si-cnt" id="vsf-desktop-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('web')" id="vsf-web">
+        <span class="si-dot" style="background:#065f46"></span> Web actif
+        <span class="si-cnt" id="vsf-web-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('licensed')" id="vsf-licensed">
+        <span class="si-dot" style="background:#8b5cf6"></span> Licencié
+        <span class="si-cnt" id="vsf-licensed-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('inactive')" id="vsf-inactive">
+        <span class="si-dot" style="background:#9ca3af"></span> Inactif
+        <span class="si-cnt" id="vsf-inactive-cnt">0</span>
+      </div>
     </div>
 
     <div class="sidebar-section" style="margin-top:8px">Tri</div>
-    <div class="sidebar-item" onclick="setSort('pct-desc')"  id="sort-pct">  <span>📊</span> Usage % ↓</div>
-    <div class="sidebar-item" onclick="setSort('nom-asc')"   id="sort-nom">  <span>🔤</span> Nom A→Z</div>
-    <div class="sidebar-item" onclick="setSort('used-desc')" id="sort-used"> <span>💾</span> Espace utilisé</div>
+    <div class="sidebar-item" onclick="setSort('pct-desc')"   id="sort-pct">  <span>📊</span> Usage % ↓</div>
+    <div class="sidebar-item" onclick="setSort('nom-asc')"    id="sort-nom">  <span>🔤</span> Nom A→Z</div>
+    <div class="sidebar-item" onclick="setSort('used-desc')"  id="sort-used"> <span>💾</span> Espace utilisé</div>
+    <div class="sidebar-item" onclick="setSort('date-desc')"  id="sort-date"> <span>📅</span> Dernière activité</div>
   </div>
 
   <!-- MAIN -->
@@ -273,6 +313,7 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
           <option value="nom-asc">Nom A→Z</option>
           <option value="nom-desc">Nom Z→A</option>
           <option value="used-desc">Espace utilisé ↓</option>
+          <option value="date-desc">Dernière activité ↓</option>
         </select>
         <span class="cnt-label" id="cnt-label"></span>
         <button class="btn-action btn-outline" style="font-size:11px;padding:4px 10px" onclick="resetData()">↺ Nouveau fichier</button>
@@ -292,7 +333,7 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
           <div class="dz-title" id="dz-title">Glisser le fichier CSV ici</div>
           <div class="dz-sub" id="dz-sub">
             Export depuis <strong>M365 Admin Center → Stockage → OneDrive</strong><br>
-            ou <strong>Exchange</strong>. Le séparateur est auto-détecté.<br>
+            ou <strong>Exchange</strong> ou <strong>Rapports → Utilisation → Visio</strong>.<br>
             Formats acceptés : <code>.csv</code> <code>.txt</code>
           </div>
           <button class="dz-btn" onclick="triggerFile()">
@@ -340,8 +381,9 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 // ── État global ───────────────────────────────
 const S = {
   tab: 'od',
-  od:  { raw:[], filtered:[] },
-  ex:  { raw:[], filtered:[] },
+  od:    { raw:[], filtered:[] },
+  ex:    { raw:[], filtered:[] },
+  visio: { raw:[], filtered:[] },
   sideFilter: 'all',
   sortKey: 'pct-desc',
   search: ''
@@ -376,6 +418,51 @@ function handleFileInput(e) {
   e.target.value = ''; // reset pour permettre recharge du même fichier
 }
 
+// ── Parser Visio ──────────────────────────────
+function parseVisioCSV(text) {
+  text = text.replace(/^\uFEFF/,'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  const lines = text.split('\n').filter(l=>l.trim());
+  if (lines.length < 2) return [];
+
+  const sep = detectSep(lines[0]);
+  const header = splitLine(lines[0], sep).map(h => h.toLowerCase().trim()
+    .replace(/\s+/g,'').replace(/[^a-z]/g,''));
+
+  // Colonnes : reportrefreshdate, userprincipalname, displayname, lastactivitydate,
+  //            isvisiolincensed (typo M365), reportperiod, desktop, web
+  const iRefresh  = findIdx(header, ['reportrefreshdate','refreshdate']);
+  const iUpn      = findIdx(header, ['userprincipalname','upn','email','mail']);
+  const iName     = findIdx(header, ['displayname','name','nom']);
+  const iLastAct  = findIdx(header, ['lastactivitydate','lastactivity','derniereactivite']);
+  const iLicensed = findIdx(header, ['isvisiolincensed','isvisiolilicensed','visiolincensed','licensed','licenci']);
+  const iPeriod   = findIdx(header, ['reportperiod','period','periode']);
+  const iDesktop  = findIdx(header, ['desktop']);
+  const iWeb      = findIdx(header, ['web']);
+
+  const results = [];
+  for (let i=1; i<lines.length; i++) {
+    const cols = splitLine(lines[i], sep);
+    if (cols.length < 2) continue;
+    const get = idx => idx >= 0 && idx < cols.length ? cols[idx].trim() : '';
+
+    const email       = get(iUpn);
+    if (!email || !email.includes('@')) continue;
+    const nom         = get(iName) || email.split('@')[0];
+    const lastActivity= get(iLastAct);
+    const refreshDate = get(iRefresh);
+    const licensed    = /true|yes|oui|1/i.test(get(iLicensed));
+    const period      = get(iPeriod);
+    // Desktop / Web : valeurs "Yes"/"No" ou "1"/"0" ou nombre de jours
+    const desktopRaw  = get(iDesktop);
+    const webRaw      = get(iWeb);
+    const desktop     = /true|yes|oui/i.test(desktopRaw) || (parseInt(desktopRaw)||0) > 0;
+    const web         = /true|yes|oui/i.test(webRaw)     || (parseInt(webRaw)||0) > 0;
+
+    results.push({ nom, email, licensed, desktop, web, lastActivity, refreshDate, period });
+  }
+  return results;
+}
+
 // ── Lecture fichier ───────────────────────────
 function processFile(file) {
   if (!file.name.match(/\.(csv|txt)$/i)) {
@@ -391,31 +478,46 @@ function processFile(file) {
   reader.onload = function(e) {
     prog.style.display = 'none';
     let text = e.target.result;
-    // Supprimer BOM UTF-8
     if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
 
-    const rows = smartParse(text, detectTabFromName(file.name));
+    const tab = detectTabFromName(file.name);
+
+    // Détecter Visio aussi par contenu (colonnes Desktop/Web/IsVisio)
+    const isVisioContent = /isvisio|desktop.*web|reportrefreshdate.*userprincipal/i.test(text.split('\n')[0]||'');
+    const finalTab = (tab === 'visio' || isVisioContent) ? 'visio' : tab;
+
+    let rows;
+    if (finalTab === 'visio') {
+      rows = parseVisioCSV(text);
+    } else {
+      rows = smartParse(text, finalTab);
+    }
+
     if (!rows.length) {
       showToast('❌', 'Aucun compte reconnu. Vérifiez le fichier CSV.');
       return;
     }
 
-    // Choisir onglet selon nom du fichier
-    const tab = detectTabFromName(file.name);
-    S[tab].raw = rows;
-    document.getElementById('stab-' + tab + '-cnt').textContent = rows.length;
+    S[finalTab].raw = rows;
+    document.getElementById('stab-' + finalTab + '-cnt').textContent = rows.length;
 
-    // Basculer sur le bon onglet
-    S.tab = tab;
+    S.tab = finalTab;
     S.sideFilter = 'all';
-    ['od','ex'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===tab));
-    setSidebarActive('sf-all');
+    ['od','ex','visio'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===finalTab));
 
+    const isVisio = finalTab === 'visio';
+    document.getElementById('sidebar-priority-section').style.display = isVisio ? 'none' : '';
+    document.getElementById('sidebar-visio-section').style.display    = isVisio ? ''     : 'none';
+    document.getElementById('sort-pct').style.display  = isVisio ? 'none' : '';
+    document.getElementById('sort-used').style.display = isVisio ? 'none' : '';
+    document.getElementById('sort-date').style.display = isVisio ? ''     : 'none';
+
+    setSidebarActive(isVisio ? 'vsf-all' : 'sf-all');
     applyFilters();
     showData();
     updateStats();
     updateSideCounts();
-    showToast('✅', rows.length + ' comptes chargés — ' + file.name);
+    showToast('✅', rows.length + ' entrées chargées — ' + file.name);
   };
   reader.onerror = () => { prog.style.display='none'; showToast('❌','Erreur de lecture du fichier.'); };
   reader.readAsText(file, 'UTF-8');
@@ -423,6 +525,7 @@ function processFile(file) {
 
 function detectTabFromName(name) {
   const n = name.toLowerCase();
+  if (n.includes('visio')) return 'visio';
   if (n.includes('exchange') || n.includes('outlook') || n.includes('mailbox') || n.includes('ex_')) return 'ex';
   return 'od';
 }
@@ -602,6 +705,25 @@ function applyFilters() {
   S.search  = (document.getElementById('search-bar').value || '').toLowerCase();
   S.sortKey = document.getElementById('sort-sel').value;
   const t   = S.tab;
+
+  if (t === 'visio') {
+    let rows = [...S.visio.raw];
+    if (S.sideFilter === 'desktop')  rows = rows.filter(r => r.desktop);
+    else if (S.sideFilter === 'web') rows = rows.filter(r => r.web);
+    else if (S.sideFilter === 'licensed') rows = rows.filter(r => r.licensed);
+    else if (S.sideFilter === 'inactive') rows = rows.filter(r => !r.desktop && !r.web);
+    if (S.search) rows = rows.filter(r => r.nom.toLowerCase().includes(S.search) || r.email.toLowerCase().includes(S.search));
+    rows.sort((a,b) => {
+      if (S.sortKey === 'nom-asc')  return a.nom.localeCompare(b.nom);
+      if (S.sortKey === 'nom-desc') return b.nom.localeCompare(a.nom);
+      if (S.sortKey === 'date-desc') return (b.lastActivity||'').localeCompare(a.lastActivity||'');
+      return a.nom.localeCompare(b.nom);
+    });
+    S.visio.filtered = rows;
+    renderItems();
+    return;
+  }
+
   let rows  = [...S[t].raw];
   if (S.sideFilter!=='all') rows = rows.filter(r=>getLevel(r.pct)===S.sideFilter);
   if (S.search) rows = rows.filter(r=>r.nom.toLowerCase().includes(S.search)||r.email.toLowerCase().includes(S.search));
@@ -623,11 +745,12 @@ function onGlobalSearch() {
 
 function setSideFilter(f) {
   S.sideFilter=f;
-  setSidebarActive('sf-'+f);
+  const isVisio = S.tab === 'visio';
+  setSidebarActive((isVisio ? 'vsf-' : 'sf-') + f);
   applyFilters();
 }
 function setSidebarActive(id) {
-  document.querySelectorAll('.sidebar-item[id^="sf-"]').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item[id^="sf-"], .sidebar-item[id^="vsf-"]').forEach(el=>el.classList.remove('active'));
   const el = document.getElementById(id);
   if (el) el.classList.add('active');
 }
@@ -640,26 +763,64 @@ function switchTab(t) {
   S.tab = t; S.sideFilter='all'; S.search='';
   document.getElementById('search-bar').value='';
   document.getElementById('global-search').value='';
-  ['od','ex'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===t));
-  setSidebarActive('sf-all');
+  ['od','ex','visio'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===t));
+
+  // Sidebar : basculer section priorité / Visio
+  const isVisio = t === 'visio';
+  document.getElementById('sidebar-priority-section').style.display = isVisio ? 'none' : '';
+  document.getElementById('sidebar-visio-section').style.display    = isVisio ? ''     : 'none';
+  // Masquer tri par usage/espace pour Visio
+  document.getElementById('sort-pct').style.display  = isVisio ? 'none' : '';
+  document.getElementById('sort-used').style.display = isVisio ? 'none' : '';
+  document.getElementById('sort-date').style.display = isVisio ? ''     : 'none';
+
+  setSidebarActive(isVisio ? 'vsf-all' : 'sf-all');
   if (S[t].raw.length) { applyFilters(); showData(); }
   else { showInvite(); }
   updateSideCounts();
 }
 
 function renderItems() {
-  const rows = S[S.tab].filtered;
+  const isVisio = S.tab === 'visio';
+  const rows = isVisio ? S.visio.filtered : S[S.tab].filtered;
+  const rawLen = isVisio ? S.visio.raw.length : S[S.tab].raw.length;
   const list = document.getElementById('items-list');
   const wrap = document.getElementById('items-wrap');
   const empty= document.getElementById('empty-state');
-  document.getElementById('cnt-label').textContent = `${rows.length} / ${S[S.tab].raw.length} entrées`;
-  document.getElementById('main-title').textContent = S.sideFilter==='all'?'Toutes les entrées':levelLabel[S.sideFilter];
+  document.getElementById('cnt-label').textContent = `${rows.length} / ${rawLen} entrées`;
+  document.getElementById('main-title').textContent = isVisio
+    ? 'Utilisation Visio'
+    : (S.sideFilter==='all' ? 'Toutes les entrées' : levelLabel[S.sideFilter]);
 
   if (!rows.length) { wrap.style.display='none'; empty.style.display='flex'; return; }
   empty.style.display='none'; wrap.style.display='';
 
-  const tabTag = `<span class="tag ${S.tab==='od'?'tag-od':'tag-ex'}">${S.tab==='od'?'OD':'EX'}</span>`;
+  if (isVisio) {
+    list.innerHTML = rows.map(r => {
+      const deskBadge = r.desktop
+        ? `<span class="platform-badge pb-desktop">🖥 Desktop</span>`
+        : `<span class="platform-badge pb-none">🖥 —</span>`;
+      const webBadge = r.web
+        ? `<span class="platform-badge pb-web">🌐 Web</span>`
+        : `<span class="platform-badge pb-none">🌐 —</span>`;
+      const licTag = r.licensed
+        ? `<span class="tag" style="background:#ede9fe;color:#7c3aed">✓ Licencié</span>`
+        : `<span class="tag" style="background:#f3f4f6;color:#9ca3af">Non licencié</span>`;
+      return `<div class="item-row">
+        <div class="item-tags"><span class="tag tag-visio">VISIO</span>${licTag}</div>
+        <div class="item-body">
+          <div class="item-name">${esc(r.nom)||'—'}</div>
+          <div class="item-email">${esc(r.email)||'—'}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0">${deskBadge}${webBadge}</div>
+        <div class="item-date" style="width:120px">${esc(r.lastActivity)||'—'}</div>
+        <div class="item-date">${esc(r.refreshDate)||'—'}</div>
+      </div>`;
+    }).join('');
+    return;
+  }
 
+  const tabTag = `<span class="tag ${S.tab==='od'?'tag-od':'tag-ex'}">${S.tab==='od'?'OD':'EX'}</span>`;
   list.innerHTML = rows.map(r=>{
     const lvl    = getLevel(r.pct);
     const color  = levelColor[lvl];
@@ -688,7 +849,29 @@ function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')
 
 // ── Stats panel ───────────────────────────────
 function updateStats() {
-  const rows = S[S.tab].raw;
+  const t = S.tab;
+  if (t === 'visio') {
+    const rows = S.visio.raw;
+    if (!rows.length) return;
+    const total    = rows.length;
+    const licensed = rows.filter(r=>r.licensed).length;
+    const desktop  = rows.filter(r=>r.desktop).length;
+    const web      = rows.filter(r=>r.web).length;
+    const both     = rows.filter(r=>r.desktop && r.web).length;
+    const inactive = rows.filter(r=>!r.desktop && !r.web).length;
+    document.getElementById('sp-content').innerHTML=`
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Total</span><span class="sp-val blue">${total}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#8b5cf6"></span>Licenciés</span><span class="sp-val" style="color:#7c3aed">${licensed}</span></div>
+      <div class="sp-divider"></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#1d4ed8"></span>Desktop actif</span><span class="sp-val blue">${desktop}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#065f46"></span>Web actif</span><span class="sp-val green">${web}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#0891b2"></span>Desktop+Web</span><span class="sp-val" style="color:#0891b2">${both}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#9ca3af"></span>Inactifs</span><span class="sp-val" style="color:#6b7280">${inactive}</span></div>
+      <div class="sp-divider"></div>
+      <div class="sp-row"><span class="sp-label">Taux actifs</span><span class="sp-val">${total ? Math.round((total-inactive)/total*100) : 0}%</span></div>`;
+    return;
+  }
+  const rows = S[t].raw;
   if (!rows.length) return;
   const total=rows.length, crit=rows.filter(r=>r.pct>=90).length,
         warn=rows.filter(r=>r.pct>=75&&r.pct<90).length,
@@ -714,6 +897,15 @@ function updateStats() {
 }
 
 function updateSideCounts() {
+  if (S.tab === 'visio') {
+    const rows = S.visio.raw;
+    document.getElementById('vsf-all-cnt').textContent      = rows.length;
+    document.getElementById('vsf-desktop-cnt').textContent  = rows.filter(r=>r.desktop).length;
+    document.getElementById('vsf-web-cnt').textContent      = rows.filter(r=>r.web).length;
+    document.getElementById('vsf-licensed-cnt').textContent = rows.filter(r=>r.licensed).length;
+    document.getElementById('vsf-inactive-cnt').textContent = rows.filter(r=>!r.desktop&&!r.web).length;
+    return;
+  }
   const rows=S[S.tab].raw;
   ['all','crit','warn','attn','ok'].forEach(f=>{
     document.getElementById('sf-'+f+'-cnt').textContent =
@@ -723,6 +915,19 @@ function updateSideCounts() {
 
 // ── Export CSV ────────────────────────────────
 function exportCSV() {
+  if (S.tab === 'visio') {
+    const rows = S.visio.filtered;
+    if (!rows.length){ showToast('⚠️','Aucune donnée à exporter.'); return; }
+    const sep=';';
+    let csv = ['Nom','UPN','Licencié','Desktop','Web','Dernière activité','Report Refresh Date'].join(sep)+'\n';
+    csv += rows.map(r=>[r.nom,r.email,r.licensed?'Oui':'Non',r.desktop?'Oui':'Non',r.web?'Oui':'Non',r.lastActivity,r.refreshDate].join(sep)).join('\n');
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+    a.download=`M365_Visio_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    showToast('✅', 'Export CSV Visio téléchargé');
+    return;
+  }
   const rows=S[S.tab].filtered;
   if (!rows.length){ showToast('⚠️','Aucune donnée à exporter.'); return; }
   const sep=';';
