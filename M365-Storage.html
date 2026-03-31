@@ -13,31 +13,53 @@
   --blue:#2563eb; --red:#ef4444; --orange:#f97316;
   --yellow:#eab308; --green:#22c55e; --purple:#8b5cf6; --radius:6px;
 }
-body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+body {
+  font-family:'Inter',sans-serif; font-size:13px; background:var(--bg);
+  color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden;
+}
 
 /* TOPBAR */
-.topbar { height:44px; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 16px; gap:14px; flex-shrink:0; z-index:10; }
+.topbar {
+  height:44px; background:var(--white); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; padding:0 16px; gap:14px; flex-shrink:0; z-index:10;
+}
 .logo-wrap { display:flex; align-items:center; gap:8px; }
-.logo-icon { width:28px; height:28px; background:var(--blue); border-radius:6px; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:11px; flex-shrink:0; }
 .logo-org  { font-size:11px; color:var(--muted); font-weight:500; }
 .logo-name { font-size:13px; font-weight:700; color:var(--text); }
-.topbar-search { margin-left:16px; background:#f3f4f6; border:1px solid var(--border); border-radius:20px; padding:5px 14px; display:flex; align-items:center; gap:7px; width:260px; }
-.topbar-search input { border:none; background:transparent; font-family:'Inter',sans-serif; font-size:12px; outline:none; color:var(--text); width:100%; }
+.topbar-search {
+  margin-left:16px; background:#f3f4f6; border:1px solid var(--border); border-radius:20px;
+  padding:5px 14px; display:flex; align-items:center; gap:7px; width:260px;
+}
+.topbar-search input {
+  border:none; background:transparent; font-family:'Inter',sans-serif; font-size:12px;
+  outline:none; color:var(--text); width:100%;
+}
 .topbar-right { margin-left:auto; display:flex; align-items:center; gap:10px; }
 .topbar-time { font-size:12px; color:var(--muted); font-weight:500; }
 .topbar-time span { color:var(--blue); font-weight:700; }
-.btn-action { display:flex; align-items:center; gap:6px; border:none; border-radius:20px; padding:6px 14px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:background .15s; }
+.btn-action {
+  display:flex; align-items:center; gap:6px; border:none; border-radius:20px;
+  padding:6px 14px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+  cursor:pointer; transition:background .15s, opacity .15s;
+}
+.btn-action:disabled { opacity:.6; cursor:not-allowed; }
 .btn-blue { background:var(--blue); color:#fff; }
 .btn-blue:hover { background:#1d4ed8; }
 .btn-outline { background:var(--white); color:var(--text); border:1px solid var(--border); }
 .btn-outline:hover { background:#f3f4f6; }
 
 /* SUBTABS */
-.subtabs { height:38px; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 16px; gap:4px; flex-shrink:0; }
-.subtab { display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:20px; font-size:12px; font-weight:600; cursor:pointer; border:none; background:transparent; color:var(--muted); transition:all .15s; }
+.subtabs {
+  height:38px; background:var(--white); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; padding:0 16px; gap:4px; flex-shrink:0;
+}
+.subtab {
+  display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:20px;
+  font-size:12px; font-weight:600; cursor:pointer; border:none; background:transparent;
+  color:var(--muted); transition:all .15s;
+}
 .subtab:hover { background:#f3f4f6; color:var(--text); }
 .subtab.active { background:#eff6ff; color:var(--blue); }
-.subtab .dot { width:8px; height:8px; border-radius:50%; }
 .subtab .cnt { background:#e5e7eb; color:var(--muted); border-radius:10px; padding:1px 7px; font-size:11px; }
 .subtab.active .cnt { background:var(--blue); color:#fff; }
 
@@ -47,8 +69,15 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 /* SIDEBAR */
 .sidebar { width:190px; background:var(--sidebar); flex-shrink:0; overflow-y:auto; padding:10px 0; }
 .sidebar::-webkit-scrollbar { width:0; }
-.sidebar-section { padding:14px 14px 4px; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:#4b5563; }
-.sidebar-item { display:flex; align-items:center; padding:7px 14px; cursor:pointer; gap:8px; color:#9ca3af; font-size:12px; font-weight:500; transition:background .12s; border-left:3px solid transparent; }
+.sidebar-section {
+  padding:14px 14px 4px; font-size:10px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.8px; color:#4b5563;
+}
+.sidebar-item {
+  display:flex; align-items:center; padding:7px 14px; cursor:pointer; gap:8px;
+  color:#9ca3af; font-size:12px; font-weight:500; transition:background .12s;
+  border-left:3px solid transparent;
+}
 .sidebar-item:hover { background:var(--sidebar2); color:#e5e7eb; }
 .sidebar-item.active { background:var(--sidebar2); color:#fff; border-left-color:var(--blue); }
 .sidebar-item .si-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
@@ -57,119 +86,162 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 
 /* MAIN */
 .main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
-.main-header { padding:10px 16px; background:var(--white); border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-shrink:0; }
+.main-header {
+  padding:10px 16px; background:var(--white); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:10px; flex-shrink:0;
+}
 .main-title { font-size:13px; font-weight:600; color:var(--text); }
 .filter-bar { display:flex; align-items:center; gap:8px; margin-left:auto; }
-.filter-bar input { background:#f3f4f6; border:1px solid var(--border); border-radius:20px; padding:5px 12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; width:200px; }
+.filter-bar input {
+  background:#f3f4f6; border:1px solid var(--border); border-radius:20px;
+  padding:5px 12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; width:200px;
+}
 .filter-bar input:focus { border-color:var(--blue); }
-.filter-bar select { background:#f3f4f6; border:1px solid var(--border); border-radius:20px; padding:5px 10px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; cursor:pointer; }
+.filter-bar select {
+  background:#f3f4f6; border:1px solid var(--border); border-radius:20px;
+  padding:5px 10px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; cursor:pointer;
+}
 .cnt-label { font-size:12px; color:var(--muted); white-space:nowrap; }
 
-/* ── DROP ZONE (remplace modale) ── */
-.invite { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:40px; text-align:center; }
-
+/* HOME / INVITE */
+.invite {
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; padding:40px; text-align:center;
+}
 .drop-zone {
-  background:var(--white);
-  border:2px dashed #d1d5db;
-  border-radius:14px;
-  padding:48px 40px;
-  max-width:520px;
-  width:100%;
-  cursor:pointer;
-  transition:all .2s;
-  position:relative;
+  background:var(--white); border:2px dashed #d1d5db; border-radius:14px;
+  padding:48px 40px; max-width:620px; width:100%; transition:all .2s; position:relative;
 }
-.drop-zone:hover { border-color:var(--blue); background:#eff6ff; }
-.drop-zone.drag-over {
-  border-color:var(--blue);
-  background:#eff6ff;
-  transform:scale(1.01);
-  box-shadow:0 0 0 4px rgba(37,99,235,.1);
-}
-.drop-zone.drag-over .dz-icon { transform:scale(1.15) translateY(-4px); }
-
-.dz-icon { font-size:44px; margin-bottom:14px; display:block; transition:transform .2s; }
+.dz-icon { font-size:44px; margin-bottom:14px; display:block; }
 .dz-title { font-size:16px; font-weight:700; margin-bottom:8px; color:var(--text); }
-.dz-sub { font-size:12px; color:var(--muted); line-height:1.7; max-width:360px; margin:0 auto 20px; }
+.dz-sub {
+  font-size:12px; color:var(--muted); line-height:1.7; max-width:430px; margin:0 auto 20px;
+}
 .dz-sub code { background:#f3f4f6; padding:1px 6px; border-radius:4px; font-size:11px; }
-
 .dz-btn {
-  display:inline-flex; align-items:center; gap:7px;
-  padding:8px 22px;
-  background:var(--blue); color:#fff;
-  border:none; border-radius:20px;
+  display:inline-flex; align-items:center; gap:7px; padding:8px 22px;
+  background:var(--blue); color:#fff; border:none; border-radius:20px;
   font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
   cursor:pointer; transition:background .15s;
 }
 .dz-btn:hover { background:#1d4ed8; }
-
 .dz-hint {
-  margin-top:18px;
-  font-size:11px; color:#9ca3af;
-  display:flex; align-items:center; justify-content:center; gap:6px;
+  margin-top:18px; font-size:11px; color:#9ca3af; display:flex; align-items:center;
+  justify-content:center; gap:6px; flex-wrap:wrap;
 }
 .dz-hint-item { display:flex; align-items:center; gap:4px; }
 .dz-sep { color:#d1d5db; }
-
-#file-input { display:none; }
-
-/* Progress bar pendant chargement */
 .dz-progress {
   position:absolute; bottom:0; left:0; right:0; height:3px;
   background:linear-gradient(90deg, var(--blue), #06b6d4);
-  border-radius:0 0 12px 12px;
-  animation:slide .6s ease-in-out;
-  display:none;
+  border-radius:0 0 12px 12px; display:none; overflow:hidden;
 }
-@keyframes slide { from{width:0} to{width:100%} }
+.dz-progress::after {
+  content:""; display:block; width:40%; height:100%;
+  background:rgba(255,255,255,.35); animation:progressMove 1.1s linear infinite;
+}
+@keyframes progressMove {
+  from { transform:translateX(-120%); }
+  to   { transform:translateX(320%); }
+}
 
-/* ── EMPTY / EMPTY STATE ── */
-.empty-state { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--muted); gap:10px; padding:40px; text-align:center; }
-.empty-state .e-icon { font-size:36px; }
+/* SETTINGS */
+.settings-view { flex:1; overflow:auto; padding:20px; display:none; }
+.settings-wrap { max-width:980px; margin:0 auto; }
+.settings-card {
+  background:var(--white); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:16px;
+}
+.settings-title { font-size:16px; font-weight:700; margin-bottom:8px; }
+.settings-sub { font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:18px; }
+.settings-grid {
+  display:grid; grid-template-columns:1fr; gap:14px;
+}
+.field label {
+  display:block; font-size:12px; font-weight:600; margin-bottom:7px; color:var(--text);
+}
+.field input[type="text"], .field textarea {
+  width:100%; background:#f9fafb; border:1px solid var(--border); border-radius:10px;
+  padding:10px 12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none;
+}
+.field input[type="text"]:focus, .field textarea:focus { border-color:var(--blue); background:#fff; }
+.field textarea { min-height:68px; resize:vertical; }
+.settings-actions { display:flex; align-items:center; gap:10px; margin-top:18px; flex-wrap:wrap; }
+.info-box {
+  background:#f9fafb; border:1px solid var(--border); border-radius:10px; padding:12px 14px;
+  font-size:12px; color:var(--muted); line-height:1.7;
+}
+.status-list { display:grid; gap:10px; }
+.status-row {
+  border:1px solid var(--border); border-radius:10px; padding:12px; display:flex; align-items:flex-start; gap:10px; background:#fff;
+}
+.status-badge {
+  display:inline-flex; align-items:center; gap:6px; border-radius:20px; padding:5px 10px; font-size:11px; font-weight:700; white-space:nowrap;
+}
+.badge-neutral { background:#f3f4f6; color:#6b7280; }
+.badge-ok      { background:#dcfce7; color:#15803d; }
+.badge-warn    { background:#fff7ed; color:#c2410c; }
+.badge-err     { background:#fee2e2; color:#b91c1c; }
+.status-body { min-width:0; }
+.status-name { font-size:12px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.status-msg  { font-size:12px; color:var(--muted); line-height:1.5; word-break:break-word; }
 
 /* ITEMS */
-.items-wrap { flex:1; overflow-y:auto; }
+.items-wrap { flex:1; overflow-y:auto; display:none; }
 .items-wrap::-webkit-scrollbar { width:6px; }
 .items-wrap::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:99px; }
-
-.item-row { background:var(--white); border-bottom:1px solid var(--border); padding:11px 16px; display:flex; align-items:center; gap:12px; transition:background .1s; }
+.item-row {
+  background:var(--white); border-bottom:1px solid var(--border); padding:11px 16px; display:flex; align-items:center; gap:12px;
+  transition:background .1s;
+}
 .item-row:hover { background:#f9fafb; }
-.item-tags { display:flex; gap:4px; flex-shrink:0; }
-.tag { display:inline-flex; align-items:center; padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700; letter-spacing:.3px; text-transform:uppercase; white-space:nowrap; }
+.item-tags { display:flex; gap:4px; flex-shrink:0; flex-wrap:wrap; }
+.tag {
+  display:inline-flex; align-items:center; padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700;
+  letter-spacing:.3px; text-transform:uppercase; white-space:nowrap;
+}
 .tag-crit { background:#fee2e2; color:#dc2626; }
 .tag-warn { background:#ffedd5; color:#ea580c; }
 .tag-attn { background:#fef9c3; color:#ca8a04; }
 .tag-ok   { background:#dcfce7; color:#16a34a; }
-.tag-od    { background:#dbeafe; color:#2563eb; }
-.tag-ex    { background:#e0e7ff; color:#4338ca; }
-.tag-visio { background:#fce7f3; color:#be185d; }
-.tag-type  { background:#ede9fe; color:#7c3aed; }
+.tag-od   { background:#dbeafe; color:#2563eb; }
+.tag-ex   { background:#e0e7ff; color:#4338ca; }
+.tag-visio{ background:#fce7f3; color:#be185d; }
+.tag-type { background:#ede9fe; color:#7c3aed; }
 
-/* VISIO items */
 .platform-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:4px; font-size:10px; font-weight:600; }
 .pb-desktop { background:#dbeafe; color:#1d4ed8; }
 .pb-web     { background:#d1fae5; color:#065f46; }
 .pb-none    { background:#f3f4f6; color:#9ca3af; }
-.visio-licensed { width:80px; flex-shrink:0; font-size:11px; text-align:center; }
 
 .item-body { flex:1; min-width:0; }
 .item-name  { font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
 .item-email { font-size:11px; color:var(--muted); }
-
 .item-pbar-wrap { width:160px; flex-shrink:0; display:flex; align-items:center; gap:8px; }
 .item-pbar { flex:1; height:5px; background:#e5e7eb; border-radius:99px; overflow:hidden; }
 .item-pbar-fill { height:100%; border-radius:99px; }
 .item-pct { font-size:11px; font-weight:700; min-width:38px; text-align:right; }
-
 .item-sizes { width:170px; flex-shrink:0; font-size:11px; color:var(--muted); text-align:right; }
 .item-sizes strong { color:var(--text); font-weight:600; }
-.item-date  { width:100px; flex-shrink:0; font-size:11px; color:var(--muted); text-align:right; }
+.item-date  { width:120px; flex-shrink:0; font-size:11px; color:var(--muted); text-align:right; }
+
+/* EMPTY */
+.empty-state {
+  flex:1; display:none; flex-direction:column; align-items:center; justify-content:center; color:var(--muted);
+  gap:10px; padding:40px; text-align:center;
+}
+.empty-state .e-icon { font-size:36px; }
 
 /* STAT PANEL */
-.statpanel { width:200px; background:var(--white); border-left:1px solid var(--border); flex-shrink:0; padding:14px; overflow-y:auto; }
+.statpanel {
+  width:250px; background:var(--white); border-left:1px solid var(--border); flex-shrink:0; padding:14px; overflow-y:auto;
+}
 .statpanel::-webkit-scrollbar { width:0; }
-.sp-title { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:12px; }
-.sp-row   { display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f3f4f6; font-size:12px; }
+.sp-title {
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:12px;
+}
+.sp-row {
+  display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f3f4f6; font-size:12px;
+}
 .sp-row:last-child { border-bottom:none; }
 .sp-label { color:var(--muted); display:flex; align-items:center; gap:6px; }
 .sp-dot   { width:8px; height:8px; border-radius:50%; }
@@ -182,26 +254,30 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
 
 /* TOAST */
 .toast {
-  position:fixed; bottom:20px; right:20px;
-  background:#1e2433; color:#e5e7eb;
-  border-radius:8px; padding:10px 16px;
-  font-size:12px; font-weight:500;
-  display:flex; align-items:center; gap:8px;
-  transform:translateY(60px); opacity:0;
-  transition:all .25s cubic-bezier(.16,1,.3,1);
-  z-index:999; box-shadow:0 4px 20px rgba(0,0,0,.3);
-  max-width:320px;
+  position:fixed; bottom:20px; right:20px; background:#1e2433; color:#e5e7eb;
+  border-radius:8px; padding:10px 16px; font-size:12px; font-weight:500;
+  display:flex; align-items:center; gap:8px; transform:translateY(60px); opacity:0;
+  transition:all .25s cubic-bezier(.16,1,.3,1); z-index:999; box-shadow:0 4px 20px rgba(0,0,0,.3);
+  max-width:420px;
 }
 .toast.show { transform:translateY(0); opacity:1; }
+
+@media (max-width:1200px){
+  .statpanel { display:none; }
+}
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="logo-wrap">
     <div style="width:32px;height:32px;background:#1a7f4b;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
     </div>
     <div>
       <div class="logo-org">Réseau</div>
@@ -213,39 +289,55 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
       <div class="logo-org">Référent</div>
     </div>
   </div>
+
   <div class="topbar-search">
     <span style="color:#9ca3af">🔍</span>
     <input type="text" id="global-search" placeholder="Rechercher dans les données..." oninput="onGlobalSearch()">
   </div>
+
   <div class="topbar-right">
     <div class="topbar-time"><span id="clock"></span></div>
     <button class="btn-action btn-outline" onclick="exportCSV()">⬇ Export CSV</button>
-    <button class="btn-action btn-blue" onclick="triggerFile()">📂 Charger un CSV</button>
+    <button class="btn-action btn-blue" id="btn-load-all" onclick="loadAllData()">☁️ Charger les données</button>
   </div>
 </div>
 
-<!-- SUBTABS -->
 <div class="subtabs">
   <button class="subtab active" id="stab-od" onclick="switchTab('od')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14.5 10.5C15.8 7.8 18.6 6 21.8 6.5C23.1 8 23.8 9.9 23.8 12c0 .2 0 .4-.01.6H21.5l-7-2.1z" fill="#0364B8"/><path d="M9.1 11.2C9.9 9.1 11.8 7.6 14.1 7.5c.14 0 .28.01.41.02L14.5 10.5l-5.4.7z" fill="#0078D4"/><path d="M2 17.5C2 14.46 4.46 12 7.5 12c.55 0 1.08.08 1.58.22L9.1 11.2 14.5 10.5l7 2.1-.01.4H2.2L2 17.5z" fill="#1490DF"/><path d="M2.2 13H23.79C23.93 13.32 24 13.65 24 14c0 2.21-1.79 4-4 4H4c-1.1 0-2-.9-2-2 0-.34.09-.67.2-.97z" fill="#28A8E0"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M14.5 10.5C15.8 7.8 18.6 6 21.8 6.5C23.1 8 23.8 9.9 23.8 12c0 .2 0 .4-.01.6H21.5l-7-2.1z" fill="#0364B8"/>
+      <path d="M9.1 11.2C9.9 9.1 11.8 7.6 14.1 7.5c.14 0 .28.01.41.02L14.5 10.5l-5.4.7z" fill="#0078D4"/>
+      <path d="M2 17.5C2 14.46 4.46 12 7.5 12c.55 0 1.08.08 1.58.22L9.1 11.2 14.5 10.5l7 2.1-.01.4H2.2L2 17.5z" fill="#1490DF"/>
+      <path d="M2.2 13H23.79C23.93 13.32 24 13.65 24 14c0 2.21-1.79 4-4 4H4c-1.1 0-2-.9-2-2 0-.34.09-.67.2-.97z" fill="#28A8E0"/>
+    </svg>
     OneDrive <span class="cnt" id="stab-od-cnt">0</span>
   </button>
+
   <button class="subtab" id="stab-ex" onclick="switchTab('ex')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="13" height="16" rx="2" fill="#0078D4"/><path d="M8.5 8C6.57 8 5 9.57 5 11.5S6.57 15 8.5 15 12 13.43 12 11.5 10.43 8 8.5 8zm0 5C7.67 13 7 12.33 7 11.5S7.67 10 8.5 10s1.5.67 1.5 1.5S9.33 13 8.5 13z" fill="white"/><rect x="13" y="6" width="9" height="12" rx="1" fill="#0078D4"/><path d="M13 8l4.5 3.5L22 8" stroke="white" stroke-width="1.2" fill="none"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="4" width="13" height="16" rx="2" fill="#0078D4"/>
+      <path d="M8.5 8C6.57 8 5 9.57 5 11.5S6.57 15 8.5 15 12 13.43 12 11.5 10.43 8 8.5 8zm0 5C7.67 13 7 12.33 7 11.5S7.67 10 8.5 10s1.5.67 1.5 1.5S9.33 13 8.5 13z" fill="white"/>
+      <rect x="13" y="6" width="9" height="12" rx="1" fill="#0078D4"/>
+      <path d="M13 8l4.5 3.5L22 8" stroke="white" stroke-width="1.2" fill="none"/>
+    </svg>
     Exchange / Outlook <span class="cnt" id="stab-ex-cnt">0</span>
   </button>
+
   <button class="subtab" id="stab-visio" onclick="switchTab('visio')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="2" fill="#3955a3"/><path d="M6 7l4 8 4-8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="18" cy="7" r="2" fill="white"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="3" width="20" height="18" rx="2" fill="#3955a3"/>
+      <path d="M6 7l4 8 4-8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="18" cy="7" r="2" fill="white"/>
+    </svg>
     Visio <span class="cnt" id="stab-visio-cnt">0</span>
   </button>
+
+  <button class="subtab" id="stab-settings" onclick="switchTab('settings')">⚙️ Paramétrage</button>
 </div>
 
-<!-- LAYOUT -->
 <div class="layout">
 
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <!-- Priorité / Activité selon onglet -->
+  <div class="sidebar" id="sidebar">
     <div id="sidebar-priority-section">
       <div class="sidebar-section">Priorité</div>
       <div class="sidebar-item active" onclick="setSideFilter('all')" id="sf-all">
@@ -270,7 +362,6 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
       </div>
     </div>
 
-    <!-- Section Visio (masquée par défaut) -->
     <div id="sidebar-visio-section" style="display:none">
       <div class="sidebar-section">Activité</div>
       <div class="sidebar-item active" onclick="setSideFilter('all')" id="vsf-all">
@@ -296,13 +387,12 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
     </div>
 
     <div class="sidebar-section" style="margin-top:8px">Tri</div>
-    <div class="sidebar-item" onclick="setSort('pct-desc')"   id="sort-pct">  <span>📊</span> Usage % ↓</div>
-    <div class="sidebar-item" onclick="setSort('nom-asc')"    id="sort-nom">  <span>🔤</span> Nom A→Z</div>
-    <div class="sidebar-item" onclick="setSort('used-desc')"  id="sort-used"> <span>💾</span> Espace utilisé</div>
-    <div class="sidebar-item" onclick="setSort('date-desc')"  id="sort-date"> <span>📅</span> Dernière activité</div>
+    <div class="sidebar-item" onclick="setSort('pct-desc')" id="sort-pct"><span>📊</span> Usage % ↓</div>
+    <div class="sidebar-item" onclick="setSort('nom-asc')" id="sort-nom"><span>🔤</span> Nom A→Z</div>
+    <div class="sidebar-item" onclick="setSort('used-desc')" id="sort-used"><span>💾</span> Espace utilisé</div>
+    <div class="sidebar-item" onclick="setSort('date-desc')" id="sort-date"><span>📅</span> Dernière activité</div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
     <div class="main-header" id="main-hdr" style="display:none">
       <div class="main-title" id="main-title">Toutes les entrées</div>
@@ -317,69 +407,135 @@ body { font-family:'Inter',sans-serif; font-size:13px; background:var(--bg); col
           <option value="date-desc">Dernière activité ↓</option>
         </select>
         <span class="cnt-label" id="cnt-label"></span>
-        <button class="btn-action btn-outline" style="font-size:11px;padding:4px 10px" onclick="resetData()">↺ Nouveau fichier</button>
+        <button class="btn-action btn-outline" style="font-size:11px;padding:4px 10px" onclick="loadAllData()">↻ Recharger</button>
       </div>
     </div>
 
     <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
 
-      <!-- DROP ZONE -->
       <div class="invite" id="invite-wrap">
-        <div class="drop-zone" id="drop-zone"
-             ondragover="handleDragOver(event)"
-             ondragleave="handleDragLeave(event)"
-             ondrop="handleDrop(event)">
-
-          <span class="dz-icon" id="dz-icon">📂</span>
-          <div class="dz-title" id="dz-title">Glisser le fichier CSV ici</div>
-          <div class="dz-sub" id="dz-sub">
-            Export depuis <strong>M365 Admin Center → Stockage → OneDrive</strong><br>
-            ou <strong>Exchange</strong> ou <strong>Rapports → Utilisation → Visio</strong>.<br>
-            Formats acceptés : <code>.csv</code> <code>.txt</code>
+        <div class="drop-zone">
+          <span class="dz-icon">☁️</span>
+          <div class="dz-title">Charger les données depuis SharePoint</div>
+          <div class="dz-sub">
+            Le bouton <strong>Charger les données</strong> tente de lire les 3 CSV SharePoint
+            configurés dans <strong>Paramétrage</strong>, puis injecte les données dans les onglets
+            <code>OneDrive</code>, <code>Exchange</code> et <code>Visio</code>.
           </div>
-          <button class="dz-btn" onclick="triggerFile()">
-            📁 Parcourir un fichier
-          </button>
+          <button class="dz-btn" onclick="loadAllData()">☁️ Charger les données</button>
           <div class="dz-hint">
-            <span class="dz-hint-item">✓ UTF-8 / BOM</span>
+            <span class="dz-hint-item">✓ 3 sources chargées d’un coup</span>
             <span class="dz-sep">·</span>
-            <span class="dz-hint-item">✓ Virgule · Point-virgule · Tab</span>
+            <span class="dz-hint-item">✓ Session M365 requise</span>
             <span class="dz-sep">·</span>
-            <span class="dz-hint-item">✓ Bytes bruts</span>
+            <span class="dz-hint-item">✓ Détail d’erreur par source</span>
           </div>
           <div class="dz-progress" id="dz-progress"></div>
         </div>
-        <input type="file" id="file-input" accept=".csv,.txt" onchange="handleFileInput(event)">
       </div>
 
-      <!-- Liste -->
-      <div class="items-wrap" id="items-wrap" style="display:none">
+      <div class="settings-view" id="settings-view">
+        <div class="settings-wrap">
+
+          <div class="settings-card">
+            <div class="settings-title">Sources SharePoint par défaut</div>
+            <div class="settings-sub">
+              Ces URLs sont préremplies par défaut, mais restent modifiables. Le bouton
+              <strong>Charger les données</strong> lit les 3 sources d’un coup.
+            </div>
+
+            <div class="settings-grid">
+              <div class="field">
+                <label for="url-od">OneDrive</label>
+                <textarea id="url-od"></textarea>
+              </div>
+              <div class="field">
+                <label for="url-ex">Exchange / Outlook</label>
+                <textarea id="url-ex"></textarea>
+              </div>
+              <div class="field">
+                <label for="url-visio">Visio</label>
+                <textarea id="url-visio"></textarea>
+              </div>
+            </div>
+
+            <div class="settings-actions">
+              <button class="btn-action btn-blue" onclick="saveSettings()">💾 Enregistrer</button>
+              <button class="btn-action btn-outline" onclick="restoreDefaults()">↺ Valeurs par défaut</button>
+              <button class="btn-action btn-outline" onclick="loadAllData()">☁️ Charger les données</button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-title">État des sources</div>
+            <div class="settings-sub">
+              Après un chargement, cette zone indique pour chaque source : succès, accès refusé,
+              fichier introuvable, réponse HTML au lieu d’un CSV, ou contenu vide.
+            </div>
+            <div id="settings-status" class="status-list"></div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-title">Rappel technique</div>
+            <div class="info-box">
+              - La page tente une lecture réelle du fichier CSV.<br>
+              - Si la session M365 du navigateur n’autorise pas l’accès, la source échoue.<br>
+              - Si SharePoint renvoie une page HTML au lieu du CSV, la source est refusée avec le motif correspondant.<br>
+              - Les URLs doivent pointer vers le fichier CSV lui-même.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="items-wrap" id="items-wrap">
         <div id="items-list"></div>
       </div>
 
-      <!-- Empty -->
-      <div class="empty-state" id="empty-state" style="display:none">
+      <div class="empty-state" id="empty-state">
         <div class="e-icon">📭</div>
         <p>Aucun résultat pour cette recherche.</p>
       </div>
     </div>
   </div>
 
-  <!-- STAT PANEL -->
   <div class="statpanel">
     <div class="sp-title">📊 Statistiques</div>
-    <div id="sp-content"><div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Chargez un fichier CSV<br>pour voir les stats</div></div>
+    <div id="sp-content">
+      <div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">
+        Chargez les données<br>pour voir les stats
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast">
   <span id="toast-icon">✅</span>
   <span id="toast-msg"></span>
 </div>
 
 <script>
-// ── État global ───────────────────────────────
+/* ─────────────────────────────────────────────
+   Configuration
+───────────────────────────────────────────── */
+const DEFAULT_URLS = {
+  od: 'https://canope.sharepoint.com/:x:/r/sites/PledecomptencesCSSD-StockageCSSD/Documents%20partages/Stockage%20CSSD/Doc%20technique-orga/Ressources%20Support/M365/Export%20OneDrive-Exchange-Visio/ONEDRIVE/OneDrive_LargestAccounts_3_10_2026,%209_57_16%20AM.csv?d=w5f2057d74d0e4591a96f3031f68ea1b6&csf=1&web=1&e=fg5Pnh',
+  ex: 'https://canope.sharepoint.com/:x:/r/sites/PledecomptencesCSSD-StockageCSSD/Documents%20partages/Stockage%20CSSD/Doc%20technique-orga/Ressources%20Support/M365/Export%20OneDrive-Exchange-Visio/OUTLOOK/Exchange_LargestMailboxes_3_10_2026,%201_40_12%20AM.csv?d=weedce3f82e8c4b73b459cd3dd82eb44f&csf=1&web=1&e=UIdi85',
+  visio: 'https://canope.sharepoint.com/:x:/r/sites/PledecomptencesCSSD-StockageCSSD/Documents%20partages/Stockage%20CSSD/Doc%20technique-orga/Ressources%20Support/M365/Export%20OneDrive-Exchange-Visio/VISIO%20PRO/VisioUserDetail3_11_2026%208_18_27%20AM.csv?d=w0c91f53071c24cf484b6abb2d85e7d18&csf=1&web=1&e=XIuU4M'
+};
+
+const STORAGE_KEYS = {
+  od: 'storageM365_url_od',
+  ex: 'storageM365_url_ex',
+  visio: 'storageM365_url_visio'
+};
+
+const TAB_LABELS = {
+  od: 'OneDrive',
+  ex: 'Exchange / Outlook',
+  visio: 'Visio'
+};
+
 const S = {
   tab: 'od',
   od:    { raw:[], filtered:[] },
@@ -387,50 +543,329 @@ const S = {
   visio: { raw:[], filtered:[] },
   sideFilter: 'all',
   sortKey: 'pct-desc',
-  search: ''
+  search: '',
+  loading: false,
+  status: {
+    od: { state:'neutral', message:'Non chargé' },
+    ex: { state:'neutral', message:'Non chargé' },
+    visio: { state:'neutral', message:'Non chargé' }
+  }
 };
 
-// ── Horloge ───────────────────────────────────
-setInterval(()=>{
-  const t = new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+/* ─────────────────────────────────────────────
+   Horloge
+───────────────────────────────────────────── */
+setInterval(() => {
+  const t = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
   document.getElementById('clock').textContent = t;
 }, 1000);
-document.getElementById('clock').textContent = new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+document.getElementById('clock').textContent = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
 
-// ── Drag & Drop ───────────────────────────────
-function handleDragOver(e) {
-  e.preventDefault();
-  document.getElementById('drop-zone').classList.add('drag-over');
-}
-function handleDragLeave(e) {
-  document.getElementById('drop-zone').classList.remove('drag-over');
-}
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('drop-zone').classList.remove('drag-over');
-  const files = e.dataTransfer.files;
-  if (files.length > 0) processFile(files[0]);
-}
-function triggerFile() {
-  document.getElementById('file-input').click();
-}
-function handleFileInput(e) {
-  if (e.target.files.length > 0) processFile(e.target.files[0]);
-  e.target.value = ''; // reset pour permettre recharge du même fichier
+/* ─────────────────────────────────────────────
+   Init
+───────────────────────────────────────────── */
+initApp();
+
+function initApp() {
+  ensureDefaultSettings();
+  fillSettingsForm();
+  renderSettingsStatus();
+  updateLayoutByTab();
+  showInvite();
 }
 
-// ── Parser Visio ──────────────────────────────
+function ensureDefaultSettings() {
+  if (!localStorage.getItem(STORAGE_KEYS.od)) localStorage.setItem(STORAGE_KEYS.od, DEFAULT_URLS.od);
+  if (!localStorage.getItem(STORAGE_KEYS.ex)) localStorage.setItem(STORAGE_KEYS.ex, DEFAULT_URLS.ex);
+  if (!localStorage.getItem(STORAGE_KEYS.visio)) localStorage.setItem(STORAGE_KEYS.visio, DEFAULT_URLS.visio);
+}
+
+function fillSettingsForm() {
+  document.getElementById('url-od').value = localStorage.getItem(STORAGE_KEYS.od) || DEFAULT_URLS.od;
+  document.getElementById('url-ex').value = localStorage.getItem(STORAGE_KEYS.ex) || DEFAULT_URLS.ex;
+  document.getElementById('url-visio').value = localStorage.getItem(STORAGE_KEYS.visio) || DEFAULT_URLS.visio;
+}
+
+function saveSettings() {
+  localStorage.setItem(STORAGE_KEYS.od, document.getElementById('url-od').value.trim());
+  localStorage.setItem(STORAGE_KEYS.ex, document.getElementById('url-ex').value.trim());
+  localStorage.setItem(STORAGE_KEYS.visio, document.getElementById('url-visio').value.trim());
+  renderSettingsStatus();
+  showToast('✅', 'Paramétrage enregistré');
+}
+
+function restoreDefaults() {
+  localStorage.setItem(STORAGE_KEYS.od, DEFAULT_URLS.od);
+  localStorage.setItem(STORAGE_KEYS.ex, DEFAULT_URLS.ex);
+  localStorage.setItem(STORAGE_KEYS.visio, DEFAULT_URLS.visio);
+  fillSettingsForm();
+  renderSettingsStatus();
+  showToast('✅', 'Valeurs par défaut restaurées');
+}
+
+function getConfiguredUrl(key) {
+  return (localStorage.getItem(STORAGE_KEYS[key]) || '').trim();
+}
+
+/* ─────────────────────────────────────────────
+   Chargement global
+───────────────────────────────────────────── */
+async function loadAllData() {
+  if (S.loading) return;
+
+  saveSettings();
+  setLoadingState(true);
+
+  S.status.od = { state:'neutral', message:'Lecture en cours...' };
+  S.status.ex = { state:'neutral', message:'Lecture en cours...' };
+  S.status.visio = { state:'neutral', message:'Lecture en cours...' };
+  renderSettingsStatus();
+
+  const results = await Promise.all([
+    loadSingleSource('od'),
+    loadSingleSource('ex'),
+    loadSingleSource('visio')
+  ]);
+
+  setLoadingState(false);
+
+  results.forEach(result => {
+    S.status[result.key] = {
+      state: result.ok ? 'ok' : 'err',
+      message: result.message
+    };
+  });
+  renderSettingsStatus();
+
+  updateSubtabCounts();
+
+  const successCount = results.filter(r => r.ok).length;
+  if (successCount > 0) {
+    if (S.tab === 'settings') S.tab = firstLoadedTab() || 'od';
+    switchTab(S.tab);
+    updateStats();
+    updateSideCounts();
+  } else {
+    showInvite();
+    document.getElementById('sp-content').innerHTML =
+      '<div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Aucune source chargée</div>';
+  }
+
+  if (successCount === 3) {
+    showToast('✅', 'Les 3 sources ont été chargées');
+  } else if (successCount > 0) {
+    showToast('⚠️', successCount + ' source(s) chargée(s), voir le détail dans Paramétrage');
+  } else {
+    showToast('❌', 'Aucune source n’a pu être chargée');
+  }
+}
+
+function setLoadingState(isLoading) {
+  S.loading = isLoading;
+  const btn = document.getElementById('btn-load-all');
+  btn.disabled = isLoading;
+  btn.innerHTML = isLoading ? '⏳ Chargement...' : '☁️ Charger les données';
+  document.getElementById('dz-progress').style.display = isLoading ? 'block' : 'none';
+}
+
+async function loadSingleSource(key) {
+  const sourceUrl = getConfiguredUrl(key);
+  if (!sourceUrl) {
+    S[key].raw = [];
+    S[key].filtered = [];
+    return {
+      key,
+      ok: false,
+      message: 'URL absente'
+    };
+  }
+
+  try {
+    const text = await fetchCsvWithFallback(sourceUrl);
+    const parsed = parseByKey(text, key);
+
+    if (!parsed.length) {
+      S[key].raw = [];
+      S[key].filtered = [];
+      return {
+        key,
+        ok: false,
+        message: 'Contenu vide ou aucun enregistrement reconnu'
+      };
+    }
+
+    S[key].raw = parsed;
+    S[key].filtered = parsed.slice();
+
+    return {
+      key,
+      ok: true,
+      message: parsed.length + ' entrée(s) chargée(s)'
+    };
+  } catch (err) {
+    S[key].raw = [];
+    S[key].filtered = [];
+    return {
+      key,
+      ok: false,
+      message: normalizeFetchError(err)
+    };
+  }
+}
+
+async function fetchCsvWithFallback(rawUrl) {
+  const candidates = buildCandidateUrls(rawUrl);
+  let lastErr = new Error('Impossible de lire le CSV');
+
+  for (const candidate of candidates) {
+    try {
+      const response = await fetch(candidate, {
+        method: 'GET',
+        credentials: 'include',
+        redirect: 'follow',
+        cache: 'no-store'
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error('Accès refusé');
+      }
+      if (response.status === 404) {
+        throw new Error('Fichier introuvable');
+      }
+      if (!response.ok) {
+        throw new Error('Réponse HTTP ' + response.status);
+      }
+
+      const contentType = (response.headers.get('content-type') || '').toLowerCase();
+      const text = await response.text();
+
+      if (!text || !text.trim()) {
+        throw new Error('Contenu vide');
+      }
+      if (looksLikeHtmlResponse(text, contentType)) {
+        throw new Error('Réponse HTML au lieu d’un CSV');
+      }
+
+      return text;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+
+  throw lastErr;
+}
+
+function buildCandidateUrls(rawUrl) {
+  const list = [];
+  const add = u => { if (u && !list.includes(u)) list.push(u); };
+
+  add(rawUrl);
+
+  try {
+    const u = new URL(rawUrl);
+
+    const d1 = new URL(u.toString());
+    d1.searchParams.set('download', '1');
+    add(d1.toString());
+
+    const d2 = new URL(u.toString());
+    d2.searchParams.delete('web');
+    d2.searchParams.set('download', '1');
+    add(d2.toString());
+
+    const d3 = new URL(u.toString());
+    d3.searchParams.set('web', '0');
+    add(d3.toString());
+
+    const d4 = new URL(u.toString());
+    d4.searchParams.set('web', '0');
+    d4.searchParams.set('download', '1');
+    add(d4.toString());
+  } catch (_) {}
+
+  return list;
+}
+
+function looksLikeHtmlResponse(text, contentType) {
+  const t = (text || '').slice(0, 2500).toLowerCase();
+  return contentType.includes('text/html') ||
+         t.includes('<html') ||
+         t.includes('<!doctype html') ||
+         t.includes('sign in') ||
+         t.includes('se connecter') ||
+         t.includes('sharepoint') && t.includes('<body') ||
+         t.includes('microsoft') && t.includes('login');
+}
+
+function normalizeFetchError(err) {
+  const msg = (err && err.message ? err.message : 'Erreur inconnue').toLowerCase();
+
+  if (msg.includes('accès refusé')) return 'Accès refusé';
+  if (msg.includes('fichier introuvable')) return 'Fichier introuvable';
+  if (msg.includes('html')) return 'Réponse HTML au lieu d’un CSV';
+  if (msg.includes('vide')) return 'Contenu vide';
+  if (msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('load failed')) {
+    return 'Échec réseau ou blocage navigateur/CORS';
+  }
+  if (msg.includes('http 401') || msg.includes('http 403')) return 'Accès refusé';
+  if (msg.includes('http 404')) return 'Fichier introuvable';
+
+  return err && err.message ? err.message : 'Erreur inconnue';
+}
+
+function parseByKey(text, key) {
+  if (key === 'visio') return parseVisioCSV(text);
+  return smartParse(text, key);
+}
+
+function firstLoadedTab() {
+  if (S.od.raw.length) return 'od';
+  if (S.ex.raw.length) return 'ex';
+  if (S.visio.raw.length) return 'visio';
+  return null;
+}
+
+/* ─────────────────────────────────────────────
+   Paramétrage : rendu état
+───────────────────────────────────────────── */
+function renderSettingsStatus() {
+  const box = document.getElementById('settings-status');
+  const html = ['od','ex','visio'].map(key => {
+    const st = S.status[key];
+    const badgeClass = st.state === 'ok' ? 'badge-ok'
+                     : st.state === 'err' ? 'badge-err'
+                     : st.state === 'warn' ? 'badge-warn'
+                     : 'badge-neutral';
+    const badgeText = st.state === 'ok' ? 'OK'
+                    : st.state === 'err' ? 'Erreur'
+                    : st.state === 'warn' ? 'Alerte'
+                    : 'En attente';
+
+    return `
+      <div class="status-row">
+        <div><span class="status-badge ${badgeClass}">${badgeText}</span></div>
+        <div class="status-body">
+          <div class="status-name">${TAB_LABELS[key]}</div>
+          <div class="status-msg">${esc(st.message)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  box.innerHTML = html;
+}
+
+/* ─────────────────────────────────────────────
+   Parsing Visio
+───────────────────────────────────────────── */
 function parseVisioCSV(text) {
-  text = text.replace(/^\uFEFF/,'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
-  const lines = text.split('\n').filter(l=>l.trim());
+  text = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const lines = text.split('\n').filter(l => l.trim());
   if (lines.length < 2) return [];
 
   const sep = detectSep(lines[0]);
   const header = splitLine(lines[0], sep).map(h => h.toLowerCase().trim()
     .replace(/\s+/g,'').replace(/[^a-z]/g,''));
 
-  // Colonnes : reportrefreshdate, userprincipalname, displayname, lastactivitydate,
-  //            isvisiolincensed (typo M365), reportperiod, desktop, web
   const iRefresh  = findIdx(header, ['reportrefreshdate','refreshdate']);
   const iUpn      = findIdx(header, ['userprincipalname','upn','email','mail']);
   const iName     = findIdx(header, ['displayname','name','nom']);
@@ -441,119 +876,52 @@ function parseVisioCSV(text) {
   const iWeb      = findIdx(header, ['web']);
 
   const results = [];
-  for (let i=1; i<lines.length; i++) {
+  for (let i = 1; i < lines.length; i++) {
     const cols = splitLine(lines[i], sep);
     if (cols.length < 2) continue;
     const get = idx => idx >= 0 && idx < cols.length ? cols[idx].trim() : '';
 
-    const email       = get(iUpn);
+    const email = get(iUpn);
     if (!email || !email.includes('@')) continue;
-    const nom         = get(iName) || email.split('@')[0];
-    const lastActivity= get(iLastAct);
+
+    const nom = get(iName) || email.split('@')[0];
+    const lastActivity = get(iLastAct);
     const refreshDate = get(iRefresh);
-    const licensed    = /true|yes|oui|1/i.test(get(iLicensed));
-    const period      = get(iPeriod);
-    // Desktop / Web : valeurs "Yes"/"No" ou "1"/"0" ou nombre de jours
-    const desktopRaw  = get(iDesktop);
-    const webRaw      = get(iWeb);
-    const desktop     = /true|yes|oui/i.test(desktopRaw) || (parseInt(desktopRaw)||0) > 0;
-    const web         = /true|yes|oui/i.test(webRaw)     || (parseInt(webRaw)||0) > 0;
+    const licensed = /true|yes|oui|1/i.test(get(iLicensed));
+    const period = get(iPeriod);
+    const desktopRaw = get(iDesktop);
+    const webRaw = get(iWeb);
+    const desktop = /true|yes|oui/i.test(desktopRaw) || (parseInt(desktopRaw, 10) || 0) > 0;
+    const web = /true|yes|oui/i.test(webRaw) || (parseInt(webRaw, 10) || 0) > 0;
 
     results.push({ nom, email, licensed, desktop, web, lastActivity, refreshDate, period });
   }
   return results;
 }
 
-// ── Lecture fichier ───────────────────────────
-function processFile(file) {
-  if (!file.name.match(/\.(csv|txt)$/i)) {
-    showToast('❌', 'Format non supporté. Utilisez un fichier .csv');
-    return;
-  }
-
-  // Afficher progress
-  const prog = document.getElementById('dz-progress');
-  prog.style.display = 'block';
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    prog.style.display = 'none';
-    let text = e.target.result;
-    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
-
-    const tab = detectTabFromName(file.name);
-
-    // Détecter Visio aussi par contenu (colonnes Desktop/Web/IsVisio)
-    const isVisioContent = /isvisio|desktop.*web|reportrefreshdate.*userprincipal/i.test(text.split('\n')[0]||'');
-    const finalTab = (tab === 'visio' || isVisioContent) ? 'visio' : tab;
-
-    let rows;
-    if (finalTab === 'visio') {
-      rows = parseVisioCSV(text);
-    } else {
-      rows = smartParse(text, finalTab);
-    }
-
-    if (!rows.length) {
-      showToast('❌', 'Aucun compte reconnu. Vérifiez le fichier CSV.');
-      return;
-    }
-
-    S[finalTab].raw = rows;
-    document.getElementById('stab-' + finalTab + '-cnt').textContent = rows.length;
-
-    S.tab = finalTab;
-    S.sideFilter = 'all';
-    ['od','ex','visio'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===finalTab));
-
-    const isVisio = finalTab === 'visio';
-    document.getElementById('sidebar-priority-section').style.display = isVisio ? 'none' : '';
-    document.getElementById('sidebar-visio-section').style.display    = isVisio ? ''     : 'none';
-    document.getElementById('sort-pct').style.display  = isVisio ? 'none' : '';
-    document.getElementById('sort-used').style.display = isVisio ? 'none' : '';
-    document.getElementById('sort-date').style.display = isVisio ? ''     : 'none';
-
-    setSidebarActive(isVisio ? 'vsf-all' : 'sf-all');
-    applyFilters();
-    showData();
-    updateStats();
-    updateSideCounts();
-    showToast('✅', rows.length + ' entrées chargées — ' + file.name);
-  };
-  reader.onerror = () => { prog.style.display='none'; showToast('❌','Erreur de lecture du fichier.'); };
-  reader.readAsText(file, 'UTF-8');
-}
-
-function detectTabFromName(name) {
-  const n = name.toLowerCase();
-  if (n.includes('visio')) return 'visio';
-  if (n.includes('exchange') || n.includes('outlook') || n.includes('mailbox') || n.includes('ex_')) return 'ex';
-  return 'od';
-}
-
-// ── Reset ─────────────────────────────────────
-function resetData() {
-  showInvite();
-}
-
-// ── Parser universel ──────────────────────────
+/* ─────────────────────────────────────────────
+   Parsing universel OneDrive / Exchange
+───────────────────────────────────────────── */
 function smartParse(text, type) {
-  text = text.replace(/^\uFEFF/,'').replace(/\r\n/g,'\n').replace(/\r/g,'\n');
+  text = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
   const isPortalFormat = text.includes('sharepoint.com/personal/')
     || /,\d{9,},/.test(text)
     || /"\d{9,}"/.test(text);
+
   if (isPortalFormat) return parsePortalBlocks(text, type);
 
-  const lines = text.split('\n').filter(l=>l.trim());
+  const lines = text.split('\n').filter(l => l.trim());
+  if (!lines.length) return [];
+
   const sep = detectSep(lines[0]);
   const allCols = lines.map(l => splitLine(l, sep));
-  const maxCols = Math.max(...allCols.map(c=>c.length));
+  const maxCols = Math.max(...allCols.map(c => c.length));
 
   if (maxCols <= 2) return parsePortalBlocks(text, type);
 
-  const header = allCols[0].map(h=>h.toLowerCase());
-  const dataLines = allCols.slice(1).filter(c=>c.length>1);
+  const header = allCols[0].map(h => h.toLowerCase());
+  const dataLines = allCols.slice(1).filter(c => c.length > 1);
 
   const idx = {
     nom:   findIdx(header, ['nom','name','display','propriétaire principal','primary owner']),
@@ -565,18 +933,20 @@ function smartParse(text, type) {
   };
 
   const hasHeader = idx.nom >= 0 || idx.email >= 0 || idx.used >= 0;
-  const dataRows  = hasHeader ? dataLines : allCols;
+  const dataRows = hasHeader ? dataLines : allCols;
 
   return dataRows.map(cols => {
-    const get = i => (i>=0 && i<cols.length) ? cols[i] : '';
-    const nom   = idx.nom   >= 0 ? get(idx.nom)   : guessName(cols);
-    const email = idx.email >= 0 ? get(idx.email)  : guessEmail(cols);
+    const get = i => (i >= 0 && i < cols.length) ? cols[i] : '';
+    const nom = idx.nom >= 0 ? get(idx.nom) : guessName(cols);
+    const email = idx.email >= 0 ? get(idx.email) : guessEmail(cols);
     if (!nom && !email) return null;
-    const used  = parseSize(idx.used  >= 0 ? get(idx.used)  : guessSize(cols, 0));
-    const limit = parseSize(idx.limit >= 0 ? get(idx.limit) : guessSize(cols, 1)) || (type==='od'?200:50);
-    const date  = idx.date  >= 0 ? get(idx.date)  : guessDate(cols);
-    const tp    = idx.type  >= 0 ? get(idx.type)  : '';
-    const pct   = limit > 0 ? Math.round(used/limit*1000)/10 : 0;
+
+    const used = parseSize(idx.used >= 0 ? get(idx.used) : guessSize(cols, 0));
+    const limit = parseSize(idx.limit >= 0 ? get(idx.limit) : guessSize(cols, 1)) || (type === 'od' ? 200 : 50);
+    const date = idx.date >= 0 ? get(idx.date) : guessDate(cols);
+    const tp = idx.type >= 0 ? get(idx.type) : '';
+    const pct = limit > 0 ? Math.round(used / limit * 1000) / 10 : 0;
+
     return { nom, email, used, limit, pct, date, type: tp };
   }).filter(Boolean);
 }
@@ -585,158 +955,229 @@ function parsePortalBlocks(text, type) {
   const records = [];
   let joined = '';
   let inQuote = false;
-  for (let i=0; i<text.length; i++) {
+
+  for (let i = 0; i < text.length; i++) {
     const c = text[i];
-    if (c==='"') inQuote = !inQuote;
-    if (c==='\n' && !inQuote) { joined += '|ROWSEP|'; }
-    else { joined += c; }
+    if (c === '"') inQuote = !inQuote;
+    if (c === '\n' && !inQuote) joined += '|ROWSEP|';
+    else joined += c;
   }
-  const rows = joined.split('|ROWSEP|').filter(r=>r.trim());
+
+  const rows = joined.split('|ROWSEP|').filter(r => r.trim());
 
   for (const row of rows) {
     const cols = splitLine(row.trim(), detectSep(row));
     if (cols.length < 3) continue;
-    const url   = cols.find(c => c.includes('sharepoint.com/personal/')) || '';
+
     const email = cols.find(c => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim())) || '';
     const nom = cols.find(c => {
       const v = c.trim();
-      return v.length > 2 && !v.includes('sharepoint.com') && !v.includes('@')
-        && !/^\d+$/.test(v) && !/^\d{1,2}\/\d{1,2}\/\d{4}/.test(v)
-        && !['normal','warning','full','active'].includes(v.toLowerCase());
+      return v.length > 2 &&
+             !v.includes('sharepoint.com') &&
+             !v.includes('@') &&
+             !/^\d+$/.test(v) &&
+             !/^\d{1,2}\/\d{1,2}\/\d{4}/.test(v) &&
+             !['normal','warning','full','active'].includes(v.toLowerCase());
     }) || '';
-    const numbers = cols.filter(c => /^\d{4,}$/.test(c.trim())).map(c=>parseInt(c.trim()));
-    const usedBytes  = numbers.length > 0 ? numbers[0] : 0;
-    const limitBytes = numbers.length > 1 ? numbers[1] : (type==='od' ? 214748364800 : 53687091200);
-    const used  = Math.round(usedBytes  / 1073741824 * 100) / 100;
-    const limit = Math.round(limitBytes / 1073741824 * 10)  / 10;
+
+    const numbers = cols.filter(c => /^\d{4,}$/.test(c.trim())).map(c => parseInt(c.trim(), 10));
+    const usedBytes = numbers.length > 0 ? numbers[0] : 0;
+    const limitBytes = numbers.length > 1 ? numbers[1] : (type === 'od' ? 214748364800 : 53687091200);
+    const used = Math.round(usedBytes / 1073741824 * 100) / 100;
+    const limit = Math.round(limitBytes / 1073741824 * 10) / 10;
     const dates = cols.filter(c => /\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()));
-    const date  = dates.length > 0 ? dates[dates.length-1] : '';
-    const etat  = cols.find(c => ['normal','warning','full'].includes(c.trim().toLowerCase())) || '';
+    const date = dates.length > 0 ? dates[dates.length - 1] : '';
+    const etat = cols.find(c => ['normal','warning','full'].includes(c.trim().toLowerCase())) || '';
+
     if (!nom && !email) continue;
-    const pct = limit > 0 ? Math.round(used/limit*1000)/10 : 0;
-    records.push({ nom, email, used: Math.round(used*10)/10, limit: Math.round(limit*10)/10, pct, date, type: etat });
+    const pct = limit > 0 ? Math.round(used / limit * 1000) / 10 : 0;
+    records.push({ nom, email, used: Math.round(used * 10) / 10, limit: Math.round(limit * 10) / 10, pct, date, type: etat });
   }
+
   return records;
 }
 
-// ── Helpers ───────────────────────────────────
+/* ─────────────────────────────────────────────
+   Helpers
+───────────────────────────────────────────── */
 function detectSep(line) {
   if (!line) return '\t';
-  const tabs    = (line.match(/\t/g)||[]).length;
-  const semicol = (line.match(/;/g)||[]).length;
-  const comma   = (line.match(/,/g)||[]).length;
+  const tabs = (line.match(/\t/g) || []).length;
+  const semicol = (line.match(/;/g) || []).length;
+  const comma = (line.match(/,/g) || []).length;
   if (tabs >= semicol && tabs >= comma) return '\t';
   if (semicol >= comma) return ';';
   return ',';
 }
+
 function splitLine(line, sep) {
-  const cols=[]; let cur=''; let inQ=false;
-  for (let i=0; i<line.length; i++) {
-    const c=line[i];
-    if (c==='"') { inQ=!inQ; }
-    else if (c===sep && !inQ) { cols.push(cur.trim()); cur=''; }
-    else { cur+=c; }
+  const cols = [];
+  let cur = '';
+  let inQ = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') inQ = !inQ;
+    else if (c === sep && !inQ) { cols.push(cur.trim()); cur = ''; }
+    else cur += c;
   }
   cols.push(cur.trim());
-  return cols.map(c=>c.replace(/^"|"$/g,'').trim());
+
+  return cols.map(c => c.replace(/^"|"$/g, '').trim());
 }
+
 function findIdx(header, kws) {
   for (const kw of kws) {
-    const i = header.findIndex(h=>h.includes(kw));
-    if (i>=0) return i;
+    const i = header.findIndex(h => h.includes(kw));
+    if (i >= 0) return i;
   }
   return -1;
 }
+
 function parseSize(str) {
   if (!str) return 0;
-  str = str.replace(/\s/g,'').replace(',','.');
+  str = String(str).replace(/\s/g,'').replace(',','.');
   const m = str.match(/([\d.]+)\s*(TB|GB|Go|To|MB|Mo|KB|Ko)?/i);
   if (!m) return 0;
-  const v=parseFloat(m[1]), u=(m[2]||'').toUpperCase();
+  const v = parseFloat(m[1]);
+  const u = (m[2] || '').toUpperCase();
   let gb = 0;
-  if (u==='TB'||u==='TO')      gb = v*1024;
-  else if (u==='GB'||u==='GO') gb = v;
-  else if (u==='MB'||u==='MO') gb = v/1024;
-  else if (u==='KB'||u==='KO') gb = v/1048576;
-  else if (v>1e9)               gb = v/1073741824;
-  else if (v>1e6)               gb = v/1048576/1024;
-  else                          gb = v;
-  return Math.round(gb*10)/10;
-}
-function guessEmail(cols) { return cols.find(c=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim()))||''; }
-function guessName(cols)  {
-  return cols.find(c=>{
-    const v=c.trim();
-    return v.length>2 && !v.includes('@') && !v.includes('/') && !/^\d+$/.test(v) && !/^\d{1,2}\//.test(v);
-  })||'';
-}
-function guessSize(cols, nth) {
-  const nums = cols.filter(c=>/^\d{4,}$/.test(c.trim()));
-  return nums[nth]||'0';
-}
-function guessDate(cols) {
-  return cols.find(c=>/\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()))||'';
+  if (u === 'TB' || u === 'TO')      gb = v * 1024;
+  else if (u === 'GB' || u === 'GO') gb = v;
+  else if (u === 'MB' || u === 'MO') gb = v / 1024;
+  else if (u === 'KB' || u === 'KO') gb = v / 1048576;
+  else if (v > 1e9)                  gb = v / 1073741824;
+  else if (v > 1e6)                  gb = v / 1048576 / 1024;
+  else                               gb = v;
+  return Math.round(gb * 10) / 10;
 }
 
-// ── Niveaux ───────────────────────────────────
+function guessEmail(cols) {
+  return cols.find(c => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim())) || '';
+}
+
+function guessName(cols) {
+  return cols.find(c => {
+    const v = c.trim();
+    return v.length > 2 && !v.includes('@') && !v.includes('/') && !/^\d+$/.test(v) && !/^\d{1,2}\//.test(v);
+  }) || '';
+}
+
+function guessSize(cols, nth) {
+  const nums = cols.filter(c => /^\d{4,}$/.test(c.trim()));
+  return nums[nth] || '0';
+}
+
+function guessDate(cols) {
+  return cols.find(c => /\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim())) || '';
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ─────────────────────────────────────────────
+   Niveaux
+───────────────────────────────────────────── */
 const levelLabel = { crit:'Critique', warn:'Alerte', attn:'Attention', ok:'Normal' };
 const levelColor = { crit:'#ef4444', warn:'#f97316', attn:'#eab308', ok:'#22c55e' };
 const levelTag   = { crit:'tag-crit', warn:'tag-warn', attn:'tag-attn', ok:'tag-ok' };
+
 function getLevel(pct) {
-  if (pct>=90) return 'crit';
-  if (pct>=75) return 'warn';
-  if (pct>=50) return 'attn';
+  if (pct >= 90) return 'crit';
+  if (pct >= 75) return 'warn';
+  if (pct >= 50) return 'attn';
   return 'ok';
 }
 
-// ── Affichage ─────────────────────────────────
-function showInvite() {
-  document.getElementById('invite-wrap').style.display  = '';
-  document.getElementById('items-wrap').style.display   = 'none';
-  document.getElementById('empty-state').style.display  = 'none';
-  document.getElementById('main-hdr').style.display     = 'none';
-}
-function showData() {
-  document.getElementById('invite-wrap').style.display  = 'none';
-  document.getElementById('main-hdr').style.display     = '';
-  renderItems();
-}
+/* ─────────────────────────────────────────────
+   Navigation / affichage
+───────────────────────────────────────────── */
+function switchTab(t) {
+  S.tab = t;
+  S.sideFilter = 'all';
+  S.search = '';
+  document.getElementById('search-bar').value = '';
+  document.getElementById('global-search').value = '';
+  updateSubtabsActive(t);
+  updateLayoutByTab();
 
-function applyFilters() {
-  S.search  = (document.getElementById('search-bar').value || '').toLowerCase();
-  S.sortKey = document.getElementById('sort-sel').value;
-  const t   = S.tab;
-
-  if (t === 'visio') {
-    let rows = [...S.visio.raw];
-    if (S.sideFilter === 'desktop')  rows = rows.filter(r => r.desktop);
-    else if (S.sideFilter === 'web') rows = rows.filter(r => r.web);
-    else if (S.sideFilter === 'licensed') rows = rows.filter(r => r.licensed);
-    else if (S.sideFilter === 'inactive') rows = rows.filter(r => !r.desktop && !r.web);
-    if (S.search) rows = rows.filter(r => r.nom.toLowerCase().includes(S.search) || r.email.toLowerCase().includes(S.search));
-    rows.sort((a,b) => {
-      if (S.sortKey === 'nom-asc')  return a.nom.localeCompare(b.nom);
-      if (S.sortKey === 'nom-desc') return b.nom.localeCompare(a.nom);
-      if (S.sortKey === 'date-desc') return (b.lastActivity||'').localeCompare(a.lastActivity||'');
-      return a.nom.localeCompare(b.nom);
-    });
-    S.visio.filtered = rows;
-    renderItems();
+  if (t === 'settings') {
+    showSettings();
     return;
   }
 
-  let rows  = [...S[t].raw];
-  if (S.sideFilter!=='all') rows = rows.filter(r=>getLevel(r.pct)===S.sideFilter);
-  if (S.search) rows = rows.filter(r=>r.nom.toLowerCase().includes(S.search)||r.email.toLowerCase().includes(S.search));
-  const [key,dir] = S.sortKey.split('-');
-  rows.sort((a,b)=>{
-    const va = key==='nom'?a.nom : key==='used'?a.used : a.pct;
-    const vb = key==='nom'?b.nom : key==='used'?b.used : b.pct;
-    if (typeof va==='string') return dir==='asc'?va.localeCompare(vb):vb.localeCompare(va);
-    return dir==='asc'?va-vb:vb-va;
+  if (S[t].raw.length) {
+    applyFilters();
+    showData();
+    updateStats();
+    updateSideCounts();
+  } else if (hasAnyData()) {
+    showEmptyForNoData(t);
+    updateStats();
+    updateSideCounts();
+  } else {
+    showInvite();
+  }
+}
+
+function updateSubtabsActive(active) {
+  ['od','ex','visio','settings'].forEach(id => {
+    document.getElementById('stab-' + id).classList.toggle('active', id === active);
   });
-  S[t].filtered = rows;
-  renderItems();
+}
+
+function updateLayoutByTab() {
+  const isSettings = S.tab === 'settings';
+  const isVisio = S.tab === 'visio';
+
+  document.getElementById('sidebar').style.display = isSettings ? 'none' : '';
+  document.getElementById('main-hdr').style.display = isSettings ? 'none' : (hasAnyData() ? '' : 'none');
+
+  if (!isSettings) {
+    document.getElementById('sidebar-priority-section').style.display = isVisio ? 'none' : '';
+    document.getElementById('sidebar-visio-section').style.display = isVisio ? '' : 'none';
+    document.getElementById('sort-pct').style.display = isVisio ? 'none' : '';
+    document.getElementById('sort-used').style.display = isVisio ? 'none' : '';
+    document.getElementById('sort-date').style.display = isVisio ? '' : 'none';
+    setSidebarActive(isVisio ? 'vsf-all' : 'sf-all');
+  }
+}
+
+function hasAnyData() {
+  return S.od.raw.length || S.ex.raw.length || S.visio.raw.length;
+}
+
+function showInvite() {
+  document.getElementById('invite-wrap').style.display = '';
+  document.getElementById('settings-view').style.display = 'none';
+  document.getElementById('items-wrap').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('main-hdr').style.display = 'none';
+}
+
+function showSettings() {
+  document.getElementById('invite-wrap').style.display = 'none';
+  document.getElementById('settings-view').style.display = '';
+  document.getElementById('items-wrap').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+}
+
+function showData() {
+  document.getElementById('invite-wrap').style.display = 'none';
+  document.getElementById('settings-view').style.display = 'none';
+  document.getElementById('items-wrap').style.display = '';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('main-hdr').style.display = '';
+}
+
+function showEmptyForNoData(tab) {
+  document.getElementById('invite-wrap').style.display = 'none';
+  document.getElementById('settings-view').style.display = 'none';
+  document.getElementById('items-wrap').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'flex';
+  document.getElementById('main-hdr').style.display = '';
+  document.querySelector('#empty-state p').textContent = 'Aucune donnée chargée pour l’onglet ' + TAB_LABELS[tab] + '.';
 }
 
 function onGlobalSearch() {
@@ -745,56 +1186,104 @@ function onGlobalSearch() {
 }
 
 function setSideFilter(f) {
-  S.sideFilter=f;
+  S.sideFilter = f;
   const isVisio = S.tab === 'visio';
   setSidebarActive((isVisio ? 'vsf-' : 'sf-') + f);
   applyFilters();
 }
+
 function setSidebarActive(id) {
-  document.querySelectorAll('.sidebar-item[id^="sf-"], .sidebar-item[id^="vsf-"]').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.sidebar-item[id^="sf-"], .sidebar-item[id^="vsf-"]').forEach(el => el.classList.remove('active'));
   const el = document.getElementById(id);
   if (el) el.classList.add('active');
 }
+
 function setSort(k) {
   document.getElementById('sort-sel').value = k;
   applyFilters();
 }
 
-function switchTab(t) {
-  S.tab = t; S.sideFilter='all'; S.search='';
-  document.getElementById('search-bar').value='';
-  document.getElementById('global-search').value='';
-  ['od','ex','visio'].forEach(id => document.getElementById('stab-'+id).classList.toggle('active', id===t));
+function applyFilters() {
+  if (S.tab === 'settings') return;
 
-  // Sidebar : basculer section priorité / Visio
-  const isVisio = t === 'visio';
-  document.getElementById('sidebar-priority-section').style.display = isVisio ? 'none' : '';
-  document.getElementById('sidebar-visio-section').style.display    = isVisio ? ''     : 'none';
-  // Masquer tri par usage/espace pour Visio
-  document.getElementById('sort-pct').style.display  = isVisio ? 'none' : '';
-  document.getElementById('sort-used').style.display = isVisio ? 'none' : '';
-  document.getElementById('sort-date').style.display = isVisio ? ''     : 'none';
+  S.search = (document.getElementById('search-bar').value || '').toLowerCase();
+  S.sortKey = document.getElementById('sort-sel').value;
 
-  setSidebarActive(isVisio ? 'vsf-all' : 'sf-all');
-  if (S[t].raw.length) { applyFilters(); showData(); }
-  else { showInvite(); }
-  updateSideCounts();
+  const t = S.tab;
+  if (t === 'visio') {
+    let rows = [...S.visio.raw];
+    if (S.sideFilter === 'desktop') rows = rows.filter(r => r.desktop);
+    else if (S.sideFilter === 'web') rows = rows.filter(r => r.web);
+    else if (S.sideFilter === 'licensed') rows = rows.filter(r => r.licensed);
+    else if (S.sideFilter === 'inactive') rows = rows.filter(r => !r.desktop && !r.web);
+
+    if (S.search) {
+      rows = rows.filter(r =>
+        (r.nom || '').toLowerCase().includes(S.search) ||
+        (r.email || '').toLowerCase().includes(S.search)
+      );
+    }
+
+    rows.sort((a, b) => {
+      if (S.sortKey === 'nom-asc') return (a.nom || '').localeCompare(b.nom || '');
+      if (S.sortKey === 'nom-desc') return (b.nom || '').localeCompare(a.nom || '');
+      if (S.sortKey === 'date-desc') return (b.lastActivity || '').localeCompare(a.lastActivity || '');
+      return (a.nom || '').localeCompare(b.nom || '');
+    });
+
+    S.visio.filtered = rows;
+    renderItems();
+    return;
+  }
+
+  let rows = [...S[t].raw];
+  if (S.sideFilter !== 'all') rows = rows.filter(r => getLevel(r.pct) === S.sideFilter);
+
+  if (S.search) {
+    rows = rows.filter(r =>
+      (r.nom || '').toLowerCase().includes(S.search) ||
+      (r.email || '').toLowerCase().includes(S.search)
+    );
+  }
+
+  const [key, dir] = S.sortKey.split('-');
+  rows.sort((a, b) => {
+    const va = key === 'nom' ? (a.nom || '') : key === 'used' ? a.used : key === 'date' ? (a.date || '') : a.pct;
+    const vb = key === 'nom' ? (b.nom || '') : key === 'used' ? b.used : key === 'date' ? (b.date || '') : b.pct;
+
+    if (typeof va === 'string' || typeof vb === 'string') {
+      return dir === 'asc' ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+    }
+    return dir === 'asc' ? va - vb : vb - va;
+  });
+
+  S[t].filtered = rows;
+  renderItems();
 }
 
 function renderItems() {
   const isVisio = S.tab === 'visio';
   const rows = isVisio ? S.visio.filtered : S[S.tab].filtered;
   const rawLen = isVisio ? S.visio.raw.length : S[S.tab].raw.length;
+
   const list = document.getElementById('items-list');
   const wrap = document.getElementById('items-wrap');
-  const empty= document.getElementById('empty-state');
+  const empty = document.getElementById('empty-state');
+
   document.getElementById('cnt-label').textContent = `${rows.length} / ${rawLen} entrées`;
   document.getElementById('main-title').textContent = isVisio
     ? 'Utilisation Visio'
-    : (S.sideFilter==='all' ? 'Toutes les entrées' : levelLabel[S.sideFilter]);
+    : (S.sideFilter === 'all' ? 'Toutes les entrées' : levelLabel[S.sideFilter]);
 
-  if (!rows.length) { wrap.style.display='none'; empty.style.display='flex'; return; }
-  empty.style.display='none'; wrap.style.display='';
+  if (!rows.length) {
+    wrap.style.display = 'none';
+    empty.style.display = 'flex';
+    document.querySelector('#empty-state p').textContent = 'Aucun résultat pour cette recherche.';
+    return;
+  }
+
+  empty.style.display = 'none';
+  wrap.style.display = '';
 
   if (isVisio) {
     list.innerHTML = rows.map(r => {
@@ -807,60 +1296,106 @@ function renderItems() {
       const licTag = r.licensed
         ? `<span class="tag" style="background:#ede9fe;color:#7c3aed">✓ Licencié</span>`
         : `<span class="tag" style="background:#f3f4f6;color:#9ca3af">Non licencié</span>`;
-      return `<div class="item-row">
-        <div class="item-tags"><span class="tag tag-visio">VISIO</span>${licTag}</div>
-        <div class="item-body">
-          <div class="item-name">${esc(r.nom)||'—'}</div>
-          <div class="item-email">${esc(r.email)||'—'}</div>
+
+      return `
+        <div class="item-row">
+          <div class="item-tags"><span class="tag tag-visio">VISIO</span>${licTag}</div>
+          <div class="item-body">
+            <div class="item-name">${esc(r.nom) || '—'}</div>
+            <div class="item-email">${esc(r.email) || '—'}</div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0">${deskBadge}${webBadge}</div>
+          <div class="item-date">${esc(r.lastActivity) || '—'}</div>
+          <div class="item-date">${esc(r.refreshDate) || '—'}</div>
         </div>
-        <div style="display:flex;gap:6px;flex-shrink:0">${deskBadge}${webBadge}</div>
-        <div class="item-date" style="width:120px">${esc(r.lastActivity)||'—'}</div>
-        <div class="item-date">${esc(r.refreshDate)||'—'}</div>
-      </div>`;
+      `;
     }).join('');
     return;
   }
 
-  const tabTag = `<span class="tag ${S.tab==='od'?'tag-od':'tag-ex'}">${S.tab==='od'?'OD':'EX'}</span>`;
-  list.innerHTML = rows.map(r=>{
-    const lvl    = getLevel(r.pct);
-    const color  = levelColor[lvl];
-    const pctCap = Math.min(r.pct,100);
-    const fmtGo = v => v < 1 ? (v*1024).toFixed(0)+' Mo' : v < 10 ? v.toFixed(2)+' Go' : v.toFixed(1)+' Go';
-    const usedFmt  = r.used  ? fmtGo(r.used)  : '—';
+  const tabTag = `<span class="tag ${S.tab === 'od' ? 'tag-od' : 'tag-ex'}">${S.tab === 'od' ? 'OD' : 'EX'}</span>`;
+  list.innerHTML = rows.map(r => {
+    const lvl = getLevel(r.pct);
+    const color = levelColor[lvl];
+    const pctCap = Math.min(r.pct, 100);
+    const fmtGo = v => v < 1 ? (v * 1024).toFixed(0) + ' Mo' : v < 10 ? v.toFixed(2) + ' Go' : v.toFixed(1) + ' Go';
+    const usedFmt = r.used ? fmtGo(r.used) : '—';
     const limitFmt = r.limit ? fmtGo(r.limit) : '—';
-    const typeTag  = r.type ? `<span class="tag tag-type">${esc(r.type)}</span>` : '';
-    return `<div class="item-row">
-      <div class="item-tags">${tabTag}<span class="tag ${levelTag[lvl]}">${levelLabel[lvl]}</span>${typeTag}</div>
-      <div class="item-body">
-        <div class="item-name">${esc(r.nom)||'—'}</div>
-        <div class="item-email">${esc(r.email)||'—'}</div>
+    const typeTag = r.type ? `<span class="tag tag-type">${esc(r.type)}</span>` : '';
+
+    return `
+      <div class="item-row">
+        <div class="item-tags">${tabTag}<span class="tag ${levelTag[lvl]}">${levelLabel[lvl]}</span>${typeTag}</div>
+        <div class="item-body">
+          <div class="item-name">${esc(r.nom) || '—'}</div>
+          <div class="item-email">${esc(r.email) || '—'}</div>
+        </div>
+        <div class="item-pbar-wrap">
+          <div class="item-pbar"><div class="item-pbar-fill" style="width:${pctCap}%;background:${color}"></div></div>
+          <span class="item-pct" style="color:${color}">${r.pct}%</span>
+        </div>
+        <div class="item-sizes"><strong>${usedFmt}</strong> / ${limitFmt}</div>
+        <div class="item-date">${esc(r.date) || '—'}</div>
       </div>
-      <div class="item-pbar-wrap">
-        <div class="item-pbar"><div class="item-pbar-fill" style="width:${pctCap}%;background:${color}"></div></div>
-        <span class="item-pct" style="color:${color}">${r.pct}%</span>
-      </div>
-      <div class="item-sizes"><strong>${usedFmt}</strong> / ${limitFmt}</div>
-      <div class="item-date">${esc(r.date)||'—'}</div>
-    </div>`;
+    `;
   }).join('');
 }
 
-function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function updateSubtabCounts() {
+  document.getElementById('stab-od-cnt').textContent = S.od.raw.length;
+  document.getElementById('stab-ex-cnt').textContent = S.ex.raw.length;
+  document.getElementById('stab-visio-cnt').textContent = S.visio.raw.length;
+}
 
-// ── Stats panel ───────────────────────────────
+function updateSideCounts() {
+  if (S.tab === 'visio') {
+    const rows = S.visio.raw;
+    document.getElementById('vsf-all-cnt').textContent = rows.length;
+    document.getElementById('vsf-desktop-cnt').textContent = rows.filter(r => r.desktop).length;
+    document.getElementById('vsf-web-cnt').textContent = rows.filter(r => r.web).length;
+    document.getElementById('vsf-licensed-cnt').textContent = rows.filter(r => r.licensed).length;
+    document.getElementById('vsf-inactive-cnt').textContent = rows.filter(r => !r.desktop && !r.web).length;
+    return;
+  }
+
+  const rows = S[S.tab].raw;
+  ['all','crit','warn','attn','ok'].forEach(f => {
+    document.getElementById('sf-' + f + '-cnt').textContent =
+      f === 'all' ? rows.length : rows.filter(r => getLevel(r.pct) === f).length;
+  });
+}
+
+/* ─────────────────────────────────────────────
+   Statistiques
+───────────────────────────────────────────── */
 function updateStats() {
   const t = S.tab;
+
+  if (t === 'settings') {
+    const okCount = ['od','ex','visio'].filter(k => S.status[k].state === 'ok').length;
+    const errCount = ['od','ex','visio'].filter(k => S.status[k].state === 'err').length;
+    document.getElementById('sp-content').innerHTML = `
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Sources OK</span><span class="sp-val blue">${okCount}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#ef4444"></span>Sources en erreur</span><span class="sp-val red">${errCount}</span></div>
+    `;
+    return;
+  }
+
   if (t === 'visio') {
     const rows = S.visio.raw;
-    if (!rows.length) return;
-    const total    = rows.length;
-    const licensed = rows.filter(r=>r.licensed).length;
-    const desktop  = rows.filter(r=>r.desktop).length;
-    const web      = rows.filter(r=>r.web).length;
-    const both     = rows.filter(r=>r.desktop && r.web).length;
-    const inactive = rows.filter(r=>!r.desktop && !r.web).length;
-    document.getElementById('sp-content').innerHTML=`
+    if (!rows.length) {
+      document.getElementById('sp-content').innerHTML = '<div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Aucune donnée Visio</div>';
+      return;
+    }
+
+    const total = rows.length;
+    const licensed = rows.filter(r => r.licensed).length;
+    const desktop = rows.filter(r => r.desktop).length;
+    const web = rows.filter(r => r.web).length;
+    const both = rows.filter(r => r.desktop && r.web).length;
+    const inactive = rows.filter(r => !r.desktop && !r.web).length;
+
+    document.getElementById('sp-content').innerHTML = `
       <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Total</span><span class="sp-val blue">${total}</span></div>
       <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#8b5cf6"></span>Licenciés</span><span class="sp-val" style="color:#7c3aed">${licensed}</span></div>
       <div class="sp-divider"></div>
@@ -869,19 +1404,28 @@ function updateStats() {
       <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#0891b2"></span>Desktop+Web</span><span class="sp-val" style="color:#0891b2">${both}</span></div>
       <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#9ca3af"></span>Inactifs</span><span class="sp-val" style="color:#6b7280">${inactive}</span></div>
       <div class="sp-divider"></div>
-      <div class="sp-row"><span class="sp-label">Taux actifs</span><span class="sp-val">${total ? Math.round((total-inactive)/total*100) : 0}%</span></div>`;
+      <div class="sp-row"><span class="sp-label">Taux actifs</span><span class="sp-val">${total ? Math.round((total - inactive) / total * 100) : 0}%</span></div>
+    `;
     return;
   }
+
   const rows = S[t].raw;
-  if (!rows.length) return;
-  const total=rows.length, crit=rows.filter(r=>r.pct>=90).length,
-        warn=rows.filter(r=>r.pct>=75&&r.pct<90).length,
-        attn=rows.filter(r=>r.pct>=50&&r.pct<75).length,
-        ok=rows.filter(r=>r.pct<50).length,
-        avg=Math.round(rows.reduce((s,r)=>s+r.pct,0)/total*10)/10,
-        totalUsed=rows.reduce((s,r)=>s+r.used,0),
-        maxR=rows.reduce((m,r)=>r.pct>m.pct?r:m,{pct:0,nom:'—',email:''});
-  document.getElementById('sp-content').innerHTML=`
+  if (!rows.length) {
+    document.getElementById('sp-content').innerHTML =
+      `<div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Aucune donnée ${TAB_LABELS[t]}</div>`;
+    return;
+  }
+
+  const total = rows.length;
+  const crit = rows.filter(r => r.pct >= 90).length;
+  const warn = rows.filter(r => r.pct >= 75 && r.pct < 90).length;
+  const attn = rows.filter(r => r.pct >= 50 && r.pct < 75).length;
+  const ok = rows.filter(r => r.pct < 50).length;
+  const avg = Math.round(rows.reduce((s, r) => s + r.pct, 0) / total * 10) / 10;
+  const totalUsed = rows.reduce((s, r) => s + r.used, 0);
+  const maxR = rows.reduce((m, r) => r.pct > m.pct ? r : m, { pct:0, nom:'—', email:'' });
+
+  document.getElementById('sp-content').innerHTML = `
     <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Total</span><span class="sp-val blue">${total}</span></div>
     <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#ef4444"></span>Critique</span><span class="sp-val red">${crit}</span></div>
     <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#f97316"></span>Alerte</span><span class="sp-val orange">${warn}</span></div>
@@ -894,69 +1438,1600 @@ function updateStats() {
     <div class="sp-title" style="margin-top:0">🔴 Plus chargé</div>
     <div style="font-size:12px;font-weight:600;color:#1a1d23;margin-bottom:2px">${esc(maxR.nom)}</div>
     <div style="font-size:11px;color:#6b7280">${esc(maxR.email)}</div>
-    <div style="font-size:13px;font-weight:700;color:#ef4444;margin-top:4px">${maxR.pct}%</div>`;
+    <div style="font-size:13px;font-weight:700;color:#ef4444;margin-top:4px">${maxR.pct}%</div>
+  `;
+}
+
+/* ─────────────────────────────────────────────
+   Export
+───────────────────────────────────────────── */
+function exportCSV() {
+  if (S.tab === 'settings') {
+    showToast('⚠️', 'L’export CSV n’est pas disponible sur l’onglet Paramétrage');
+    return;
+  }
+
+  if (S.tab === 'visio') {
+    const rows = S.visio.filtered;
+    if (!rows.length) {
+      showToast('⚠️', 'Aucune donnée à exporter');
+      return;
+    }
+
+    const sep = ';';
+    let csv = ['Nom','UPN','Licencié','Desktop','Web','Dernière activité','Report Refresh Date'].join(sep) + '\n';
+    csv += rows.map(r => [
+      r.nom,
+      r.email,
+      r.licensed ? 'Oui' : 'Non',
+      r.desktop ? 'Oui' : 'Non',
+      r.web ? 'Oui' : 'Non',
+      r.lastActivity,
+      r.refreshDate
+    ].join(sep)).join('\n');
+
+    downloadCsv(csv, `M365_Visio_${new Date().toISOString().slice(0,10)}.csv`);
+    showToast('✅', 'Export CSV Visio téléchargé');
+    return;
+  }
+
+  const rows = S[S.tab].filtered;
+  if (!rows.length) {
+    showToast('⚠️', 'Aucune donnée à exporter');
+    return;
+  }
+
+  const sep = ';';
+  let csv = ['Nom','Email','Utilisé (Go)','Limite (Go)','Usage %','Niveau','Dernière activité'].join(sep) + '\n';
+  csv += rows.map(r => [
+    r.nom,
+    r.email,
+    r.used.toFixed(2),
+    r.limit.toFixed(2),
+    r.pct,
+    levelLabel[getLevel(r.pct)],
+    r.date
+  ].join(sep)).join('\n');
+
+  downloadCsv(csv, `M365_${S.tab === 'od' ? 'OneDrive' : 'Exchange'}_${new Date().toISOString().slice(0,10)}.csv`);
+  showToast('✅', 'Export CSV téléchargé');
+}
+
+function downloadCsv(csv, filename) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8' }));
+  a.download = filename;
+  a.click();
+}
+
+/* ─────────────────────────────────────────────
+   Toast
+───────────────────────────────────────────── */
+function showToast(icon, msg) {
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storage M365</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+:root {
+  --bg:#f0f2f5; --white:#fff; --sidebar:#1e2433; --sidebar2:#252b3b;
+  --border:#e2e6ea; --text:#1a1d23; --muted:#6b7280;
+  --blue:#2563eb; --red:#ef4444; --orange:#f97316;
+  --yellow:#eab308; --green:#22c55e; --purple:#8b5cf6; --radius:6px;
+}
+body {
+  font-family:'Inter',sans-serif; font-size:13px; background:var(--bg);
+  color:var(--text); height:100vh; display:flex; flex-direction:column; overflow:hidden;
+}
+
+/* TOPBAR */
+.topbar {
+  height:44px; background:var(--white); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; padding:0 16px; gap:14px; flex-shrink:0; z-index:10;
+}
+.logo-wrap { display:flex; align-items:center; gap:8px; }
+.logo-org  { font-size:11px; color:var(--muted); font-weight:500; }
+.logo-name { font-size:13px; font-weight:700; color:var(--text); }
+.topbar-search {
+  margin-left:16px; background:#f3f4f6; border:1px solid var(--border); border-radius:20px;
+  padding:5px 14px; display:flex; align-items:center; gap:7px; width:260px;
+}
+.topbar-search input {
+  border:none; background:transparent; font-family:'Inter',sans-serif; font-size:12px;
+  outline:none; color:var(--text); width:100%;
+}
+.topbar-right { margin-left:auto; display:flex; align-items:center; gap:10px; }
+.topbar-time { font-size:12px; color:var(--muted); font-weight:500; }
+.topbar-time span { color:var(--blue); font-weight:700; }
+.btn-action {
+  display:flex; align-items:center; gap:6px; border:none; border-radius:20px;
+  padding:6px 14px; font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+  cursor:pointer; transition:background .15s, opacity .15s;
+}
+.btn-action:disabled { opacity:.6; cursor:not-allowed; }
+.btn-blue { background:var(--blue); color:#fff; }
+.btn-blue:hover { background:#1d4ed8; }
+.btn-outline { background:var(--white); color:var(--text); border:1px solid var(--border); }
+.btn-outline:hover { background:#f3f4f6; }
+
+/* SUBTABS */
+.subtabs {
+  height:38px; background:var(--white); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; padding:0 16px; gap:4px; flex-shrink:0;
+}
+.subtab {
+  display:flex; align-items:center; gap:6px; padding:6px 14px; border-radius:20px;
+  font-size:12px; font-weight:600; cursor:pointer; border:none; background:transparent;
+  color:var(--muted); transition:all .15s;
+}
+.subtab:hover { background:#f3f4f6; color:var(--text); }
+.subtab.active { background:#eff6ff; color:var(--blue); }
+.subtab .cnt { background:#e5e7eb; color:var(--muted); border-radius:10px; padding:1px 7px; font-size:11px; }
+.subtab.active .cnt { background:var(--blue); color:#fff; }
+
+/* LAYOUT */
+.layout { display:flex; flex:1; overflow:hidden; }
+
+/* SIDEBAR */
+.sidebar { width:190px; background:var(--sidebar); flex-shrink:0; overflow-y:auto; padding:10px 0; }
+.sidebar::-webkit-scrollbar { width:0; }
+.sidebar-section {
+  padding:14px 14px 4px; font-size:10px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.8px; color:#4b5563;
+}
+.sidebar-item {
+  display:flex; align-items:center; padding:7px 14px; cursor:pointer; gap:8px;
+  color:#9ca3af; font-size:12px; font-weight:500; transition:background .12s;
+  border-left:3px solid transparent;
+}
+.sidebar-item:hover { background:var(--sidebar2); color:#e5e7eb; }
+.sidebar-item.active { background:var(--sidebar2); color:#fff; border-left-color:var(--blue); }
+.sidebar-item .si-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.sidebar-item .si-cnt { margin-left:auto; font-size:11px; font-weight:700; color:#6b7280; }
+.sidebar-item.active .si-cnt { color:#93c5fd; }
+
+/* MAIN */
+.main { flex:1; display:flex; flex-direction:column; overflow:hidden; }
+.main-header {
+  padding:10px 16px; background:var(--white); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:10px; flex-shrink:0;
+}
+.main-title { font-size:13px; font-weight:600; color:var(--text); }
+.filter-bar { display:flex; align-items:center; gap:8px; margin-left:auto; }
+.filter-bar input {
+  background:#f3f4f6; border:1px solid var(--border); border-radius:20px;
+  padding:5px 12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; width:200px;
+}
+.filter-bar input:focus { border-color:var(--blue); }
+.filter-bar select {
+  background:#f3f4f6; border:1px solid var(--border); border-radius:20px;
+  padding:5px 10px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none; cursor:pointer;
+}
+.cnt-label { font-size:12px; color:var(--muted); white-space:nowrap; }
+
+/* HOME / INVITE */
+.invite {
+  flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; padding:40px; text-align:center;
+}
+.drop-zone {
+  background:var(--white); border:2px dashed #d1d5db; border-radius:14px;
+  padding:48px 40px; max-width:620px; width:100%; transition:all .2s; position:relative;
+}
+.dz-icon { font-size:44px; margin-bottom:14px; display:block; }
+.dz-title { font-size:16px; font-weight:700; margin-bottom:8px; color:var(--text); }
+.dz-sub {
+  font-size:12px; color:var(--muted); line-height:1.7; max-width:430px; margin:0 auto 20px;
+}
+.dz-sub code { background:#f3f4f6; padding:1px 6px; border-radius:4px; font-size:11px; }
+.dz-btn {
+  display:inline-flex; align-items:center; gap:7px; padding:8px 22px;
+  background:var(--blue); color:#fff; border:none; border-radius:20px;
+  font-family:'Inter',sans-serif; font-size:12px; font-weight:600;
+  cursor:pointer; transition:background .15s;
+}
+.dz-btn:hover { background:#1d4ed8; }
+.dz-hint {
+  margin-top:18px; font-size:11px; color:#9ca3af; display:flex; align-items:center;
+  justify-content:center; gap:6px; flex-wrap:wrap;
+}
+.dz-hint-item { display:flex; align-items:center; gap:4px; }
+.dz-sep { color:#d1d5db; }
+.dz-progress {
+  position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--blue), #06b6d4);
+  border-radius:0 0 12px 12px; display:none; overflow:hidden;
+}
+.dz-progress::after {
+  content:""; display:block; width:40%; height:100%;
+  background:rgba(255,255,255,.35); animation:progressMove 1.1s linear infinite;
+}
+@keyframes progressMove {
+  from { transform:translateX(-120%); }
+  to   { transform:translateX(320%); }
+}
+
+/* SETTINGS */
+.settings-view { flex:1; overflow:auto; padding:20px; display:none; }
+.settings-wrap { max-width:980px; margin:0 auto; }
+.settings-card {
+  background:var(--white); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:16px;
+}
+.settings-title { font-size:16px; font-weight:700; margin-bottom:8px; }
+.settings-sub { font-size:12px; color:var(--muted); line-height:1.6; margin-bottom:18px; }
+.settings-grid {
+  display:grid; grid-template-columns:1fr; gap:14px;
+}
+.field label {
+  display:block; font-size:12px; font-weight:600; margin-bottom:7px; color:var(--text);
+}
+.field input[type="text"], .field textarea {
+  width:100%; background:#f9fafb; border:1px solid var(--border); border-radius:10px;
+  padding:10px 12px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); outline:none;
+}
+.field input[type="text"]:focus, .field textarea:focus { border-color:var(--blue); background:#fff; }
+.field textarea { min-height:68px; resize:vertical; }
+.settings-actions { display:flex; align-items:center; gap:10px; margin-top:18px; flex-wrap:wrap; }
+.info-box {
+  background:#f9fafb; border:1px solid var(--border); border-radius:10px; padding:12px 14px;
+  font-size:12px; color:var(--muted); line-height:1.7;
+}
+.status-list { display:grid; gap:10px; }
+.status-row {
+  border:1px solid var(--border); border-radius:10px; padding:12px; display:flex; align-items:flex-start; gap:10px; background:#fff;
+}
+.status-badge {
+  display:inline-flex; align-items:center; gap:6px; border-radius:20px; padding:5px 10px; font-size:11px; font-weight:700; white-space:nowrap;
+}
+.badge-neutral { background:#f3f4f6; color:#6b7280; }
+.badge-ok      { background:#dcfce7; color:#15803d; }
+.badge-warn    { background:#fff7ed; color:#c2410c; }
+.badge-err     { background:#fee2e2; color:#b91c1c; }
+.status-body { min-width:0; }
+.status-name { font-size:12px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.status-msg  { font-size:12px; color:var(--muted); line-height:1.5; word-break:break-word; }
+
+/* ITEMS */
+.items-wrap { flex:1; overflow-y:auto; display:none; }
+.items-wrap::-webkit-scrollbar { width:6px; }
+.items-wrap::-webkit-scrollbar-thumb { background:#d1d5db; border-radius:99px; }
+.item-row {
+  background:var(--white); border-bottom:1px solid var(--border); padding:11px 16px; display:flex; align-items:center; gap:12px;
+  transition:background .1s;
+}
+.item-row:hover { background:#f9fafb; }
+.item-tags { display:flex; gap:4px; flex-shrink:0; flex-wrap:wrap; }
+.tag {
+  display:inline-flex; align-items:center; padding:2px 7px; border-radius:4px; font-size:10px; font-weight:700;
+  letter-spacing:.3px; text-transform:uppercase; white-space:nowrap;
+}
+.tag-crit { background:#fee2e2; color:#dc2626; }
+.tag-warn { background:#ffedd5; color:#ea580c; }
+.tag-attn { background:#fef9c3; color:#ca8a04; }
+.tag-ok   { background:#dcfce7; color:#16a34a; }
+.tag-od   { background:#dbeafe; color:#2563eb; }
+.tag-ex   { background:#e0e7ff; color:#4338ca; }
+.tag-visio{ background:#fce7f3; color:#be185d; }
+.tag-type { background:#ede9fe; color:#7c3aed; }
+
+.platform-badge { display:inline-flex; align-items:center; gap:4px; padding:3px 8px; border-radius:4px; font-size:10px; font-weight:600; }
+.pb-desktop { background:#dbeafe; color:#1d4ed8; }
+.pb-web     { background:#d1fae5; color:#065f46; }
+.pb-none    { background:#f3f4f6; color:#9ca3af; }
+
+.item-body { flex:1; min-width:0; }
+.item-name  { font-size:13px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
+.item-email { font-size:11px; color:var(--muted); }
+.item-pbar-wrap { width:160px; flex-shrink:0; display:flex; align-items:center; gap:8px; }
+.item-pbar { flex:1; height:5px; background:#e5e7eb; border-radius:99px; overflow:hidden; }
+.item-pbar-fill { height:100%; border-radius:99px; }
+.item-pct { font-size:11px; font-weight:700; min-width:38px; text-align:right; }
+.item-sizes { width:170px; flex-shrink:0; font-size:11px; color:var(--muted); text-align:right; }
+.item-sizes strong { color:var(--text); font-weight:600; }
+.item-date  { width:120px; flex-shrink:0; font-size:11px; color:var(--muted); text-align:right; }
+
+/* EMPTY */
+.empty-state {
+  flex:1; display:none; flex-direction:column; align-items:center; justify-content:center; color:var(--muted);
+  gap:10px; padding:40px; text-align:center;
+}
+.empty-state .e-icon { font-size:36px; }
+
+/* STAT PANEL */
+.statpanel {
+  width:250px; background:var(--white); border-left:1px solid var(--border); flex-shrink:0; padding:14px; overflow-y:auto;
+}
+.statpanel::-webkit-scrollbar { width:0; }
+.sp-title {
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:12px;
+}
+.sp-row {
+  display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid #f3f4f6; font-size:12px;
+}
+.sp-row:last-child { border-bottom:none; }
+.sp-label { color:var(--muted); display:flex; align-items:center; gap:6px; }
+.sp-dot   { width:8px; height:8px; border-radius:50%; }
+.sp-val   { font-weight:700; color:var(--text); }
+.sp-val.red    { color:var(--red); }
+.sp-val.orange { color:var(--orange); }
+.sp-val.blue   { color:var(--blue); }
+.sp-val.green  { color:var(--green); }
+.sp-divider { height:1px; background:var(--border); margin:12px 0; }
+
+/* TOAST */
+.toast {
+  position:fixed; bottom:20px; right:20px; background:#1e2433; color:#e5e7eb;
+  border-radius:8px; padding:10px 16px; font-size:12px; font-weight:500;
+  display:flex; align-items:center; gap:8px; transform:translateY(60px); opacity:0;
+  transition:all .25s cubic-bezier(.16,1,.3,1); z-index:999; box-shadow:0 4px 20px rgba(0,0,0,.3);
+  max-width:420px;
+}
+.toast.show { transform:translateY(0); opacity:1; }
+
+@media (max-width:1200px){
+  .statpanel { display:none; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-wrap">
+    <div style="width:32px;height:32px;background:#1a7f4b;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+        <rect x="3" y="3" width="7" height="7" rx="1"/>
+        <rect x="14" y="3" width="7" height="7" rx="1"/>
+        <rect x="3" y="14" width="7" height="7" rx="1"/>
+        <rect x="14" y="14" width="7" height="7" rx="1"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-org">Réseau</div>
+      <div class="logo-name">Canopé</div>
+    </div>
+    <div style="width:1px;height:28px;background:var(--border);margin:0 8px"></div>
+    <div>
+      <div class="logo-name">Storage M365</div>
+      <div class="logo-org">Référent</div>
+    </div>
+  </div>
+
+  <div class="topbar-search">
+    <span style="color:#9ca3af">🔍</span>
+    <input type="text" id="global-search" placeholder="Rechercher dans les données..." oninput="onGlobalSearch()">
+  </div>
+
+  <div class="topbar-right">
+    <div class="topbar-time"><span id="clock"></span></div>
+    <button class="btn-action btn-outline" onclick="exportCSV()">⬇ Export CSV</button>
+    <button class="btn-action btn-blue" id="btn-load-all" onclick="loadAllData()">☁️ Charger les données</button>
+  </div>
+</div>
+
+<div class="subtabs">
+  <button class="subtab active" id="stab-od" onclick="switchTab('od')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <path d="M14.5 10.5C15.8 7.8 18.6 6 21.8 6.5C23.1 8 23.8 9.9 23.8 12c0 .2 0 .4-.01.6H21.5l-7-2.1z" fill="#0364B8"/>
+      <path d="M9.1 11.2C9.9 9.1 11.8 7.6 14.1 7.5c.14 0 .28.01.41.02L14.5 10.5l-5.4.7z" fill="#0078D4"/>
+      <path d="M2 17.5C2 14.46 4.46 12 7.5 12c.55 0 1.08.08 1.58.22L9.1 11.2 14.5 10.5l7 2.1-.01.4H2.2L2 17.5z" fill="#1490DF"/>
+      <path d="M2.2 13H23.79C23.93 13.32 24 13.65 24 14c0 2.21-1.79 4-4 4H4c-1.1 0-2-.9-2-2 0-.34.09-.67.2-.97z" fill="#28A8E0"/>
+    </svg>
+    OneDrive <span class="cnt" id="stab-od-cnt">0</span>
+  </button>
+
+  <button class="subtab" id="stab-ex" onclick="switchTab('ex')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="4" width="13" height="16" rx="2" fill="#0078D4"/>
+      <path d="M8.5 8C6.57 8 5 9.57 5 11.5S6.57 15 8.5 15 12 13.43 12 11.5 10.43 8 8.5 8zm0 5C7.67 13 7 12.33 7 11.5S7.67 10 8.5 10s1.5.67 1.5 1.5S9.33 13 8.5 13z" fill="white"/>
+      <rect x="13" y="6" width="9" height="12" rx="1" fill="#0078D4"/>
+      <path d="M13 8l4.5 3.5L22 8" stroke="white" stroke-width="1.2" fill="none"/>
+    </svg>
+    Exchange / Outlook <span class="cnt" id="stab-ex-cnt">0</span>
+  </button>
+
+  <button class="subtab" id="stab-visio" onclick="switchTab('visio')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+      <rect x="2" y="3" width="20" height="18" rx="2" fill="#3955a3"/>
+      <path d="M6 7l4 8 4-8" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <circle cx="18" cy="7" r="2" fill="white"/>
+    </svg>
+    Visio <span class="cnt" id="stab-visio-cnt">0</span>
+  </button>
+
+  <button class="subtab" id="stab-settings" onclick="switchTab('settings')">⚙️ Paramétrage</button>
+</div>
+
+<div class="layout">
+
+  <div class="sidebar" id="sidebar">
+    <div id="sidebar-priority-section">
+      <div class="sidebar-section">Priorité</div>
+      <div class="sidebar-item active" onclick="setSideFilter('all')" id="sf-all">
+        <span class="si-dot" style="background:#2563eb"></span> Toutes
+        <span class="si-cnt" id="sf-all-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('crit')" id="sf-crit">
+        <span class="si-dot" style="background:#ef4444"></span> Critique
+        <span class="si-cnt" id="sf-crit-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('warn')" id="sf-warn">
+        <span class="si-dot" style="background:#f97316"></span> Alerte
+        <span class="si-cnt" id="sf-warn-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('attn')" id="sf-attn">
+        <span class="si-dot" style="background:#eab308"></span> Attention
+        <span class="si-cnt" id="sf-attn-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('ok')" id="sf-ok">
+        <span class="si-dot" style="background:#22c55e"></span> Normal
+        <span class="si-cnt" id="sf-ok-cnt">0</span>
+      </div>
+    </div>
+
+    <div id="sidebar-visio-section" style="display:none">
+      <div class="sidebar-section">Activité</div>
+      <div class="sidebar-item active" onclick="setSideFilter('all')" id="vsf-all">
+        <span class="si-dot" style="background:#2563eb"></span> Tous
+        <span class="si-cnt" id="vsf-all-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('desktop')" id="vsf-desktop">
+        <span class="si-dot" style="background:#1d4ed8"></span> Desktop actif
+        <span class="si-cnt" id="vsf-desktop-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('web')" id="vsf-web">
+        <span class="si-dot" style="background:#065f46"></span> Web actif
+        <span class="si-cnt" id="vsf-web-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('licensed')" id="vsf-licensed">
+        <span class="si-dot" style="background:#8b5cf6"></span> Licencié
+        <span class="si-cnt" id="vsf-licensed-cnt">0</span>
+      </div>
+      <div class="sidebar-item" onclick="setSideFilter('inactive')" id="vsf-inactive">
+        <span class="si-dot" style="background:#9ca3af"></span> Inactif
+        <span class="si-cnt" id="vsf-inactive-cnt">0</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:8px">Tri</div>
+    <div class="sidebar-item" onclick="setSort('pct-desc')" id="sort-pct"><span>📊</span> Usage % ↓</div>
+    <div class="sidebar-item" onclick="setSort('nom-asc')" id="sort-nom"><span>🔤</span> Nom A→Z</div>
+    <div class="sidebar-item" onclick="setSort('used-desc')" id="sort-used"><span>💾</span> Espace utilisé</div>
+    <div class="sidebar-item" onclick="setSort('date-desc')" id="sort-date"><span>📅</span> Dernière activité</div>
+  </div>
+
+  <div class="main">
+    <div class="main-header" id="main-hdr" style="display:none">
+      <div class="main-title" id="main-title">Toutes les entrées</div>
+      <div class="filter-bar">
+        <input type="text" id="search-bar" placeholder="🔍 Rechercher..." oninput="applyFilters()">
+        <select id="sort-sel" onchange="applyFilters()">
+          <option value="pct-desc">Usage % ↓</option>
+          <option value="pct-asc">Usage % ↑</option>
+          <option value="nom-asc">Nom A→Z</option>
+          <option value="nom-desc">Nom Z→A</option>
+          <option value="used-desc">Espace utilisé ↓</option>
+          <option value="date-desc">Dernière activité ↓</option>
+        </select>
+        <span class="cnt-label" id="cnt-label"></span>
+        <button class="btn-action btn-outline" style="font-size:11px;padding:4px 10px" onclick="loadAllData()">↻ Recharger</button>
+      </div>
+    </div>
+
+    <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+
+      <div class="invite" id="invite-wrap">
+        <div class="drop-zone">
+          <span class="dz-icon">☁️</span>
+          <div class="dz-title">Charger les données depuis SharePoint</div>
+          <div class="dz-sub">
+            Le bouton <strong>Charger les données</strong> tente de lire les 3 CSV SharePoint
+            configurés dans <strong>Paramétrage</strong>, puis injecte les données dans les onglets
+            <code>OneDrive</code>, <code>Exchange</code> et <code>Visio</code>.
+          </div>
+          <button class="dz-btn" onclick="loadAllData()">☁️ Charger les données</button>
+          <div class="dz-hint">
+            <span class="dz-hint-item">✓ 3 sources chargées d’un coup</span>
+            <span class="dz-sep">·</span>
+            <span class="dz-hint-item">✓ Session M365 requise</span>
+            <span class="dz-sep">·</span>
+            <span class="dz-hint-item">✓ Détail d’erreur par source</span>
+          </div>
+          <div class="dz-progress" id="dz-progress"></div>
+        </div>
+      </div>
+
+      <div class="settings-view" id="settings-view">
+        <div class="settings-wrap">
+
+          <div class="settings-card">
+            <div class="settings-title">Sources SharePoint par défaut</div>
+            <div class="settings-sub">
+              Ces URLs sont préremplies par défaut, mais restent modifiables. Le bouton
+              <strong>Charger les données</strong> lit les 3 sources d’un coup.
+            </div>
+
+            <div class="settings-grid">
+              <div class="field">
+                <label for="url-od">OneDrive</label>
+                <textarea id="url-od"></textarea>
+              </div>
+              <div class="field">
+                <label for="url-ex">Exchange / Outlook</label>
+                <textarea id="url-ex"></textarea>
+              </div>
+              <div class="field">
+                <label for="url-visio">Visio</label>
+                <textarea id="url-visio"></textarea>
+              </div>
+            </div>
+
+            <div class="settings-actions">
+              <button class="btn-action btn-blue" onclick="saveSettings()">💾 Enregistrer</button>
+              <button class="btn-action btn-outline" onclick="restoreDefaults()">↺ Valeurs par défaut</button>
+              <button class="btn-action btn-outline" onclick="loadAllData()">☁️ Charger les données</button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-title">État des sources</div>
+            <div class="settings-sub">
+              Après un chargement, cette zone indique pour chaque source : succès, accès refusé,
+              fichier introuvable, réponse HTML au lieu d’un CSV, ou contenu vide.
+            </div>
+            <div id="settings-status" class="status-list"></div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-title">Rappel technique</div>
+            <div class="info-box">
+              - La page tente une lecture réelle du fichier CSV.<br>
+              - Si la session M365 du navigateur n’autorise pas l’accès, la source échoue.<br>
+              - Si SharePoint renvoie une page HTML au lieu du CSV, la source est refusée avec le motif correspondant.<br>
+              - Les URLs doivent pointer vers le fichier CSV lui-même.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="items-wrap" id="items-wrap">
+        <div id="items-list"></div>
+      </div>
+
+      <div class="empty-state" id="empty-state">
+        <div class="e-icon">📭</div>
+        <p>Aucun résultat pour cette recherche.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="statpanel">
+    <div class="sp-title">📊 Statistiques</div>
+    <div id="sp-content">
+      <div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">
+        Chargez les données<br>pour voir les stats
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <span id="toast-icon">✅</span>
+  <span id="toast-msg"></span>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────
+   Configuration
+───────────────────────────────────────────── */
+const DEFAULT_URLS = {
+  od: 'https://canope.sharepoint.com/:x:/r/sites/PledecomptencesCSSD-StockageCSSD/Documents%20partages/Stockage%20CSSD/Doc%20technique-orga/Ressources%20Support/M365/Export%20OneDrive-Exchange-Visio/ONEDRIVE/OneDrive_LargestAccounts_3_10_2026,%209_57_16%20AM.csv?d=w5f2057d74d0e4591a96f3031f68ea1b6&csf=1&web=1&e=fg5Pnh',
+  ex: 'https://canope.sharepoint.com/:x:/r/sites/PledecomptencesCSSD-StockageCSSD/Documents%20partages/Stockage%20CSSD/Doc%20technique-orga/Ressources%20Support/M365/Export%20OneDrive-Exchange-Visio/OUTLOOK/Exchange_LargestMailboxes_3_10_2026,%201_40_12%20AM.csv?d=weedce3f82e8c4b73b459cd3dd82eb44f&csf=1&web=1&e=UIdi85',
+  visio: 'https://canope.sharepoint.com/:x:/r/sites/PledecomptencesCSSD-StockageCSSD/Documents%20partages/Stockage%20CSSD/Doc%20technique-orga/Ressources%20Support/M365/Export%20OneDrive-Exchange-Visio/VISIO%20PRO/VisioUserDetail3_11_2026%208_18_27%20AM.csv?d=w0c91f53071c24cf484b6abb2d85e7d18&csf=1&web=1&e=XIuU4M'
+};
+
+const STORAGE_KEYS = {
+  od: 'storageM365_url_od',
+  ex: 'storageM365_url_ex',
+  visio: 'storageM365_url_visio'
+};
+
+const TAB_LABELS = {
+  od: 'OneDrive',
+  ex: 'Exchange / Outlook',
+  visio: 'Visio'
+};
+
+const S = {
+  tab: 'od',
+  od:    { raw:[], filtered:[] },
+  ex:    { raw:[], filtered:[] },
+  visio: { raw:[], filtered:[] },
+  sideFilter: 'all',
+  sortKey: 'pct-desc',
+  search: '',
+  loading: false,
+  status: {
+    od: { state:'neutral', message:'Non chargé' },
+    ex: { state:'neutral', message:'Non chargé' },
+    visio: { state:'neutral', message:'Non chargé' }
+  }
+};
+
+/* ─────────────────────────────────────────────
+   Horloge
+───────────────────────────────────────────── */
+setInterval(() => {
+  const t = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+  document.getElementById('clock').textContent = t;
+}, 1000);
+document.getElementById('clock').textContent = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+
+/* ─────────────────────────────────────────────
+   Init
+───────────────────────────────────────────── */
+initApp();
+
+function initApp() {
+  ensureDefaultSettings();
+  fillSettingsForm();
+  renderSettingsStatus();
+  updateLayoutByTab();
+  showInvite();
+}
+
+function ensureDefaultSettings() {
+  if (!localStorage.getItem(STORAGE_KEYS.od)) localStorage.setItem(STORAGE_KEYS.od, DEFAULT_URLS.od);
+  if (!localStorage.getItem(STORAGE_KEYS.ex)) localStorage.setItem(STORAGE_KEYS.ex, DEFAULT_URLS.ex);
+  if (!localStorage.getItem(STORAGE_KEYS.visio)) localStorage.setItem(STORAGE_KEYS.visio, DEFAULT_URLS.visio);
+}
+
+function fillSettingsForm() {
+  document.getElementById('url-od').value = localStorage.getItem(STORAGE_KEYS.od) || DEFAULT_URLS.od;
+  document.getElementById('url-ex').value = localStorage.getItem(STORAGE_KEYS.ex) || DEFAULT_URLS.ex;
+  document.getElementById('url-visio').value = localStorage.getItem(STORAGE_KEYS.visio) || DEFAULT_URLS.visio;
+}
+
+function saveSettings() {
+  localStorage.setItem(STORAGE_KEYS.od, document.getElementById('url-od').value.trim());
+  localStorage.setItem(STORAGE_KEYS.ex, document.getElementById('url-ex').value.trim());
+  localStorage.setItem(STORAGE_KEYS.visio, document.getElementById('url-visio').value.trim());
+  renderSettingsStatus();
+  showToast('✅', 'Paramétrage enregistré');
+}
+
+function restoreDefaults() {
+  localStorage.setItem(STORAGE_KEYS.od, DEFAULT_URLS.od);
+  localStorage.setItem(STORAGE_KEYS.ex, DEFAULT_URLS.ex);
+  localStorage.setItem(STORAGE_KEYS.visio, DEFAULT_URLS.visio);
+  fillSettingsForm();
+  renderSettingsStatus();
+  showToast('✅', 'Valeurs par défaut restaurées');
+}
+
+function getConfiguredUrl(key) {
+  return (localStorage.getItem(STORAGE_KEYS[key]) || '').trim();
+}
+
+/* ─────────────────────────────────────────────
+   Chargement global
+───────────────────────────────────────────── */
+async function loadAllData() {
+  if (S.loading) return;
+
+  saveSettings();
+  setLoadingState(true);
+
+  S.status.od = { state:'neutral', message:'Lecture en cours...' };
+  S.status.ex = { state:'neutral', message:'Lecture en cours...' };
+  S.status.visio = { state:'neutral', message:'Lecture en cours...' };
+  renderSettingsStatus();
+
+  const results = await Promise.all([
+    loadSingleSource('od'),
+    loadSingleSource('ex'),
+    loadSingleSource('visio')
+  ]);
+
+  setLoadingState(false);
+
+  results.forEach(result => {
+    S.status[result.key] = {
+      state: result.ok ? 'ok' : 'err',
+      message: result.message
+    };
+  });
+  renderSettingsStatus();
+
+  updateSubtabCounts();
+
+  const successCount = results.filter(r => r.ok).length;
+  if (successCount > 0) {
+    if (S.tab === 'settings') S.tab = firstLoadedTab() || 'od';
+    switchTab(S.tab);
+    updateStats();
+    updateSideCounts();
+  } else {
+    showInvite();
+    document.getElementById('sp-content').innerHTML =
+      '<div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Aucune source chargée</div>';
+  }
+
+  if (successCount === 3) {
+    showToast('✅', 'Les 3 sources ont été chargées');
+  } else if (successCount > 0) {
+    showToast('⚠️', successCount + ' source(s) chargée(s), voir le détail dans Paramétrage');
+  } else {
+    showToast('❌', 'Aucune source n’a pu être chargée');
+  }
+}
+
+function setLoadingState(isLoading) {
+  S.loading = isLoading;
+  const btn = document.getElementById('btn-load-all');
+  btn.disabled = isLoading;
+  btn.innerHTML = isLoading ? '⏳ Chargement...' : '☁️ Charger les données';
+  document.getElementById('dz-progress').style.display = isLoading ? 'block' : 'none';
+}
+
+async function loadSingleSource(key) {
+  const sourceUrl = getConfiguredUrl(key);
+  if (!sourceUrl) {
+    S[key].raw = [];
+    S[key].filtered = [];
+    return {
+      key,
+      ok: false,
+      message: 'URL absente'
+    };
+  }
+
+  try {
+    const text = await fetchCsvWithFallback(sourceUrl);
+    const parsed = parseByKey(text, key);
+
+    if (!parsed.length) {
+      S[key].raw = [];
+      S[key].filtered = [];
+      return {
+        key,
+        ok: false,
+        message: 'Contenu vide ou aucun enregistrement reconnu'
+      };
+    }
+
+    S[key].raw = parsed;
+    S[key].filtered = parsed.slice();
+
+    return {
+      key,
+      ok: true,
+      message: parsed.length + ' entrée(s) chargée(s)'
+    };
+  } catch (err) {
+    S[key].raw = [];
+    S[key].filtered = [];
+    return {
+      key,
+      ok: false,
+      message: normalizeFetchError(err)
+    };
+  }
+}
+
+async function fetchCsvWithFallback(rawUrl) {
+  const candidates = buildCandidateUrls(rawUrl);
+  let lastErr = new Error('Impossible de lire le CSV');
+
+  for (const candidate of candidates) {
+    try {
+      const response = await fetch(candidate, {
+        method: 'GET',
+        credentials: 'include',
+        redirect: 'follow',
+        cache: 'no-store'
+      });
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error('Accès refusé');
+      }
+      if (response.status === 404) {
+        throw new Error('Fichier introuvable');
+      }
+      if (!response.ok) {
+        throw new Error('Réponse HTTP ' + response.status);
+      }
+
+      const contentType = (response.headers.get('content-type') || '').toLowerCase();
+      const text = await response.text();
+
+      if (!text || !text.trim()) {
+        throw new Error('Contenu vide');
+      }
+      if (looksLikeHtmlResponse(text, contentType)) {
+        throw new Error('Réponse HTML au lieu d’un CSV');
+      }
+
+      return text;
+    } catch (err) {
+      lastErr = err;
+    }
+  }
+
+  throw lastErr;
+}
+
+function buildCandidateUrls(rawUrl) {
+  const list = [];
+  const add = u => { if (u && !list.includes(u)) list.push(u); };
+
+  add(rawUrl);
+
+  try {
+    const u = new URL(rawUrl);
+
+    const d1 = new URL(u.toString());
+    d1.searchParams.set('download', '1');
+    add(d1.toString());
+
+    const d2 = new URL(u.toString());
+    d2.searchParams.delete('web');
+    d2.searchParams.set('download', '1');
+    add(d2.toString());
+
+    const d3 = new URL(u.toString());
+    d3.searchParams.set('web', '0');
+    add(d3.toString());
+
+    const d4 = new URL(u.toString());
+    d4.searchParams.set('web', '0');
+    d4.searchParams.set('download', '1');
+    add(d4.toString());
+  } catch (_) {}
+
+  return list;
+}
+
+function looksLikeHtmlResponse(text, contentType) {
+  const t = (text || '').slice(0, 2500).toLowerCase();
+  return contentType.includes('text/html') ||
+         t.includes('<html') ||
+         t.includes('<!doctype html') ||
+         t.includes('sign in') ||
+         t.includes('se connecter') ||
+         t.includes('sharepoint') && t.includes('<body') ||
+         t.includes('microsoft') && t.includes('login');
+}
+
+function normalizeFetchError(err) {
+  const msg = (err && err.message ? err.message : 'Erreur inconnue').toLowerCase();
+
+  if (msg.includes('accès refusé')) return 'Accès refusé';
+  if (msg.includes('fichier introuvable')) return 'Fichier introuvable';
+  if (msg.includes('html')) return 'Réponse HTML au lieu d’un CSV';
+  if (msg.includes('vide')) return 'Contenu vide';
+  if (msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('load failed')) {
+    return 'Échec réseau ou blocage navigateur/CORS';
+  }
+  if (msg.includes('http 401') || msg.includes('http 403')) return 'Accès refusé';
+  if (msg.includes('http 404')) return 'Fichier introuvable';
+
+  return err && err.message ? err.message : 'Erreur inconnue';
+}
+
+function parseByKey(text, key) {
+  if (key === 'visio') return parseVisioCSV(text);
+  return smartParse(text, key);
+}
+
+function firstLoadedTab() {
+  if (S.od.raw.length) return 'od';
+  if (S.ex.raw.length) return 'ex';
+  if (S.visio.raw.length) return 'visio';
+  return null;
+}
+
+/* ─────────────────────────────────────────────
+   Paramétrage : rendu état
+───────────────────────────────────────────── */
+function renderSettingsStatus() {
+  const box = document.getElementById('settings-status');
+  const html = ['od','ex','visio'].map(key => {
+    const st = S.status[key];
+    const badgeClass = st.state === 'ok' ? 'badge-ok'
+                     : st.state === 'err' ? 'badge-err'
+                     : st.state === 'warn' ? 'badge-warn'
+                     : 'badge-neutral';
+    const badgeText = st.state === 'ok' ? 'OK'
+                    : st.state === 'err' ? 'Erreur'
+                    : st.state === 'warn' ? 'Alerte'
+                    : 'En attente';
+
+    return `
+      <div class="status-row">
+        <div><span class="status-badge ${badgeClass}">${badgeText}</span></div>
+        <div class="status-body">
+          <div class="status-name">${TAB_LABELS[key]}</div>
+          <div class="status-msg">${esc(st.message)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  box.innerHTML = html;
+}
+
+/* ─────────────────────────────────────────────
+   Parsing Visio
+───────────────────────────────────────────── */
+function parseVisioCSV(text) {
+  text = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+  const lines = text.split('\n').filter(l => l.trim());
+  if (lines.length < 2) return [];
+
+  const sep = detectSep(lines[0]);
+  const header = splitLine(lines[0], sep).map(h => h.toLowerCase().trim()
+    .replace(/\s+/g,'').replace(/[^a-z]/g,''));
+
+  const iRefresh  = findIdx(header, ['reportrefreshdate','refreshdate']);
+  const iUpn      = findIdx(header, ['userprincipalname','upn','email','mail']);
+  const iName     = findIdx(header, ['displayname','name','nom']);
+  const iLastAct  = findIdx(header, ['lastactivitydate','lastactivity','derniereactivite']);
+  const iLicensed = findIdx(header, ['isvisiolincensed','isvisiolilicensed','visiolincensed','licensed','licenci']);
+  const iPeriod   = findIdx(header, ['reportperiod','period','periode']);
+  const iDesktop  = findIdx(header, ['desktop']);
+  const iWeb      = findIdx(header, ['web']);
+
+  const results = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cols = splitLine(lines[i], sep);
+    if (cols.length < 2) continue;
+    const get = idx => idx >= 0 && idx < cols.length ? cols[idx].trim() : '';
+
+    const email = get(iUpn);
+    if (!email || !email.includes('@')) continue;
+
+    const nom = get(iName) || email.split('@')[0];
+    const lastActivity = get(iLastAct);
+    const refreshDate = get(iRefresh);
+    const licensed = /true|yes|oui|1/i.test(get(iLicensed));
+    const period = get(iPeriod);
+    const desktopRaw = get(iDesktop);
+    const webRaw = get(iWeb);
+    const desktop = /true|yes|oui/i.test(desktopRaw) || (parseInt(desktopRaw, 10) || 0) > 0;
+    const web = /true|yes|oui/i.test(webRaw) || (parseInt(webRaw, 10) || 0) > 0;
+
+    results.push({ nom, email, licensed, desktop, web, lastActivity, refreshDate, period });
+  }
+  return results;
+}
+
+/* ─────────────────────────────────────────────
+   Parsing universel OneDrive / Exchange
+───────────────────────────────────────────── */
+function smartParse(text, type) {
+  text = text.replace(/^\uFEFF/, '').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+  const isPortalFormat = text.includes('sharepoint.com/personal/')
+    || /,\d{9,},/.test(text)
+    || /"\d{9,}"/.test(text);
+
+  if (isPortalFormat) return parsePortalBlocks(text, type);
+
+  const lines = text.split('\n').filter(l => l.trim());
+  if (!lines.length) return [];
+
+  const sep = detectSep(lines[0]);
+  const allCols = lines.map(l => splitLine(l, sep));
+  const maxCols = Math.max(...allCols.map(c => c.length));
+
+  if (maxCols <= 2) return parsePortalBlocks(text, type);
+
+  const header = allCols[0].map(h => h.toLowerCase());
+  const dataLines = allCols.slice(1).filter(c => c.length > 1);
+
+  const idx = {
+    nom:   findIdx(header, ['nom','name','display','propriétaire principal','primary owner']),
+    email: findIdx(header, ['email','mail','adresse','owner','propriétaire','upn','userprincipal']),
+    used:  findIdx(header, ['utilisé','used','espace','storage used','storageused']),
+    limit: findIdx(header, ['limite','limit','quota','allocated']),
+    date:  findIdx(header, ['activité','activity','dernière','last','date']),
+    type:  findIdx(header, ['type'])
+  };
+
+  const hasHeader = idx.nom >= 0 || idx.email >= 0 || idx.used >= 0;
+  const dataRows = hasHeader ? dataLines : allCols;
+
+  return dataRows.map(cols => {
+    const get = i => (i >= 0 && i < cols.length) ? cols[i] : '';
+    const nom = idx.nom >= 0 ? get(idx.nom) : guessName(cols);
+    const email = idx.email >= 0 ? get(idx.email) : guessEmail(cols);
+    if (!nom && !email) return null;
+
+    const used = parseSize(idx.used >= 0 ? get(idx.used) : guessSize(cols, 0));
+    const limit = parseSize(idx.limit >= 0 ? get(idx.limit) : guessSize(cols, 1)) || (type === 'od' ? 200 : 50);
+    const date = idx.date >= 0 ? get(idx.date) : guessDate(cols);
+    const tp = idx.type >= 0 ? get(idx.type) : '';
+    const pct = limit > 0 ? Math.round(used / limit * 1000) / 10 : 0;
+
+    return { nom, email, used, limit, pct, date, type: tp };
+  }).filter(Boolean);
+}
+
+function parsePortalBlocks(text, type) {
+  const records = [];
+  let joined = '';
+  let inQuote = false;
+
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (c === '"') inQuote = !inQuote;
+    if (c === '\n' && !inQuote) joined += '|ROWSEP|';
+    else joined += c;
+  }
+
+  const rows = joined.split('|ROWSEP|').filter(r => r.trim());
+
+  for (const row of rows) {
+    const cols = splitLine(row.trim(), detectSep(row));
+    if (cols.length < 3) continue;
+
+    const email = cols.find(c => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim())) || '';
+    const nom = cols.find(c => {
+      const v = c.trim();
+      return v.length > 2 &&
+             !v.includes('sharepoint.com') &&
+             !v.includes('@') &&
+             !/^\d+$/.test(v) &&
+             !/^\d{1,2}\/\d{1,2}\/\d{4}/.test(v) &&
+             !['normal','warning','full','active'].includes(v.toLowerCase());
+    }) || '';
+
+    const numbers = cols.filter(c => /^\d{4,}$/.test(c.trim())).map(c => parseInt(c.trim(), 10));
+    const usedBytes = numbers.length > 0 ? numbers[0] : 0;
+    const limitBytes = numbers.length > 1 ? numbers[1] : (type === 'od' ? 214748364800 : 53687091200);
+    const used = Math.round(usedBytes / 1073741824 * 100) / 100;
+    const limit = Math.round(limitBytes / 1073741824 * 10) / 10;
+    const dates = cols.filter(c => /\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim()));
+    const date = dates.length > 0 ? dates[dates.length - 1] : '';
+    const etat = cols.find(c => ['normal','warning','full'].includes(c.trim().toLowerCase())) || '';
+
+    if (!nom && !email) continue;
+    const pct = limit > 0 ? Math.round(used / limit * 1000) / 10 : 0;
+    records.push({ nom, email, used: Math.round(used * 10) / 10, limit: Math.round(limit * 10) / 10, pct, date, type: etat });
+  }
+
+  return records;
+}
+
+/* ─────────────────────────────────────────────
+   Helpers
+───────────────────────────────────────────── */
+function detectSep(line) {
+  if (!line) return '\t';
+  const tabs = (line.match(/\t/g) || []).length;
+  const semicol = (line.match(/;/g) || []).length;
+  const comma = (line.match(/,/g) || []).length;
+  if (tabs >= semicol && tabs >= comma) return '\t';
+  if (semicol >= comma) return ';';
+  return ',';
+}
+
+function splitLine(line, sep) {
+  const cols = [];
+  let cur = '';
+  let inQ = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') inQ = !inQ;
+    else if (c === sep && !inQ) { cols.push(cur.trim()); cur = ''; }
+    else cur += c;
+  }
+  cols.push(cur.trim());
+
+  return cols.map(c => c.replace(/^"|"$/g, '').trim());
+}
+
+function findIdx(header, kws) {
+  for (const kw of kws) {
+    const i = header.findIndex(h => h.includes(kw));
+    if (i >= 0) return i;
+  }
+  return -1;
+}
+
+function parseSize(str) {
+  if (!str) return 0;
+  str = String(str).replace(/\s/g,'').replace(',','.');
+  const m = str.match(/([\d.]+)\s*(TB|GB|Go|To|MB|Mo|KB|Ko)?/i);
+  if (!m) return 0;
+  const v = parseFloat(m[1]);
+  const u = (m[2] || '').toUpperCase();
+  let gb = 0;
+  if (u === 'TB' || u === 'TO')      gb = v * 1024;
+  else if (u === 'GB' || u === 'GO') gb = v;
+  else if (u === 'MB' || u === 'MO') gb = v / 1024;
+  else if (u === 'KB' || u === 'KO') gb = v / 1048576;
+  else if (v > 1e9)                  gb = v / 1073741824;
+  else if (v > 1e6)                  gb = v / 1048576 / 1024;
+  else                               gb = v;
+  return Math.round(gb * 10) / 10;
+}
+
+function guessEmail(cols) {
+  return cols.find(c => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(c.trim())) || '';
+}
+
+function guessName(cols) {
+  return cols.find(c => {
+    const v = c.trim();
+    return v.length > 2 && !v.includes('@') && !v.includes('/') && !/^\d+$/.test(v) && !/^\d{1,2}\//.test(v);
+  }) || '';
+}
+
+function guessSize(cols, nth) {
+  const nums = cols.filter(c => /^\d{4,}$/.test(c.trim()));
+  return nums[nth] || '0';
+}
+
+function guessDate(cols) {
+  return cols.find(c => /\d{1,2}\/\d{1,2}\/\d{4}/.test(c.trim())) || '';
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ─────────────────────────────────────────────
+   Niveaux
+───────────────────────────────────────────── */
+const levelLabel = { crit:'Critique', warn:'Alerte', attn:'Attention', ok:'Normal' };
+const levelColor = { crit:'#ef4444', warn:'#f97316', attn:'#eab308', ok:'#22c55e' };
+const levelTag   = { crit:'tag-crit', warn:'tag-warn', attn:'tag-attn', ok:'tag-ok' };
+
+function getLevel(pct) {
+  if (pct >= 90) return 'crit';
+  if (pct >= 75) return 'warn';
+  if (pct >= 50) return 'attn';
+  return 'ok';
+}
+
+/* ─────────────────────────────────────────────
+   Navigation / affichage
+───────────────────────────────────────────── */
+function switchTab(t) {
+  S.tab = t;
+  S.sideFilter = 'all';
+  S.search = '';
+  document.getElementById('search-bar').value = '';
+  document.getElementById('global-search').value = '';
+  updateSubtabsActive(t);
+  updateLayoutByTab();
+
+  if (t === 'settings') {
+    showSettings();
+    return;
+  }
+
+  if (S[t].raw.length) {
+    applyFilters();
+    showData();
+    updateStats();
+    updateSideCounts();
+  } else if (hasAnyData()) {
+    showEmptyForNoData(t);
+    updateStats();
+    updateSideCounts();
+  } else {
+    showInvite();
+  }
+}
+
+function updateSubtabsActive(active) {
+  ['od','ex','visio','settings'].forEach(id => {
+    document.getElementById('stab-' + id).classList.toggle('active', id === active);
+  });
+}
+
+function updateLayoutByTab() {
+  const isSettings = S.tab === 'settings';
+  const isVisio = S.tab === 'visio';
+
+  document.getElementById('sidebar').style.display = isSettings ? 'none' : '';
+  document.getElementById('main-hdr').style.display = isSettings ? 'none' : (hasAnyData() ? '' : 'none');
+
+  if (!isSettings) {
+    document.getElementById('sidebar-priority-section').style.display = isVisio ? 'none' : '';
+    document.getElementById('sidebar-visio-section').style.display = isVisio ? '' : 'none';
+    document.getElementById('sort-pct').style.display = isVisio ? 'none' : '';
+    document.getElementById('sort-used').style.display = isVisio ? 'none' : '';
+    document.getElementById('sort-date').style.display = isVisio ? '' : 'none';
+    setSidebarActive(isVisio ? 'vsf-all' : 'sf-all');
+  }
+}
+
+function hasAnyData() {
+  return S.od.raw.length || S.ex.raw.length || S.visio.raw.length;
+}
+
+function showInvite() {
+  document.getElementById('invite-wrap').style.display = '';
+  document.getElementById('settings-view').style.display = 'none';
+  document.getElementById('items-wrap').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('main-hdr').style.display = 'none';
+}
+
+function showSettings() {
+  document.getElementById('invite-wrap').style.display = 'none';
+  document.getElementById('settings-view').style.display = '';
+  document.getElementById('items-wrap').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'none';
+}
+
+function showData() {
+  document.getElementById('invite-wrap').style.display = 'none';
+  document.getElementById('settings-view').style.display = 'none';
+  document.getElementById('items-wrap').style.display = '';
+  document.getElementById('empty-state').style.display = 'none';
+  document.getElementById('main-hdr').style.display = '';
+}
+
+function showEmptyForNoData(tab) {
+  document.getElementById('invite-wrap').style.display = 'none';
+  document.getElementById('settings-view').style.display = 'none';
+  document.getElementById('items-wrap').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'flex';
+  document.getElementById('main-hdr').style.display = '';
+  document.querySelector('#empty-state p').textContent = 'Aucune donnée chargée pour l’onglet ' + TAB_LABELS[tab] + '.';
+}
+
+function onGlobalSearch() {
+  document.getElementById('search-bar').value = document.getElementById('global-search').value;
+  applyFilters();
+}
+
+function setSideFilter(f) {
+  S.sideFilter = f;
+  const isVisio = S.tab === 'visio';
+  setSidebarActive((isVisio ? 'vsf-' : 'sf-') + f);
+  applyFilters();
+}
+
+function setSidebarActive(id) {
+  document.querySelectorAll('.sidebar-item[id^="sf-"], .sidebar-item[id^="vsf-"]').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(id);
+  if (el) el.classList.add('active');
+}
+
+function setSort(k) {
+  document.getElementById('sort-sel').value = k;
+  applyFilters();
+}
+
+function applyFilters() {
+  if (S.tab === 'settings') return;
+
+  S.search = (document.getElementById('search-bar').value || '').toLowerCase();
+  S.sortKey = document.getElementById('sort-sel').value;
+
+  const t = S.tab;
+  if (t === 'visio') {
+    let rows = [...S.visio.raw];
+    if (S.sideFilter === 'desktop') rows = rows.filter(r => r.desktop);
+    else if (S.sideFilter === 'web') rows = rows.filter(r => r.web);
+    else if (S.sideFilter === 'licensed') rows = rows.filter(r => r.licensed);
+    else if (S.sideFilter === 'inactive') rows = rows.filter(r => !r.desktop && !r.web);
+
+    if (S.search) {
+      rows = rows.filter(r =>
+        (r.nom || '').toLowerCase().includes(S.search) ||
+        (r.email || '').toLowerCase().includes(S.search)
+      );
+    }
+
+    rows.sort((a, b) => {
+      if (S.sortKey === 'nom-asc') return (a.nom || '').localeCompare(b.nom || '');
+      if (S.sortKey === 'nom-desc') return (b.nom || '').localeCompare(a.nom || '');
+      if (S.sortKey === 'date-desc') return (b.lastActivity || '').localeCompare(a.lastActivity || '');
+      return (a.nom || '').localeCompare(b.nom || '');
+    });
+
+    S.visio.filtered = rows;
+    renderItems();
+    return;
+  }
+
+  let rows = [...S[t].raw];
+  if (S.sideFilter !== 'all') rows = rows.filter(r => getLevel(r.pct) === S.sideFilter);
+
+  if (S.search) {
+    rows = rows.filter(r =>
+      (r.nom || '').toLowerCase().includes(S.search) ||
+      (r.email || '').toLowerCase().includes(S.search)
+    );
+  }
+
+  const [key, dir] = S.sortKey.split('-');
+  rows.sort((a, b) => {
+    const va = key === 'nom' ? (a.nom || '') : key === 'used' ? a.used : key === 'date' ? (a.date || '') : a.pct;
+    const vb = key === 'nom' ? (b.nom || '') : key === 'used' ? b.used : key === 'date' ? (b.date || '') : b.pct;
+
+    if (typeof va === 'string' || typeof vb === 'string') {
+      return dir === 'asc' ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+    }
+    return dir === 'asc' ? va - vb : vb - va;
+  });
+
+  S[t].filtered = rows;
+  renderItems();
+}
+
+function renderItems() {
+  const isVisio = S.tab === 'visio';
+  const rows = isVisio ? S.visio.filtered : S[S.tab].filtered;
+  const rawLen = isVisio ? S.visio.raw.length : S[S.tab].raw.length;
+
+  const list = document.getElementById('items-list');
+  const wrap = document.getElementById('items-wrap');
+  const empty = document.getElementById('empty-state');
+
+  document.getElementById('cnt-label').textContent = `${rows.length} / ${rawLen} entrées`;
+  document.getElementById('main-title').textContent = isVisio
+    ? 'Utilisation Visio'
+    : (S.sideFilter === 'all' ? 'Toutes les entrées' : levelLabel[S.sideFilter]);
+
+  if (!rows.length) {
+    wrap.style.display = 'none';
+    empty.style.display = 'flex';
+    document.querySelector('#empty-state p').textContent = 'Aucun résultat pour cette recherche.';
+    return;
+  }
+
+  empty.style.display = 'none';
+  wrap.style.display = '';
+
+  if (isVisio) {
+    list.innerHTML = rows.map(r => {
+      const deskBadge = r.desktop
+        ? `<span class="platform-badge pb-desktop">🖥 Desktop</span>`
+        : `<span class="platform-badge pb-none">🖥 —</span>`;
+      const webBadge = r.web
+        ? `<span class="platform-badge pb-web">🌐 Web</span>`
+        : `<span class="platform-badge pb-none">🌐 —</span>`;
+      const licTag = r.licensed
+        ? `<span class="tag" style="background:#ede9fe;color:#7c3aed">✓ Licencié</span>`
+        : `<span class="tag" style="background:#f3f4f6;color:#9ca3af">Non licencié</span>`;
+
+      return `
+        <div class="item-row">
+          <div class="item-tags"><span class="tag tag-visio">VISIO</span>${licTag}</div>
+          <div class="item-body">
+            <div class="item-name">${esc(r.nom) || '—'}</div>
+            <div class="item-email">${esc(r.email) || '—'}</div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0">${deskBadge}${webBadge}</div>
+          <div class="item-date">${esc(r.lastActivity) || '—'}</div>
+          <div class="item-date">${esc(r.refreshDate) || '—'}</div>
+        </div>
+      `;
+    }).join('');
+    return;
+  }
+
+  const tabTag = `<span class="tag ${S.tab === 'od' ? 'tag-od' : 'tag-ex'}">${S.tab === 'od' ? 'OD' : 'EX'}</span>`;
+  list.innerHTML = rows.map(r => {
+    const lvl = getLevel(r.pct);
+    const color = levelColor[lvl];
+    const pctCap = Math.min(r.pct, 100);
+    const fmtGo = v => v < 1 ? (v * 1024).toFixed(0) + ' Mo' : v < 10 ? v.toFixed(2) + ' Go' : v.toFixed(1) + ' Go';
+    const usedFmt = r.used ? fmtGo(r.used) : '—';
+    const limitFmt = r.limit ? fmtGo(r.limit) : '—';
+    const typeTag = r.type ? `<span class="tag tag-type">${esc(r.type)}</span>` : '';
+
+    return `
+      <div class="item-row">
+        <div class="item-tags">${tabTag}<span class="tag ${levelTag[lvl]}">${levelLabel[lvl]}</span>${typeTag}</div>
+        <div class="item-body">
+          <div class="item-name">${esc(r.nom) || '—'}</div>
+          <div class="item-email">${esc(r.email) || '—'}</div>
+        </div>
+        <div class="item-pbar-wrap">
+          <div class="item-pbar"><div class="item-pbar-fill" style="width:${pctCap}%;background:${color}"></div></div>
+          <span class="item-pct" style="color:${color}">${r.pct}%</span>
+        </div>
+        <div class="item-sizes"><strong>${usedFmt}</strong> / ${limitFmt}</div>
+        <div class="item-date">${esc(r.date) || '—'}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateSubtabCounts() {
+  document.getElementById('stab-od-cnt').textContent = S.od.raw.length;
+  document.getElementById('stab-ex-cnt').textContent = S.ex.raw.length;
+  document.getElementById('stab-visio-cnt').textContent = S.visio.raw.length;
 }
 
 function updateSideCounts() {
   if (S.tab === 'visio') {
     const rows = S.visio.raw;
-    document.getElementById('vsf-all-cnt').textContent      = rows.length;
-    document.getElementById('vsf-desktop-cnt').textContent  = rows.filter(r=>r.desktop).length;
-    document.getElementById('vsf-web-cnt').textContent      = rows.filter(r=>r.web).length;
-    document.getElementById('vsf-licensed-cnt').textContent = rows.filter(r=>r.licensed).length;
-    document.getElementById('vsf-inactive-cnt').textContent = rows.filter(r=>!r.desktop&&!r.web).length;
+    document.getElementById('vsf-all-cnt').textContent = rows.length;
+    document.getElementById('vsf-desktop-cnt').textContent = rows.filter(r => r.desktop).length;
+    document.getElementById('vsf-web-cnt').textContent = rows.filter(r => r.web).length;
+    document.getElementById('vsf-licensed-cnt').textContent = rows.filter(r => r.licensed).length;
+    document.getElementById('vsf-inactive-cnt').textContent = rows.filter(r => !r.desktop && !r.web).length;
     return;
   }
-  const rows=S[S.tab].raw;
-  ['all','crit','warn','attn','ok'].forEach(f=>{
-    document.getElementById('sf-'+f+'-cnt').textContent =
-      f==='all' ? rows.length : rows.filter(r=>getLevel(r.pct)===f).length;
+
+  const rows = S[S.tab].raw;
+  ['all','crit','warn','attn','ok'].forEach(f => {
+    document.getElementById('sf-' + f + '-cnt').textContent =
+      f === 'all' ? rows.length : rows.filter(r => getLevel(r.pct) === f).length;
   });
 }
 
-// ── Export CSV ────────────────────────────────
+/* ─────────────────────────────────────────────
+   Statistiques
+───────────────────────────────────────────── */
+function updateStats() {
+  const t = S.tab;
+
+  if (t === 'settings') {
+    const okCount = ['od','ex','visio'].filter(k => S.status[k].state === 'ok').length;
+    const errCount = ['od','ex','visio'].filter(k => S.status[k].state === 'err').length;
+    document.getElementById('sp-content').innerHTML = `
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Sources OK</span><span class="sp-val blue">${okCount}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#ef4444"></span>Sources en erreur</span><span class="sp-val red">${errCount}</span></div>
+    `;
+    return;
+  }
+
+  if (t === 'visio') {
+    const rows = S.visio.raw;
+    if (!rows.length) {
+      document.getElementById('sp-content').innerHTML = '<div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Aucune donnée Visio</div>';
+      return;
+    }
+
+    const total = rows.length;
+    const licensed = rows.filter(r => r.licensed).length;
+    const desktop = rows.filter(r => r.desktop).length;
+    const web = rows.filter(r => r.web).length;
+    const both = rows.filter(r => r.desktop && r.web).length;
+    const inactive = rows.filter(r => !r.desktop && !r.web).length;
+
+    document.getElementById('sp-content').innerHTML = `
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Total</span><span class="sp-val blue">${total}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#8b5cf6"></span>Licenciés</span><span class="sp-val" style="color:#7c3aed">${licensed}</span></div>
+      <div class="sp-divider"></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#1d4ed8"></span>Desktop actif</span><span class="sp-val blue">${desktop}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#065f46"></span>Web actif</span><span class="sp-val green">${web}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#0891b2"></span>Desktop+Web</span><span class="sp-val" style="color:#0891b2">${both}</span></div>
+      <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#9ca3af"></span>Inactifs</span><span class="sp-val" style="color:#6b7280">${inactive}</span></div>
+      <div class="sp-divider"></div>
+      <div class="sp-row"><span class="sp-label">Taux actifs</span><span class="sp-val">${total ? Math.round((total - inactive) / total * 100) : 0}%</span></div>
+    `;
+    return;
+  }
+
+  const rows = S[t].raw;
+  if (!rows.length) {
+    document.getElementById('sp-content').innerHTML =
+      `<div style="color:#9ca3af;font-size:12px;text-align:center;margin-top:20px">Aucune donnée ${TAB_LABELS[t]}</div>`;
+    return;
+  }
+
+  const total = rows.length;
+  const crit = rows.filter(r => r.pct >= 90).length;
+  const warn = rows.filter(r => r.pct >= 75 && r.pct < 90).length;
+  const attn = rows.filter(r => r.pct >= 50 && r.pct < 75).length;
+  const ok = rows.filter(r => r.pct < 50).length;
+  const avg = Math.round(rows.reduce((s, r) => s + r.pct, 0) / total * 10) / 10;
+  const totalUsed = rows.reduce((s, r) => s + r.used, 0);
+  const maxR = rows.reduce((m, r) => r.pct > m.pct ? r : m, { pct:0, nom:'—', email:'' });
+
+  document.getElementById('sp-content').innerHTML = `
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#2563eb"></span>Total</span><span class="sp-val blue">${total}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#ef4444"></span>Critique</span><span class="sp-val red">${crit}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#f97316"></span>Alerte</span><span class="sp-val orange">${warn}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#eab308"></span>Attention</span><span class="sp-val" style="color:#ca8a04">${attn}</span></div>
+    <div class="sp-row"><span class="sp-label"><span class="sp-dot" style="background:#22c55e"></span>Normal</span><span class="sp-val green">${ok}</span></div>
+    <div class="sp-divider"></div>
+    <div class="sp-row"><span class="sp-label">Usage moy.</span><span class="sp-val">${avg}%</span></div>
+    <div class="sp-row"><span class="sp-label">Total utilisé</span><span class="sp-val">${totalUsed.toFixed(0)} Go</span></div>
+    <div class="sp-divider"></div>
+    <div class="sp-title" style="margin-top:0">🔴 Plus chargé</div>
+    <div style="font-size:12px;font-weight:600;color:#1a1d23;margin-bottom:2px">${esc(maxR.nom)}</div>
+    <div style="font-size:11px;color:#6b7280">${esc(maxR.email)}</div>
+    <div style="font-size:13px;font-weight:700;color:#ef4444;margin-top:4px">${maxR.pct}%</div>
+  `;
+}
+
+/* ─────────────────────────────────────────────
+   Export
+───────────────────────────────────────────── */
 function exportCSV() {
+  if (S.tab === 'settings') {
+    showToast('⚠️', 'L’export CSV n’est pas disponible sur l’onglet Paramétrage');
+    return;
+  }
+
   if (S.tab === 'visio') {
     const rows = S.visio.filtered;
-    if (!rows.length){ showToast('⚠️','Aucune donnée à exporter.'); return; }
-    const sep=';';
-    let csv = ['Nom','UPN','Licencié','Desktop','Web','Dernière activité','Report Refresh Date'].join(sep)+'\n';
-    csv += rows.map(r=>[r.nom,r.email,r.licensed?'Oui':'Non',r.desktop?'Oui':'Non',r.web?'Oui':'Non',r.lastActivity,r.refreshDate].join(sep)).join('\n');
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
-    a.download=`M365_Visio_${new Date().toISOString().slice(0,10)}.csv`;
-    a.click();
+    if (!rows.length) {
+      showToast('⚠️', 'Aucune donnée à exporter');
+      return;
+    }
+
+    const sep = ';';
+    let csv = ['Nom','UPN','Licencié','Desktop','Web','Dernière activité','Report Refresh Date'].join(sep) + '\n';
+    csv += rows.map(r => [
+      r.nom,
+      r.email,
+      r.licensed ? 'Oui' : 'Non',
+      r.desktop ? 'Oui' : 'Non',
+      r.web ? 'Oui' : 'Non',
+      r.lastActivity,
+      r.refreshDate
+    ].join(sep)).join('\n');
+
+    downloadCsv(csv, `M365_Visio_${new Date().toISOString().slice(0,10)}.csv`);
     showToast('✅', 'Export CSV Visio téléchargé');
     return;
   }
-  const rows=S[S.tab].filtered;
-  if (!rows.length){ showToast('⚠️','Aucune donnée à exporter.'); return; }
-  const sep=';';
-  let csv = ['Nom','Email','Utilisé (Go)','Limite (Go)','Usage %','Niveau','Dernière activité'].join(sep)+'\n';
-  csv += rows.map(r=>[r.nom,r.email,r.used.toFixed(2),r.limit.toFixed(2),r.pct,levelLabel[getLevel(r.pct)],r.date].join(sep)).join('\n');
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
-  a.download=`M365_${S.tab==='od'?'OneDrive':'Exchange'}_${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
+
+  const rows = S[S.tab].filtered;
+  if (!rows.length) {
+    showToast('⚠️', 'Aucune donnée à exporter');
+    return;
+  }
+
+  const sep = ';';
+  let csv = ['Nom','Email','Utilisé (Go)','Limite (Go)','Usage %','Niveau','Dernière activité'].join(sep) + '\n';
+  csv += rows.map(r => [
+    r.nom,
+    r.email,
+    r.used.toFixed(2),
+    r.limit.toFixed(2),
+    r.pct,
+    levelLabel[getLevel(r.pct)],
+    r.date
+  ].join(sep)).join('\n');
+
+  downloadCsv(csv, `M365_${S.tab === 'od' ? 'OneDrive' : 'Exchange'}_${new Date().toISOString().slice(0,10)}.csv`);
   showToast('✅', 'Export CSV téléchargé');
 }
 
-// ── Toast ─────────────────────────────────────
-function showToast(icon, msg) {
-  document.getElementById('toast-icon').textContent = icon;
-  document.getElementById('toast-msg').textContent  = msg;
-  const t = document.getElementById('toast');
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 3500);
+function downloadCsv(csv, filename) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type:'text/csv;charset=utf-8' }));
+  a.download = filename;
+  a.click();
 }
 
-// Glisser sur toute la page (pas seulement la drop zone)
-document.addEventListener('dragover', e => e.preventDefault());
-document.addEventListener('drop', e => {
-  e.preventDefault();
-  const files = e.dataTransfer.files;
-  if (files.length > 0) processFile(files[0]);
-});
+/* ─────────────────────────────────────────────
+   Toast
+───────────────────────────────────────────── */
+function showToast(icon, msg) {
+  document.getElementById('toast-icon').textContent = icon;
+  document.getElementById('toast-msg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
 </script>
 </body>
 </html>
